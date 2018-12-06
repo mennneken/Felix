@@ -1,17 +1,16 @@
 <template>
-  <div id="app">
-    <router-view/>
+  <div id="tool">
+    <div id="tools">TOOLS</div>
+    <div id="preview">PREVIEW </div>
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'app',
-  components: {
-  }
+  
 }
 </script>
 
 <style lang="scss">
+
 </style>

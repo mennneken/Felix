@@ -1,6 +1,6 @@
 {
-  "name": "felix",
-  "short_name": "felix",
+  "name": "Félix",
+  "short_name": "Félix",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
@@ -15,6 +15,6 @@
   ],
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#4DBA87"
+  "background_color": "#FF8D5F",
+  "theme_color": "#FF8D5F"
 }

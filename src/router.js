@@ -1,28 +1,57 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
-import Prototypes from './views/Prototypes.vue'
-import Tool from './views/Tool.vue'
+import firebase from 'firebase'
+
+import Login from '@/components/login'
+import Settings from '@/views/settings'
+import Tool from '@/views/Tool'
+import Dashboard from '@/views/dashboard'
 
 Vue.use(Router)
 
-export default new Router({
-  mode: "history",
+const router = new Router({
+  mode: 'history',
   routes: [
     {
-      path: "/",
-      name: "home",
-      component: Home
+      path: '*',
+      redirect: '/dashboard'
     },
     {
-      path: "/prototypes",
-      name: "prototypes",
-      component: Prototypes
+      path: '/login',
+      name: 'Login',
+      component: Login
     },
     {
-      path: "/prototypes/:prototypeName",
-      name: "tool",
-      component: Tool
+      path: '/dashboard',
+      name: 'Dashboard',
+      component: Dashboard,
+    }, {
+      path: '/tool/:prototypeName',
+      name: 'Tool',
+      component: Tool,
+    },
+    {
+      path: '/settings',
+      name: 'Settings',
+      component: Settings,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
-});
+})
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
+  const currentUser = firebase.auth().currentUser
+
+  if (requiresAuth && !currentUser) {
+    next("/dashboard");
+  } else if (requiresAuth && currentUser) {
+    next()
+  } else {
+    next()
+  }
+})
+
+export default router

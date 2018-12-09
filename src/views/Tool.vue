@@ -1,16 +1,18 @@
 <template>
   <div id="tool">
-    <div id="tools">TOOLS</div>
-    <div id="preview">PREVIEW </div>
+    <f-tools></f-tools>
+    <f-preview></f-preview>
   </div>
 </template>
 
 <script>
+import fTools from "@/components/tools";
+import fPreview from "@/components/preview";
+
 export default {
-  
+  components: {
+    fTools,
+    fPreview
+  }
 }
 </script>
-
-<style lang="scss">
-
-</style>

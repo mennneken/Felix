@@ -1,0 +1,94 @@
+@import "_fonts", "_variables";
+@import "_navigation", "_user", "_dashboard", "_button", "_dialog", "_tool", "_tools", "_preview";
+
+body {
+  min-height: 100vh;
+  font-size: 1em;
+  margin: 0;
+}
+
+body,
+input[type="text"],
+input[type="password"] {
+  font-family: $ff-t;
+}
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6,
+button,
+label,
+.title {
+  font-family: $ff-h;
+}
+
+h1,
+.h1 {
+  font-size: map-get($fz, h1); // 39
+  line-height: 1.2820512821; //50
+}
+h2,
+.h2 {
+  font-size: map-get($fz, h2); // 31
+  line-height: 1.2903225806; // 40
+}
+h3,
+.h3 {
+  font-size: map-get($fz, h3); // 25
+  line-height: 1.2; // 30
+}
+h4,
+.h4 {
+  font-size: map-get($fz, h4); // 20
+  line-height: 1.25; // 25
+}
+
+p,
+.p {
+  font-size: map-get($fz, p); // 16
+  line-height: 1.25; // 20
+}
+
+h5,
+.h5 {
+  font-size: map-get($fz, h5); //13
+  line-height: 1.1538461538; // 15
+}
+h6,
+.h6 {
+  font-size: map-get($fz, h6); // 10
+  line-height: 1; // 10
+}
+
+.title {
+
+  &.h1, &.h2, &.h3, &.h4 {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+  }
+
+  &.p, &.h5, &.h6 {
+    margin-top: 0;
+    margin-bottom: 0.625rem;
+  }
+
+  &--upp {
+    text-transform: uppercase;
+  }
+  &--alt {
+    color: map-get($colors-main, 500);
+  }
+}
+
+button {
+  text-transform: uppercase;
+}

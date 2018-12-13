@@ -1,6 +1,9 @@
 <template>
   <div id="login" class="dialog">
     <section>
+      <button @click="close">
+        <svg-icon :name="'close'"></svg-icon>
+      </button>
       <div class="col2" :class="{ 'signup-form': !showLoginForm && !showForgotPassword }">
         <form v-if="showLoginForm" @submit.prevent>
           <h1>Welcome Back</h1>
@@ -96,9 +99,13 @@
 </template>
 
 <script>
+import svgIcon from "@/components/svgIcon.vue";
 const fb = require("../firebaseConfig.js");
 
 export default {
+  components: {
+    svgIcon
+  },
   data() {
     return {
       loginForm: {
@@ -209,15 +216,12 @@ export default {
           this.performingRequest = false;
           this.errorMsg = err.message;
         });
+    },
+
+    // close Login form
+    close() {
+      this.$store.dispatch("login", false);
     }
   }
 };
 </script>
-
-<style lang="scss" scoped>
-h1 {
-  margin-top: 0;
-  margin-bottom: 0.625rem;
-}
-</style>
-

@@ -2,6 +2,8 @@
   <div id="dashboard">
     <f-nav></f-nav>
 
+    <f-login v-if="showLogin"></f-login>
+
     <button
       class="btn btn--main-action"
       v-show="!creatingNewProto"
@@ -23,12 +25,14 @@
 
 <script>
 import fNav from "@/components/navigation";
+import fLogin from "@/components/login";
 import svgIcon from "@/components/svgIcon.vue";
 // import { prototype } from 'module';
 
 export default {
   components: {
     fNav,
+    fLogin,
     svgIcon
   },
 
@@ -53,6 +57,12 @@ export default {
 
     goPrototyping() {
       this.$router.push({ name: 'Tool', params: { prototypeName: this.prototype.name }})
+    }
+  },
+
+  computed: {
+    showLogin() {
+      return this.$store.state.userConnexion.wantToLogin;
     }
   }
 };

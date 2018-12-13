@@ -7,15 +7,32 @@
 
   background-color: #fff;
 
+  &__container {
+    width: 100%;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    & > * {
+      margin-right: 10px;
+      
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+  }
 
   .logo {
     display: block;
     height: 100%;
-    padding: 0 10px;
-
+    width: 40px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
   }
 
   h1 {
@@ -25,6 +42,54 @@
 
   &__nav {
     height: 100%;
-    padding: 0 10px;
+
+    & ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    & li {
+      position: relative; // for submenu
+      margin-right: 10px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    &-elem {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      cursor: pointer;
+      position: relative;
+      z-index: 0;
+      
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+        transition: 300ms ease-out;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background-color: transparent;
+      }
+      
+      &:hover, &:active, &:focus {
+        &::before {
+          height: 35px;
+          width: 35px;
+          background-color: map-get($colors-neutral, 100);
+        }
+      }
+    }
   }
 }

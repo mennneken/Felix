@@ -1,10 +1,5 @@
 <template>
-  <div id="login">
-    <transition name="fade">
-      <div v-if="performingRequest" class="loading">
-        <p>Loading...</p>
-      </div>
-    </transition>
+  <div id="login" class="dialog">
     <section>
       <div class="col2" :class="{ 'signup-form': !showLoginForm && !showForgotPassword }">
         <form v-if="showLoginForm" @submit.prevent>
@@ -89,6 +84,12 @@
             <p>{{ errorMsg }}</p>
           </div>
         </transition>
+
+        <transition name="fade">
+          <div v-if="performingRequest" class="loading">
+            <p>Loading...</p>
+          </div>
+        </transition>
       </div>
     </section>
   </div>
@@ -135,6 +136,7 @@ export default {
         this.showForgotPassword = true;
       }
     },
+
     login() {
       this.performingRequest = true;
 
@@ -146,6 +148,7 @@ export default {
         .then(user => {
           this.$store.commit("setCurrentUser", user.user);
           this.$store.dispatch("fetchUserProfile");
+          this.$store.dispatch("login", false);
           this.performingRequest = false;
           this.$router.push("/dashboard");
         })
@@ -155,7 +158,7 @@ export default {
           this.errorMsg = err.message;
         });
     },
-    
+
     signup() {
       this.performingRequest = true;
 
@@ -210,3 +213,11 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+h1 {
+  margin-top: 0;
+  margin-bottom: 0.625rem;
+}
+</style>
+

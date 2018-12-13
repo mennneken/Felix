@@ -1,5 +1,7 @@
 import firebase from 'firebase/app';
-import 'firebase/firestore';
+require("firebase/auth");
+require("firebase/database");
+require("firebase/firestore");
 
 // firebase init goes here
 const config = {
@@ -25,16 +27,12 @@ db.settings(settings)
 
 // firebase collections
 const usersCollection = db.collection('users')
-const postsCollection = db.collection('posts')
-const commentsCollection = db.collection('comments')
-const likesCollection = db.collection('likes')
+const prototypesCollection = db.collection('prototypes')
 
 export {
   db,
   auth,
   currentUser,
   usersCollection,
-  postsCollection,
-  commentsCollection,
-  likesCollection
-}
+  prototypesCollection
+};

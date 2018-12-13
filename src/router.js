@@ -10,36 +10,35 @@ import Dashboard from '@/views/dashboard'
 Vue.use(Router)
 
 const router = new Router({
-  mode: 'history',
+  mode: "history",
   routes: [
     {
-      path: '*',
-      redirect: '/dashboard'
+      path: "*",
+      redirect: "/dashboard"
     },
+    // {
+    //   path: '/login',
+    //   name: 'Login',
+    //   component: Login
+    // },
     {
-      path: '/login',
-      name: 'Login',
-      component: Login
-    },
-    {
-      path: '/dashboard',
-      name: 'Dashboard',
+      path: "/dashboard",
+      name: "Dashboard",
       component: Dashboard,
-    }, {
-      path: '/tool/:prototypeName',
-      name: 'Tool',
-      component: Tool,
+      props: true
     },
     {
-      path: '/settings',
-      name: 'Settings',
-      component: Settings,
-      meta: {
-        requiresAuth: true
-      }
+      path: "/tool/:prototypeName",
+      name: "Tool",
+      component: Tool
+    },
+    {
+      path: "/settings",
+      name: "Settings",
+      component: Settings
     }
   ]
-})
+});
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)

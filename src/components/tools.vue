@@ -1,15 +1,16 @@
 <template>
   <div id="tools">
     <f-nav></f-nav>
-
-    <f-typo-choice></f-typo-choice>
-    <f-typo-comp></f-typo-comp>
-    <f-typo-format></f-typo-format>
-    <f-typo-size></f-typo-size>
-    <f-typo-spaces></f-typo-spaces>
-    <f-color-palette></f-color-palette>
-    <f-colot-adjust></f-colot-adjust>
-    <f-tools-nav></f-tools-nav>
+    <div class="tools__content">
+      <!-- <f-typo-choice></f-typo-choice>
+      <f-typo-comp></f-typo-comp>
+      <f-typo-size></f-typo-size> -->
+      <f-typo-format></f-typo-format>
+      <!-- <f-typo-spaces></f-typo-spaces>
+      <f-color-palette></f-color-palette>
+      <f-colot-adjust></f-colot-adjust>
+      <f-tools-nav></f-tools-nav> -->
+    </div>
   </div>
 </template>
 
@@ -40,8 +41,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  #tools {
-    overflow-y: scroll;
+#tools {
+  overflow-y: scroll;
+}
+
+.tools__content {
+  padding: 0 10px;
+
+  & * {
+    margin: 40px 0;
   }
+}
 </style>
 

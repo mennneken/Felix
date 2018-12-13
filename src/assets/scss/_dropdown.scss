@@ -1,0 +1,55 @@
+ul li ul {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  transition: all 0.5s ease;
+  display: none;
+}
+
+ul li ul li {
+  margin-right: 0;
+}
+
+ul li:hover > ul,
+ul li:focus > ul,
+ul li:focus-within > ul
+ul li ul:hover {
+  visibility: visible;
+  visibility: visible;
+  opacity: 1;
+  display: block;
+}
+
+.dropdown {
+  top: 40px;
+  right: 0;
+  width: max-content;
+
+  background-color: map-get($colors-neutral, 0);
+  border-radius: $br;
+  box-shadow: map-get($shadow, center);
+
+  overflow: hidden;
+
+
+  &__elem {
+    padding: 10px;
+    transition: background-color .3s cubic-bezier(0.23, 1, 0.32, 1);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    & svg {
+      margin-right: 20px;
+    }
+
+    &:hover {
+      background-color: map-get($colors-neutral, 100);  
+    }
+
+    &:active, &:focus {
+      background-color: map-get($colors-neutral, 200);
+    }
+  }
+}

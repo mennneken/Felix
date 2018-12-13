@@ -1,5 +1,8 @@
 @import "_fonts", "_variables";
-@import "_navigation", "_user", "_dashboard", "_button", "_dialog", "_tool", "_tools", "_preview";
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
 
 body {
   min-height: 100vh;
@@ -92,3 +95,9 @@ h6,
 button {
   text-transform: uppercase;
 }
+
+.container {
+  padding: 0 10px;
+}
+
+@import "_navigation", "_user", "_dashboard", "_button", "_dialog", "_tool", "_tools", "_preview", "_dropdown";

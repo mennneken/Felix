@@ -8,6 +8,8 @@ import "./assets/scss/main.scss";
 
 Vue.config.productionTip = false
 
+fb.auth.signInAnonymously();
+
 let app
 fb.auth.onAuthStateChanged(user => {
   if (!app) {
@@ -19,3 +21,4 @@ fb.auth.onAuthStateChanged(user => {
     })
   }
 })
+

@@ -2,7 +2,9 @@ const prototypesStore = {
   state: {
     protoList: []
   },
+
   getters: {},
+
   actions: {
     fetchPrototypes({ commit, state }) {
       fb.prototypesCollection
@@ -16,5 +18,6 @@ const prototypesStore = {
         });
     }
   },
+  
   mutations: {}
 };

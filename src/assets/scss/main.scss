@@ -1,4 +1,4 @@
-@import "_fonts", "_variables";
+@import "_fonts","_function", "_variables";
 
 *, *::after, *::before {
   box-sizing: border-box;
@@ -100,4 +100,4 @@ button {
   padding: 0 10px;
 }
 
-@import "_navigation", "_user", "_dashboard", "_button", "_dialog", "_tool", "_tools", "_preview", "_dropdown";
+@import "_navigation", "_user", "_dashboard", "_button", "_dialog", "_tool", "_tools", "_preview", "_dropdown", "_login";

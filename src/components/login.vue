@@ -1,12 +1,12 @@
 <template>
   <div id="login" class="dialog">
     <section>
-      <button @click="close">
+      <button class="btn btn--invisible btn--icon" @click="close">
         <svg-icon :name="'close'"></svg-icon>
       </button>
       <div class="col2" :class="{ 'signup-form': !showLoginForm && !showForgotPassword }">
         <form v-if="showLoginForm" @submit.prevent>
-          <h1>Welcome Back</h1>
+          <h2 class="title p title--upp title--main"></h2>
 
           <label for="email1">Email</label>
           <input v-model.trim="loginForm.email" type="text" placeholder="you@email.com" id="email1">

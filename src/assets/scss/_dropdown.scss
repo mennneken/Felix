@@ -27,12 +27,12 @@ ul li ul:hover {
 
   background-color: map-get($colors-neutral, 0);
   border-radius: $br;
-  box-shadow: map-get($shadow, center);
+  box-shadow: map-get($shadow, down);
 
   overflow: hidden;
 
 
-  &__elem {
+  &__elem a {
     padding: 10px;
     transition: background-color .3s cubic-bezier(0.23, 1, 0.32, 1);
 
@@ -45,7 +45,7 @@ ul li ul:hover {
     }
 
     &:hover {
-      background-color: map-get($colors-neutral, 100);  
+      background-color: map-get($colors-neutral, 100);
     }
 
     &:active, &:focus {

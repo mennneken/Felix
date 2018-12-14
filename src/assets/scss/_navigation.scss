@@ -47,15 +47,19 @@
       list-style: none;
       padding-left: 0;
       margin: 0;
+      
     }
-
-    & li {
+    
+    & > ul > li {
       position: relative; // for submenu
       margin-right: 10px;
+      
       &:last-child {
         margin-right: 0;
       }
     }
+
+    
 
     &-elem {
       width: 40px;

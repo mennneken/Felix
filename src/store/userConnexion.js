@@ -6,6 +6,7 @@ const userConnexion = {
     userProfile: {},
     wantToLogin: false
   },
+  
   actions: {
     clearData({ commit }) {
       commit("setCurrentUser", null);
@@ -28,6 +29,7 @@ const userConnexion = {
       commit("setWantToLogin", val);
     }
   },
+  
   mutations: {
     setCurrentUser(state, val) {
       state.currentUser = val;

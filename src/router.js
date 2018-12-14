@@ -2,10 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import firebase from 'firebase'
 
-import Login from '@/components/login'
-import Settings from '@/views/settings'
+import Settings from '@/views/Settings'
 import Tool from '@/views/Tool'
-import Dashboard from '@/views/dashboard'
+import Dashboard from '@/views/Dashboard'
 
 Vue.use(Router)
 
@@ -16,11 +15,6 @@ const router = new Router({
       path: "*",
       redirect: "/dashboard"
     },
-    // {
-    //   path: '/login',
-    //   name: 'Login',
-    //   component: Login
-    // },
     {
       path: "/dashboard",
       name: "Dashboard",
@@ -43,7 +37,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
   const currentUser = firebase.auth().currentUser
-
+  
   if (requiresAuth && !currentUser) {
     next("/dashboard");
   } else if (requiresAuth && currentUser) {

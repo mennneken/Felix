@@ -9,22 +9,26 @@
 
       <nav class="navigation__nav">
         <ul>
-          <li tabindex="0" v-if="userConnected !== null">
+          <li class="navigation__elem" tabindex="0" v-if="userConnected !== null && userIsAnonyme !== true">
             <a class="navigation__nav-elem">
               <svg-icon :name="'login_user'"></svg-icon>
             </a>
             <ul class="dropdown">
               <li class="dropdown__elem">
-                <svg-icon :name="'parameters'"></svg-icon>Paramètres
+                <a>
+                  <svg-icon :name="'parameters'"></svg-icon>Paramètres
+                </a>
               </li>
               <li class="dropdown__elem">
-                <svg-icon :name="'logout_user'"></svg-icon>Se deconnecter
+                <a @click="logout">
+                  <svg-icon :name="'logout_user'"></svg-icon>Se deconnecter
+                </a>
               </li>
             </ul>
           </li>
 
-          <li v-else>
-            <a @click="login">
+          <li class="navigation__elem" tabindex="0" v-else>
+            <a class="navigation__nav-elem" @click="login">
               <svg-icon :name="'user'"></svg-icon>
             </a>
           </li>
@@ -75,6 +79,9 @@ export default {
   computed: {
     userConnected() {
       return this.$store.state.userConnexion.currentUser;
+    },
+    userIsAnonyme() {
+      return this.$store.state.userConnexion.currentUser.isAnonymous;
     }
   }
 };

@@ -1,3 +1,5 @@
+const fb = require("@/firebaseConfig.js");
+
 const protoParams = {
   state: {
     name: "",
@@ -59,7 +61,9 @@ const protoParams = {
   },
 
   getters: {},
+
   actions: {},
+
   mutations: {}
 };
 

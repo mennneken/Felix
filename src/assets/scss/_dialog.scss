@@ -9,4 +9,6 @@
   background-color: map-get($colors-neutral, 0);
   padding: 15px 20px 20px;
   border-radius: $br;
+
+  box-shadow: map-get($shadow-soft, center); 
 }

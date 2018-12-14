@@ -1,6 +1,10 @@
 .btn {
   border: none;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   &--main-action {
     position: absolute;
     right: 1.25rem;
@@ -10,17 +14,18 @@
     height: 3.5rem;
     padding: 0;
     background-color: map-get($colors-main, 500);
+    box-shadow: map-get($shadow, down);
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    transition: box-shadow 300ms cubic-bezier(0.215, 0.61, 0.355, 1);
 
     & svg {
-      transition: transform 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+      transition: transform 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
     }
 
     &:hover {
       background-color: map-get($colors-main, 700);
+
+      box-shadow: map-get($shadow-soft, down);
 
       & svg {
         transform: rotate(90deg)
@@ -36,6 +41,18 @@
     &:active,
     &:focus {
       background-color: map-get($colors-main, 900);
+    }
+  }
+
+  &--invisible {
+    background-color: transparent;
+    padding: 0;
+  }
+
+  &--icon {
+    & svg {
+      width: rem(25);
+      height: rem(25);
     }
   }
 }

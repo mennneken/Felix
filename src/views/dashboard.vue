@@ -4,6 +4,15 @@
 
     <f-login v-if="showLogin"></f-login>
 
+    <ul>
+      <li v-if="userConnected === null || userIsAnonyme === true">
+        <span>{{ examples.fonts.font_1.name }}</span>
+        <span>{{ examples.fonts.font_2.name }}</span>
+        <span>{{ examples.name }}</span>
+      </li>
+      <!-- <li v-for="example in examples" :key="example.id">Prototype 1</li> -->
+    </ul>
+
     <button
       class="btn btn--main-action"
       v-show="!creatingNewProto"
@@ -27,7 +36,10 @@
 import fNav from "@/components/navigation";
 import fLogin from "@/components/login";
 import svgIcon from "@/components/svgIcon.vue";
-// import { prototype } from 'module';
+
+import exampleProto from "@/store/examplePrototype"
+
+const fb = require("../firebaseConfig.js");
 
 export default {
   components: {
@@ -39,8 +51,9 @@ export default {
   data() {
     return {
       creatingNewProto: false,
+      examples: exampleProto,
       prototype: {
-        name: "" || 'prototype 1'
+        name: ""
       }
     };
   },
@@ -63,6 +76,14 @@ export default {
   computed: {
     showLogin() {
       return this.$store.state.userConnexion.wantToLogin;
+    },
+
+    userConnected() {
+      return this.$store.state.userConnexion.currentUser;
+    },
+
+    userIsAnonyme() {
+      return this.$store.state.userConnexion.currentUser.isAnonymous;
     }
   }
 };

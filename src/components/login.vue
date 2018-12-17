@@ -129,10 +129,12 @@ export default {
     };
   },
   methods: {
+    
     toggleForm() {
       this.errorMsg = "";
       this.showLoginForm = !this.showLoginForm;
     },
+
     togglePasswordReset() {
       if (this.showForgotPassword) {
         this.showLoginForm = true;
@@ -182,7 +184,6 @@ export default {
             .doc(user.user.uid)
             .set({
               name: this.signupForm.name,
-              title: this.signupForm.title
             })
             .then(() => {
               this.$store.dispatch("fetchUserProfile");
@@ -201,6 +202,7 @@ export default {
           this.errorMsg = err.message;
         });
     },
+    
     resetPassword() {
       this.performingRequest = true;
 

@@ -59,6 +59,7 @@ export default {
   components: {
     svgIcon
   },
+  
   methods: {
     logout() {
       fb.auth
@@ -76,6 +77,7 @@ export default {
       this.$store.dispatch("login", true);
     }
   },
+  
   computed: {
     userConnected() {
       return this.$store.state.userConnexion.currentUser;

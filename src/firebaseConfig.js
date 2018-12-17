@@ -28,11 +28,13 @@ db.settings(settings)
 // firebase collections
 const usersCollection = db.collection('users')
 const prototypesCollection = db.collection('prototypes')
+const examplesCollection = db.collection('examples')
 
 export {
   db,
   auth,
   currentUser,
   usersCollection,
-  prototypesCollection
+  prototypesCollection,
+  examplesCollection
 };

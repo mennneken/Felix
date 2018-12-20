@@ -1,5 +1,4 @@
 const fb = require("@/firebaseConfig.js");
-import { usersCollection } from "@/firebaseConfig";
 
 const prototypesStore = {
   namespaced: true,
@@ -24,24 +23,25 @@ const prototypesStore = {
         });
     },
 
-    // get
-    getPrototypes: ({commit}, { uid }) => {
+    // Get all the user's prototypes
+    getPrototypes: ({ commit }, { uid }) => {
       fb.usersCollection
         .doc(uid)
         .collection("prototypes")
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            commit("setPrototypes", doc.data());
-          });
-        });
+        .onSnapshot(querySnapshot => {
+          let prototypes = [];
+          querySnapshot.forEach(doc => {
+            prototypes.push(doc.data());
+          })
+          commit("setPrototypes", prototypes);
+        })
     }
   },
 
   mutations: {
     // Set all the user prototypes
     setPrototypes(state, data) {
-      state.userPrototypes.push(data);
+      state.userPrototypes = data;
     }
   }
 };

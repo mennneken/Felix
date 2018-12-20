@@ -26,14 +26,20 @@ const userConnexion = {
     clearData({ commit }) {
       commit("setCurrentUser", null);
       commit("setUserProfile", {});
+      commit("prototypesStore/setPrototypes", [], { root: true });
     },
 
-    fetchUserProfile({ commit, state }) {
+    fetchUserProfile({ dispatch, commit, state }) {
       fb.usersCollection
         .doc(state.currentUser.uid)
         .get()
         .then(res => {
-          commit('userConnexion/setUserProfile', res.data(), { root: true });
+          commit("setUserProfile", res.data());
+          dispatch(
+            "prototypesStore/getPrototypes",
+            { uid: state.currentUser.uid },
+            { root: true }
+          );
         })
         .catch(err => {
           console.log(err);

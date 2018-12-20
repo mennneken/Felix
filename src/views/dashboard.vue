@@ -10,7 +10,7 @@
         <span>{{ examples.fonts.font_2.name }}</span>
         <span>{{ examples.name }}</span>
       </li>
-      <li v-for="prototype in prototypes" :key="prototype.id">
+      <li v-if="userConnected !== null" v-for="prototype in prototypes" :key="prototype.id">
         {{ prototype.name }}
         {{ prototype.lastModified }}
       </li>
@@ -105,10 +105,10 @@ export default {
     prototypes: state => state.prototypesStore.userPrototypes
   }),
 
-  beforeMount() {
-    this.$store.dispatch("prototypesStore/getPrototypes", {
-      uid: this.userUid
-    })
-  }
+  // updated() {
+  //   this.$store.dispatch("prototypesStore/getPrototypes", {
+  //     uid: this.userUid
+  //   });
+  // }
 };
 </script>

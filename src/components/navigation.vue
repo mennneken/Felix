@@ -9,7 +9,7 @@
 
       <nav class="navigation__nav">
         <ul>
-          <li class="navigation__elem" tabindex="0" v-if="userConnected !== null && userIsAnonyme !== true">
+          <li class="navigation__elem" tabindex="0" v-show="userConnected !== null && userIsAnonyme !== true">
             <a class="navigation__nav-elem">
               <svg-icon :name="'login_user'"></svg-icon>
             </a>
@@ -27,7 +27,7 @@
             </ul>
           </li>
 
-          <li class="navigation__elem" tabindex="0" v-else>
+          <li class="navigation__elem" tabindex="0" v-show="userConnected === null">
             <a class="navigation__nav-elem" @click="login">
               <svg-icon :name="'user'"></svg-icon>
             </a>
@@ -65,7 +65,7 @@ export default {
       fb.auth
         .signOut()
         .then(() => {
-          this.$store.dispatch("clearData");
+          this.$store.dispatch("userConnexion/clearData");
           this.$router.push({ path: "/dashboard", props: { login: false } });
         })
         .catch(err => {
@@ -74,7 +74,7 @@ export default {
     },
 
     login() {
-      this.$store.dispatch("login", true);
+      this.$store.dispatch("userConnexion/login", true);
     }
   },
   

@@ -1,6 +1,5 @@
 import firebase from 'firebase/app';
 require("firebase/auth");
-require("firebase/database");
 require("firebase/firestore");
 
 // firebase init goes here

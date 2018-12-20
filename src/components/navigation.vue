@@ -74,7 +74,7 @@ export default {
     },
 
     login() {
-      this.$store.dispatch("login", true);
+      this.$store.dispatch("userConnexion/login", true);
     }
   },
   

@@ -3,6 +3,8 @@
   top: 50%;
   left: 50%;
 
+  width: 50%;
+
   z-index: 1000;
 
   transform: translate(-50%, -50%);
@@ -10,5 +12,19 @@
   padding: 15px 20px 20px;
   border-radius: $br;
 
-  box-shadow: map-get($shadow-soft, center); 
+  box-shadow: map-get($shadow-soft, center);
+
+  &__action {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    & * {
+      margin-left: 20px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
 }

@@ -155,9 +155,9 @@ export default {
           this.loginForm.password
         )
         .then(user => {
-          this.$store.commit("setCurrentUser", user.user);
-          this.$store.dispatch("fetchUserProfile");
-          this.$store.dispatch("login", false);
+          this.$store.commit('userConnexion/setCurrentUser', user.user);
+          this.$store.dispatch('userConnexion/fetchUserProfile');
+          this.$store.dispatch("userConnexion/login", false);
           this.performingRequest = false;
           this.$router.push("/dashboard");
         })
@@ -177,7 +177,7 @@ export default {
           this.signupForm.password
         )
         .then(user => {
-          this.$store.commit("setCurrentUser", user.user);
+          this.$store.commit('userConnexion/setCurrentUser' , user.user);
 
           // create user obj
           fb.usersCollection
@@ -186,7 +186,7 @@ export default {
               name: this.signupForm.name,
             })
             .then(() => {
-              this.$store.dispatch("fetchUserProfile");
+              this.$store.dispatch('userConnexion/fetchUserProfile');
               this.performingRequest = false;
               this.$router.push("/dashboard");
             })

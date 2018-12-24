@@ -25,6 +25,18 @@ $colors-main: (
   900: #F94700
 );
 
+$colors-secondary: (
+  100: #C6D1FF,
+  200: #ACBDFF,
+  300: #92A9FF,
+  400: #7995FF,
+  500: #5F81FF,
+  600: #466DFF,
+  700: #2C59FF,
+  800: #1345FF,
+  900: #0035F9
+);
+
 $colors-neutral: (
   0: #FAFAFA,
   100: #E5E5E5,
@@ -66,4 +78,4 @@ $shadow-hard: (
 );
 
 // BORDER-RADIUS
-$br: 0.3125rem;
+$br: 0.3125rem; // 5px

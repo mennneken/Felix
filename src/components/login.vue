@@ -1,66 +1,90 @@
 <template>
   <div id="login" class="dialog">
     <section>
-      <button class="btn btn--invisible btn--icon" @click="close">
+      <button class="btn btn--icon" @click="close">
         <svg-icon :name="'close'"></svg-icon>
       </button>
+
       <div class="col2" :class="{ 'signup-form': !showLoginForm && !showForgotPassword }">
         <form v-if="showLoginForm" @submit.prevent>
-          <h2 class="title p title--upp title--main"></h2>
+          <h2 class="title p title--upp title--main">Se Connecter</h2>
 
-          <label for="email1">Email</label>
-          <input v-model.trim="loginForm.email" type="text" placeholder="you@email.com" id="email1">
-          
-          <label for="password1">Password</label>
-          <input
-            v-model.trim="loginForm.password"
-            type="password"
-            placeholder="******"
-            id="password1"
-          >
-          
-          <button @click="login" class="button">Log In</button>
+          <fieldset>
+            <label for="email1">Email</label>
+            <input
+              v-model.trim="loginForm.email"
+              type="text"
+              placeholder="gigibesson@felix.com"
+              id="email1"
+            >
+          </fieldset>
 
-          <div class="extras">
-            <a @click="togglePasswordReset">Forgot Password</a>
-            <a @click="toggleForm">Create an Account</a>
+          <fieldset>
+            <label for="password1">Mot de Passe</label>
+            <input
+              v-model.trim="loginForm.password"
+              type="password"
+              placeholder="************"
+              id="password1"
+            >
+          </fieldset>
+
+          <div class="dialog__action">
+            <div class="dialog__action-elem dialog__action-elem--secondary">
+              <button class="btn btn--invisible" @click="togglePasswordReset">Mot de passe oublié</button>
+              <button class="btn btn--invisible" @click="toggleForm">S’inscrire</button>
+            </div>
+            <div class="dialog__action-elem dialog__action-elem--primary">
+              <button class="btn btn--plain" @click="login">Se Connecter</button>
+            </div>
           </div>
         </form>
         <form v-if="!showLoginForm && !showForgotPassword" @submit.prevent>
-          <h1>Get Started</h1>
+          <h2 class="title p title--upp title--main">S’inscrire</h2>
 
-          <label for="name">Name</label>
-          <input v-model.trim="signupForm.name" type="text" placeholder="Savvy Apps" id="name">
+          <fieldset>
+            <label for="name">Nom</label>
+            <input v-model.trim="signupForm.lastname" type="text" placeholder="Ginette" id="name">
+          </fieldset>
           
-          <label for="title">Title</label>
-          <input v-model.trim="signupForm.title" type="text" placeholder="Company" id="title">
-          
-          <label for="email2">Email</label>
-          <input
-            v-model.trim="signupForm.email"
-            type="text"
-            placeholder="you@email.com"
-            id="email2"
-          >
-          
-          <label for="password2">Password</label>
-          <input
-            v-model.trim="signupForm.password"
-            type="password"
-            placeholder="min 6 characters"
-            id="password2"
-          >
-          
-          <button @click="signup" class="button">Sign Up</button>
+          <fieldset>
+            <label for="name">Prénom</label>
+            <input v-model.trim="signupForm.firstname" type="text" placeholder="Besson" id="name">
+          </fieldset>
 
-          <div class="extras">
-            <a @click="toggleForm">Back to Log In</a>
+          <fieldset>
+            <label for="email2">Email</label>
+            <input
+              v-model.trim="signupForm.email"
+              type="text"
+              placeholder="gigibesson@mail.com"
+              id="email2"
+            >
+          </fieldset>
+
+          <fieldset>
+            <label for="password2">Mot de passe</label>
+            <input
+              v-model.trim="signupForm.password"
+              type="password"
+              placeholder="min 6 characters"
+              id="password2"
+            >
+          </fieldset>
+
+          <div class="dialog__action">
+            <div class="dialog__action-elem dialog__action-elem--secondary">
+              <button class="btn btn--invisible" @click="toggleForm">Se Connecter</button>
+            </div>
+            <div class="dialog__action-elem dialog__action-elem--primary">
+              <button class="btn btn--plain" @click="signup">S’inscrire</button>
+            </div>
           </div>
         </form>
-        <form v-if="showForgotPassword" @submit.prevent class="password-reset">
+
+        <form v-if="showForgotPassword" @submit.prevent>
           <div v-if="!passwordResetSuccess">
-            <h1>Reset Password</h1>
-            <p>We will send you an email to reset your password</p>
+            <h2 class="title p title--upp title--main">Réinitialisé le mot de passe</h2>
 
             <label for="email3">Email</label>
             <input
@@ -69,17 +93,20 @@
               placeholder="you@email.com"
               id="email3"
             >
-            
-            <button @click="resetPassword" class="button">Submit</button>
 
-            <div class="extras">
-              <a @click="togglePasswordReset">Back to Log In</a>
+            <div class="dialog__action">
+              <div class="dialog__action-elem dialog__action-elem--secondary">
+                <button class="btn btn--invisible" @click="togglePasswordReset">Revenir</button>
+              </div>
+              <div class="dialog__action-elem dialog__action-elem--primary">
+                <button class="btn btn--plain" @click="resetPassword">Envoyer</button>
+              </div>
             </div>
           </div>
           <div v-else>
-            <h1>Email Sent</h1>
-            <p>check your email for a link to reset your password</p>
-            <button @click="togglePasswordReset" class="button">Back to login</button>
+            <h2 class="title p title--upp title--main">Email envoyer !</h2>
+            <p>Vérifiez vos emails pour réinitialisé le mot de passe.</p>
+            <button @click="togglePasswordReset">Revenir</button>
           </div>
         </form>
         <transition name="fade">
@@ -90,7 +117,7 @@
 
         <transition name="fade">
           <div v-if="performingRequest" class="loading">
-            <p>Loading...</p>
+            <p>Chargement...</p>
           </div>
         </transition>
       </div>
@@ -129,7 +156,6 @@ export default {
     };
   },
   methods: {
-    
     toggleForm() {
       this.errorMsg = "";
       this.showLoginForm = !this.showLoginForm;
@@ -155,8 +181,8 @@ export default {
           this.loginForm.password
         )
         .then(user => {
-          this.$store.commit('userConnexion/setCurrentUser', user.user);
-          this.$store.dispatch('userConnexion/fetchUserProfile');
+          this.$store.commit("userConnexion/setCurrentUser", user.user);
+          this.$store.dispatch("userConnexion/fetchUserProfile");
           this.$store.dispatch("userConnexion/login", false);
           this.performingRequest = false;
           this.$router.push("/dashboard");
@@ -177,16 +203,16 @@ export default {
           this.signupForm.password
         )
         .then(user => {
-          this.$store.commit('userConnexion/setCurrentUser' , user.user);
+          this.$store.commit("userConnexion/setCurrentUser", user.user);
 
           // create user obj
           fb.usersCollection
             .doc(user.user.uid)
             .set({
-              name: this.signupForm.name,
+              name: this.signupForm.name
             })
             .then(() => {
-              this.$store.dispatch('userConnexion/fetchUserProfile');
+              this.$store.dispatch("userConnexion/fetchUserProfile");
               this.performingRequest = false;
               this.$router.push("/dashboard");
             })
@@ -202,7 +228,7 @@ export default {
           this.errorMsg = err.message;
         });
     },
-    
+
     resetPassword() {
       this.performingRequest = true;
 
@@ -222,7 +248,7 @@ export default {
 
     // close Login form
     close() {
-      this.$store.dispatch("login", false);
+      this.$store.dispatch("userConnexion/login", false);
     }
   }
 };

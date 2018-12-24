@@ -92,12 +92,8 @@ h6,
   }
 }
 
-button {
-  text-transform: uppercase;
-}
-
 .container {
   padding: 0 10px;
 }
 
-@import "_navigation", "_user", "_dashboard", "_button", "_dialog", "_tool", "_tools", "_preview", "_dropdown", "_login";
+@import "_navigation", "_user", "_dashboard", "_button", "_input", "_dialog", "_tool", "_tools", "_preview", "_dropdown", "_login", "_form";

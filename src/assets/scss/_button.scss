@@ -1,9 +1,36 @@
 .btn {
   border: none;
-
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: rem(10) rem(20);
+  border-radius: $br;
+  font-size: 1em;
+  box-sizing: border-box;
+
+  text-align: center;
+  vertical-align: middle;
+
+  &--plain {
+    background-color: map-get($colors-main, 400);
+    color: #fff;
+
+    &:hover,
+    &:focus {
+      background-color: map-get($colors-main, 700);
+    }
+
+    &:active {
+      background-color: map-get($colors-main, 900);
+      outline: none;
+    }
+  }
+
+  &--outline {
+    box-shadow: 0 0 0 rem(2) map-get($colors-main, 400) inset;
+    background-color: transparent;
+    color: map-get($colors-main, 400);
+  }
 
   &--main-action {
     position: absolute;
@@ -13,7 +40,7 @@
     width: 3.5rem;
     height: 3.5rem;
     padding: 0;
-    background-color: map-get($colors-main, 500);
+    background-color: map-get($colors-main, 400);
     box-shadow: map-get($shadow, down);
 
     transition: box-shadow 300ms cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -28,7 +55,7 @@
       box-shadow: map-get($shadow-soft, down);
 
       & svg {
-        transform: rotate(90deg)
+        transform: rotate(90deg);
       }
     }
 
@@ -46,10 +73,20 @@
 
   &--invisible {
     background-color: transparent;
-    padding: 0;
+    border-bottom: rem(5) solid transparent;
+
+    &:hover, &:focus	{
+      border-bottom: rem(5) solid map-get($colors-main, 400);
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      // background-color: map-get($colors-neutral, 100);
+    }
   }
 
   &--icon {
+    background-color: transparent;
+    padding: 0;
+
     & svg {
       width: rem(25);
       height: rem(25);

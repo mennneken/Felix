@@ -23,19 +23,23 @@
     >
       <svg-icon :name="'add_sign'"></svg-icon>
     </button>
+    
+    <div class="dialog__hollow" @click="cancelProto" v-show="dialogPrototypeEnable">
+      <div class="dialog dialog--new-proto">
+        <h2 class="title p title--upp title--main">Nouveau Prototype</h2>
+        <input
+          type="text"
+          v-model="prototype.name"
+          placeholder="Nom du Prototype"
+          @keyup.enter="createPrototype"
+        >
 
-    <div class="dialog dialog--new-proto" v-show="dialogPrototypeEnable">
-      <h2 class="title p title--upp title--main">Nouveau Prototype</h2>
-      <input
-        type="text"
-        v-model="prototype.name"
-        placeholder="Nom du Prototype"
-        @keyup.enter="createPrototype"
-      >
-
-      <div class="dialog__action">
-        <button class="btn btn--outline" @click="cancelProto">Annuler</button>
-        <button class="btn btn--plain" @click="createPrototype">Suivant</button>
+        <div class="dialog__action">
+          <div class="dialog__action-elem dialog__action-elem--primary">
+            <button class="btn btn--outline" @click="cancelProto">Annuler</button>
+            <button class="btn btn--plain" @click="createPrototype">Suivant</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -103,7 +107,7 @@ export default {
     userUid: state => state.userConnexion.currentUser.uid,
     userIsAnonyme: state => state.userConnexion.currentUser.isAnonymous,
     prototypes: state => state.prototypesStore.userPrototypes
-  }),
+  })
 
   // updated() {
   //   this.$store.dispatch("prototypesStore/getPrototypes", {

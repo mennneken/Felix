@@ -1,0 +1,32 @@
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  font-size: 1em;
+  padding: rem(10);
+  border-radius: $br;
+  border: none;
+  background-color: map-get($colors-neutral, 100);
+  color: #000;
+  // Set box shadow for a nice transition whit elem:focus 
+  box-shadow: 0 0 0 0 map-get($colors-main, 400) inset;
+
+  transition: box-shadow .3s cubic-bezier(0.68, -1.55, 0.265, 2.55);
+
+  &::placeholder {
+    color: map-get($colors-neutral, 900);
+  }   
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 rem(2.5) map-get($colors-main, 400) inset;
+  }
+}
+
+label + input[type="text"],
+label + input[type="password"] {
+  margin-top: 5px;
+}
+
+input[type="password"]::placeholder {
+  letter-spacing: 0.07em;
+}

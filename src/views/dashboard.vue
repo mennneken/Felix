@@ -26,7 +26,7 @@
       <button
         class="btn btn--main-action"
         v-show="!dialog.enable"
-        @click.prevent="enableDialog('new-prototype')"
+        @click="callDialog('new-prototype')"
       >
         <svg-icon :name="'add_sign'"></svg-icon>
       </button>
@@ -92,6 +92,10 @@ export default {
         name: "Tool",
         params: { prototypeName: this.prototype.name }
       });
+    },
+
+    callDialog(dialogType, data) {
+      this.$store.dispatch("dialogStore/callDialog", { type: dialogType , data: data });
     },
     
     // Show dialog

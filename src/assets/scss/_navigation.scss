@@ -1,5 +1,5 @@
 .navigation {
-  height: 40px;
+  height: rem(40);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -16,7 +16,7 @@
     align-items: center;
 
     & > * {
-      margin-right: 10px;
+      margin-right: rem(10);
       
       &:last-child{
         margin-right: 0;
@@ -27,8 +27,8 @@
   .logo {
     display: block;
     height: 100%;
-    width: 40px;
-    height: 40px;
+    width: rem(40);
+    height: rem(40);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,12 +47,11 @@
       list-style: none;
       padding-left: 0;
       margin: 0;
-      
     }
     
     & > ul > li {
       position: relative; // for submenu
-      margin-right: 10px;
+      margin-right: rem(10);
       
       &:last-child {
         margin-right: 0;
@@ -62,8 +61,8 @@
     
 
     &-elem {
-      width: 40px;
-      height: 40px;
+      width: rem(40);
+      height: rem(40);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -81,16 +80,16 @@
         transform: translate(-50%, -50%);
         z-index: -1;
         transition: 300ms ease-out;
-        width: 15px;
-        height: 15px;
+        width: rem(15);
+        height: rem(15);
         border-radius: 50%;
         background-color: transparent;
       }
       
       &:hover, &:active, &:focus {
         &::before {
-          height: 35px;
-          width: 35px;
+          height: rem(35);
+          width: rem(35);
           background-color: map-get($colors-neutral, 100);
         }
       }

@@ -13,7 +13,7 @@
             <a class="navigation__nav-elem">
               <svg-icon :name="'login_user'"></svg-icon>
             </a>
-            <ul class="dropdown">
+            <ul class="dropdown dropdown--passive">
               <li class="dropdown__elem">
                 <a>
                   <svg-icon :name="'parameters'"></svg-icon>Paramètres

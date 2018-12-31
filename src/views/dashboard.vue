@@ -4,67 +4,67 @@
 
     <f-login v-if="showLogin"></f-login>
 
-    <ul>
-      <li v-if="userConnected === null || userIsAnonyme === true">
-        <span>{{ examples.fonts.font_1.name }}</span>
-        <span>{{ examples.fonts.font_2.name }}</span>
-        <span>{{ examples.name }}</span>
-      </li>
-      <li v-if="userConnected !== null" v-for="prototype in prototypes" :key="prototype.id">
-        {{ prototype.name }}
-        {{ prototype.lastModified }}
-      </li>
-    </ul>
+    <f-dialog v-show="dialog.enable" :dialog-type="dialog.type" @closeDialog="closeDialog()"></f-dialog>
 
-    <button
-      class="btn btn--main-action"
-      v-show="!dialogPrototypeEnable"
-      @click.prevent="showDialogNewPrototype"
-    >
-      <svg-icon :name="'add_sign'"></svg-icon>
-    </button>
-    
-    <div class="dialog__hollow" @click="cancelProto" v-show="dialogPrototypeEnable">
-      <div class="dialog dialog--new-proto">
-        <h2 class="title p title--upp title--main">Nouveau Prototype</h2>
-        <input
-          type="text"
-          v-model="prototype.name"
-          placeholder="Nom du Prototype"
-          @keyup.enter="createPrototype"
-        >
+    <div class="container">
+      <ul class="not-a-list dashboard__list">
+        <li v-if="userConnected === null || userIsAnonyme === true">
+          <span>{{ examples.fonts.font_1.name }}</span>
+          <span>{{ examples.fonts.font_2.name }}</span>
+          <span>{{ examples.name }}</span>
+        </li>
 
-        <div class="dialog__action">
-          <div class="dialog__action-elem dialog__action-elem--primary">
-            <button class="btn btn--outline" @click="cancelProto">Annuler</button>
-            <button class="btn btn--plain" @click="createPrototype">Suivant</button>
-          </div>
-        </div>
-      </div>
+        <prototype-card
+          v-if="userConnected !== null"
+          v-for="prototype in prototypes"
+          :key="prototype.id"
+          :prototype="prototype"
+          @callDialog="enableDialog($event)"
+        ></prototype-card>
+      </ul>
+
+      <button
+        class="btn btn--main-action"
+        v-show="!dialog.enable"
+        @click.prevent="enableDialog('new-prototype')"
+      >
+        <svg-icon :name="'add_sign'"></svg-icon>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+
+// COMPONENTS
 import fNav from "@/components/navigation";
 import fLogin from "@/components/login";
 import svgIcon from "@/components/svgIcon.vue";
+import prototypeCard from "@/components/prototypeCard.vue";
+import fDialog from "@/components/dialog/dialog.vue";
 
+// STORE
 import { mapState } from "vuex";
-
 import exampleProto from "@/store/examplePrototype";
 
+// FIREAUTH
 const fb = require("../firebaseConfig.js");
 
 export default {
   components: {
     fNav,
     fLogin,
-    svgIcon
+    svgIcon,
+    prototypeCard,
+    fDialog
   },
 
   data() {
     return {
+      // dialog: {
+      //   enable: false,
+      //   type: "default"
+      // },
       dialogPrototypeEnable: false,
       examples: exampleProto,
       prototype: {
@@ -74,11 +74,6 @@ export default {
   },
 
   methods: {
-    // Show the dialog to create a new prototype
-    showDialogNewPrototype() {
-      this.dialogPrototypeEnable = true;
-    },
-
     // Create a new prototype
     createPrototype() {
       this.$store.dispatch("prototypesStore/createNewPrototype", {
@@ -89,7 +84,7 @@ export default {
 
     cancelProto() {
       this.prototype.name = "";
-      this.dialogPrototypeEnable = false;
+      this.dialog.enable = false;
     },
 
     goPrototyping() {
@@ -97,7 +92,21 @@ export default {
         name: "Tool",
         params: { prototypeName: this.prototype.name }
       });
-    }
+    },
+    
+    // Show dialog
+    // enableDialog(dialogType) {
+    //   this.$store.dispatch('callDialog', dialogType)
+    //   // this.dialog.type = dialogType;
+    //   // this.dialog.enable = true;
+    // },
+
+    // // Close dialog element
+    // closeDialog() {
+    //   this.$store.dispatch('closeDialog')
+    //   // this.dialog.enable = false;
+    //   // this.dialog.type = "default";
+    // }
   },
 
   computed: mapState({
@@ -106,7 +115,8 @@ export default {
     userConnected: state => state.userConnexion.currentUser,
     userUid: state => state.userConnexion.currentUser.uid,
     userIsAnonyme: state => state.userConnexion.currentUser.isAnonymous,
-    prototypes: state => state.prototypesStore.userPrototypes
+    prototypes: state => state.prototypesStore.userPrototypes,
+    dialog: state => state.dialogStore.dialog,
   })
 
   // updated() {

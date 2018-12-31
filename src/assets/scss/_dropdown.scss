@@ -1,49 +1,64 @@
-ul li ul {
+ul li > ul.dropdown {
+  z-index: 500;
   visibility: hidden;
   opacity: 0;
   position: absolute;
-  transition: all 0.5s ease;
-  display: none;
+  transition: all 0s map-get($transition, easeOutQuint) .5s;
 }
 
-ul li ul li {
+ul li > ul li {
   margin-right: 0;
 }
 
-ul li:hover > ul,
-ul li:focus > ul,
-ul li:focus-within > ul
-ul li ul:hover {
-  visibility: visible;
+ul li > ul.dropdown--open,
+ul li:hover > ul.dropdown--passive,
+ul li:focus > ul.dropdown--passive,
+ul li:focus > ul.dropdown--active,
+ul li:active > ul.dropdown--active,
+ul li > a:hover + ul.dropdown--passive,
+ul li > a:focus + ul.dropdown--passive,
+ul li > a:focus + ul.dropdown--active,
+ul li > a:active + ul.dropdown--active
+ul li > button:hover + ul.dropdown--passive,
+ul li > button:focus + ul.dropdown--passive,
+ul li > button:focus + ul.dropdown--active,
+ul li > button:active + ul.dropdown--active {
   visibility: visible;
   opacity: 1;
-  display: block;
+  transition-delay: 0s;
+  transition-timing-function: map-get($transition, easeInQuint);
 }
 
 .dropdown {
-  top: 40px;
+  top: rem(40);
   right: 0;
   width: max-content;
-
+  
   background-color: map-get($colors-neutral, 0);
   border-radius: $br;
   box-shadow: map-get($shadow, down);
-
+  
+  
   overflow: hidden;
 
+  &--card {
+    top: rem(30);
+  }
 
-  &__elem a {
+
+  &__elem a,
+  &__elem button {
     cursor: pointer; 
 
-    padding: 10px;
-    transition: background-color .3s cubic-bezier(0.23, 1, 0.32, 1);
+    padding: rem(10) rem(20) rem(10) rem(15);
+    transition: background-color .6s map-get($transition, easeOutQuint);
 
     display: flex;
     flex-direction: row;
     align-items: center;
 
     & svg {
-      margin-right: 20px;
+      margin-right: rem(20);
     }
 
     &:hover {
@@ -53,5 +68,11 @@ ul li ul:hover {
     &:active, &:focus {
       background-color: map-get($colors-neutral, 200);
     }
+  }
+
+  &__elem button {
+    font-size: 1em;
+    width: 100%;
+    border: none;
   }
 }

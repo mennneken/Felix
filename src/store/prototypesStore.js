@@ -54,22 +54,30 @@ const prototypesStore = {
 
     // Duplicate a Prototype
     duplicatePrototype: ({}, { uid, id }) => {
-      let docPrototype = fb.usersCollection.doc(uid).collection("prototypes").doc(id);
-      let collectionPrototype = fb.usersCollection.doc(uid).collection("prototypes");
+      let docPrototype = fb.usersCollection
+        .doc(uid)
+        .collection("prototypes")
+        .doc(id);
 
-      docPrototype.get().then(doc => {
-        if (doc.exists) {
-          collectionPrototype.add({
-            name: doc.data().name + " copie",
-            lastModification: new Date(),
-          });
-        } else {
-          console.log(`No document with the id "${id}" exists ;/`);
-        }
-      }).catch(function (error) {
-        console.log("Error getting document:", error);
-      });
+      let collectionPrototype = fb.usersCollection
+        .doc(uid)
+        .collection("prototypes");
 
+      docPrototype
+        .get()
+        .then(doc => {
+          if (doc.exists) {
+            collectionPrototype.add({
+              name: doc.data().name + " copie",
+              lastModification: new Date()
+            });
+          } else {
+            console.log(`No document with the id "${id}" exists ;/`);
+          }
+        })
+        .catch(function(error) {
+          console.log("Error getting document:", error);
+        });
     },
 
     // Share a prototype with other people
@@ -77,10 +85,22 @@ const prototypesStore = {
 
     // Export a Prototype as file (.css or .json)
     exportPrototype: ({}, { uid, id }) => {},
-    
+
     // Delete a prototype from the database
-    deletePrototype: ({}, { uid, id }) => {
-      
+    deletePrototype: ({ dispatch }, { uid, id }) => {
+      let docPrototype = fb.usersCollection
+        .doc(uid)
+        .collection("prototypes")
+        .doc(id);
+
+      docPrototype
+        .delete()
+        .then(function() {
+          dispatch("dialogStore/closeDialog", [], { root: true });
+        })
+        .catch(function(error) {
+          console.error("Error removing document: ", error);
+        });
     },
 
     // Get all the user's prototypes

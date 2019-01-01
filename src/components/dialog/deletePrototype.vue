@@ -13,7 +13,7 @@
       <div class="dialog__action">
         <div class="dialog__action-elem dialog__action-elem--primary">
           <button class="btn btn--outline" @click="closeDialog()">Annuler</button>
-          <button class="btn btn--plain">Supprimer</button>
+          <button class="btn btn--plain" @click="deletePrototype()">Supprimer</button>
         </div>
       </div>
     </div>
@@ -33,23 +33,23 @@ export default {
   },
   
   methods: {
+    // Close the dialog
     closeDialog() {
       this.$emit('closeDialog');
-    }
+    },
+
+    // Delete the selected prototype
+    deletePrototype() {
+      this.$store.dispatch('prototypesStore/deletePrototype', {
+        uid: this.uid,
+        id: this.prototype.id
+      }) 
+    },
   },
   
   computed: mapState({
+    uid: state => state.userConnexion.currentUser.uid,
     prototype: state => state.dialogStore.dialog.data,
   })
 }
 </script>
-
-<style lang="scss" scoped>
-.dialog__content {
-  span {
-    padding: .05em .25em .15em;
-    background-color: lightgray;
-    border-radius: .25em;
-  }
-}
-</style>

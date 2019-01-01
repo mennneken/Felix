@@ -15,6 +15,22 @@
 
   box-shadow: map-get($shadow-soft, center);
 
+  &--alert {
+
+    .title,
+    .btn--outline {
+      color: map-get($colors-alert, 900);
+    }
+
+    .btn--plain {
+      background-color: map-get($colors-alert, 900);
+    }
+
+    .btn--outline {
+      box-shadow: 0 0 0 rem(2) map-get($colors-alert, 900) inset;
+    }
+  }
+
   &__header {
     display: flex;
     flex-direction: row;

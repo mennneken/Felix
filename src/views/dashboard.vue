@@ -8,11 +8,11 @@
 
     <div class="container">
       <ul class="not-a-list dashboard__list">
-        <li v-if="userConnected === null || userIsAnonyme === true">
+        <!-- <li v-if="userConnected === null || userIsAnonyme === true">
           <span>{{ examples.fonts.font_1.name }}</span>
           <span>{{ examples.fonts.font_2.name }}</span>
           <span>{{ examples.name }}</span>
-        </li>
+        </li> -->
 
         <prototype-card
           v-if="userConnected !== null"
@@ -45,7 +45,6 @@ import fDialog from "@/components/dialog/dialog.vue";
 
 // STORE
 import { mapState } from "vuex";
-import exampleProto from "@/store/examplePrototype";
 
 // FIREAUTH
 const fb = require("../firebaseConfig.js");
@@ -61,12 +60,7 @@ export default {
 
   data() {
     return {
-      // dialog: {
-      //   enable: false,
-      //   type: "default"
-      // },
-      dialogPrototypeEnable: false,
-      examples: exampleProto,
+      // examples: exampleProto,
       prototype: {
         name: ""
       }
@@ -82,11 +76,6 @@ export default {
       });
     },
 
-    cancelProto() {
-      this.prototype.name = "";
-      this.dialog.enable = false;
-    },
-
     goPrototyping() {
       this.$router.push({
         name: "Tool",
@@ -97,20 +86,6 @@ export default {
     callDialog(dialogType, data) {
       this.$store.dispatch("dialogStore/callDialog", { type: dialogType , data: data });
     },
-    
-    // Show dialog
-    // enableDialog(dialogType) {
-    //   this.$store.dispatch('callDialog', dialogType)
-    //   // this.dialog.type = dialogType;
-    //   // this.dialog.enable = true;
-    // },
-
-    // // Close dialog element
-    // closeDialog() {
-    //   this.$store.dispatch('closeDialog')
-    //   // this.dialog.enable = false;
-    //   // this.dialog.type = "default";
-    // }
   },
 
   computed: mapState({

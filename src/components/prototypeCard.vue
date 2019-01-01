@@ -3,7 +3,7 @@
     <div class="card__header"></div>
     <div class="card__content">
       <p class="card__name title">{{ prototype.name || 'Sans Titre'}}</p>
-      <p class="card__date h5">{{ typeof prototype.lastModified.nanoseconds }}</p>
+      <p class="card__date h5">{{ dateOfModification }}</p>
       <ul class="not-a-list">
         <li>
           <button class="btn btn--icon">
@@ -44,6 +44,7 @@
 
 <script>
 import svgIcon from "@/components/svgIcon.vue";
+var moment = require('moment');
 
 export default {
   components: {
@@ -57,7 +58,10 @@ export default {
   methods: {
     // Open the corresponding dialog
     callDialog(dialogType, data) {
-      this.$store.dispatch("dialogStore/callDialog", { type: dialogType , data: data });
+      this.$store.dispatch("dialogStore/callDialog", {
+        type: dialogType,
+        data: data
+      });
     },
 
     // Close dialog element
@@ -73,13 +77,9 @@ export default {
 
   computed: {
     dateOfModification() {
-      // let seconds = this.prototype.lastModified.seconds;
-      // let nanos = this.prototype.lastModified.nanoseconds;
-      // let addTime = seconds.toString() + nanos.toString();
-      // let time = Number.parseInt(addTime);
-      // let date = new Date(addTime);
-      // return date;
-    }
+      let timeOfMod = moment.unix(this.prototype.lastModified.seconds);
+      return moment(timeOfMod).locale('fr').startOf().fromNow();
+    },
   }
 };
 </script>

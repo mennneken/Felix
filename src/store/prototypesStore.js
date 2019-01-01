@@ -16,8 +16,8 @@ const prototypesStore = {
       fb.usersCollection
         .doc(uid)
         .collection("prototypes")
-        .add({ 
-          name: name, 
+        .add({
+          name: name,
           lastModification: new Date()
         })
         .then(() => {
@@ -30,9 +30,13 @@ const prototypesStore = {
 
     // Rename a prototype
     renamePrototype: ({}, { uid, id, newName }) => {
-      let docPrototype = fb.usersCollection.doc(uid).collection("prototypes").doc(id);
+      let docPrototype = fb.usersCollection
+        .doc(uid)
+        .collection("prototypes")
+        .doc(id);
 
-      return db.runTransaction(function(transaction) {
+      return db
+        .runTransaction(function(transaction) {
           return transaction.get(docPrototype).then(function(docProto) {
             if (!docProto.exists) {
               throw `Document ${id} does not exist!`;
@@ -42,8 +46,20 @@ const prototypesStore = {
         })
         .catch(function(error) {
           console.log("Transaction failed: ", error);
-        }); 
+        });
     },
+
+    // Duplicate a Prototype
+    duplciatePrototype: ({}, { uid, id }) => {},
+
+    // Share a prototype with other people
+    sharePrototype: ({}, { uid, id }) => {},
+
+    // Export a Prototype as file (.css or .json)
+    exportPrototype: ({}, { uid, id }) => {},
+    
+    // Delete a prototype from the database
+    deletePrototype: ({}, { uid, id }) => {},
 
     // Get all the user's prototypes
     getPrototypes: ({ commit }, { uid }) => {
@@ -56,11 +72,11 @@ const prototypesStore = {
             prototypes.push({
               id: doc.id,
               name: doc.data().name,
-              lastModification: doc.data().lastModification,
+              lastModification: doc.data().lastModification
             });
-          })
+          });
           commit("setPrototypes", prototypes);
-        })
+        });
     }
   },
 

@@ -22,6 +22,7 @@ const currentUser = auth.currentUser
 const settings = {
   timestampsInSnapshots: true
 }
+
 db.settings(settings)
 
 // firebase collections

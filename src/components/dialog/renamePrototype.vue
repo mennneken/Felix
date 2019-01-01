@@ -15,8 +15,8 @@
 
       <div class="dialog__action">
         <div class="dialog__action-elem dialog__action-elem--primary">
-          <button class="btn btn--outline">Annuler</button>
-          <button class="btn btn--plain">Renommer</button>
+          <button class="btn btn--outline" @click="closeDialog()">Annuler</button>
+          <button class="btn btn--plain" @click="renamePrototype()">Renommer</button>
         </div>
       </div>
     </div>
@@ -27,30 +27,37 @@
 </template>
 
 <script>
+// COMPONENTS
 import svgIcon from "@/components/svgIcon.vue";
 
+// VUEX
 import { mapState } from "vuex";
 
 export default {
   components: {
     svgIcon
   },
+  
+  methods: {
 
-  data() {
-    return {
-      prototype: {
-        name: '',
-      }
+    // Close Dialog Window
+    closeDialog() {
+      this.$emit('closeDialog');
+    },
+
+    // Call The action to rename the Prototype
+    renamePrototype() {
+      this.$store.dispatch('prototypesStore/renamePrototype', {
+        uid: this.uid,
+        id: this.prototype.id,
+        newName: this.prototype.name
+      });
+      this.closeDialog()
     }
   },
   
-  methods: {
-    closeDialog() {
-      this.prototype.name = "";
-      this.$emit('closeDialog');
-    }
-  },
   computed: mapState({
+    uid: state => state.userConnexion.currentUser.uid,
     prototype: state => state.dialogStore.dialog.data,
   })
 };

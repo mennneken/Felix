@@ -1,5 +1,7 @@
 const fb = require("@/firebaseConfig.js");
 
+import { db } from "@/firebaseConfig";
+
 const prototypesStore = {
   namespaced: true,
   state: {
@@ -27,21 +29,20 @@ const prototypesStore = {
     },
 
     // Rename a prototype
-    renamePrototype: ({}, { uid, name, newName }) =>{
-      fb.usersCollection
-        .doc(uid)
-        .collection("prototypes")
-        .doc()
-        .add({ 
-          name: name, 
-          lastModification: new Date()
+    renamePrototype: ({}, { uid, id, newName }) => {
+      let docPrototype = fb.usersCollection.doc(uid).collection("prototypes").doc(id);
+
+      return db.runTransaction(function(transaction) {
+          return transaction.get(docPrototype).then(function(docProto) {
+            if (!docProto.exists) {
+              throw `Document ${id} does not exist!`;
+            }
+            transaction.update(docPrototype, { name: newName });
+          });
         })
-        .then(() => {
-          console.log("Prototype successfully written!");
-        })
-        .catch(error => {
-          console.error("Error writing prototype: ", error);
-        });
+        .catch(function(error) {
+          console.log("Transaction failed: ", error);
+        }); 
     },
 
     // Get all the user's prototypes

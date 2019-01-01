@@ -16,7 +16,7 @@
               </button>
             </li>
             <li class="dropdown__elem">
-              <button @click="callDialog('duplicate-prototype', prototype)">
+              <button @click="duplicatePrototype()">
                 <svg-icon :name="'duplicate'"></svg-icon>Dupliquer
               </button>
             </li>
@@ -43,7 +43,13 @@
 </template>
 
 <script>
+// COMPONENTS
 import svgIcon from "@/components/svgIcon.vue";
+
+// VUEX
+import { mapState } from "vuex";
+
+// JS PLUGIN
 var moment = require('moment');
 
 export default {
@@ -72,6 +78,15 @@ export default {
     // Close Dropdown
     closeDropdown() {
       this.dropdownEnable = false;
+    },
+
+
+    // Duplicate Element
+    duplicatePrototype() {
+      this.$store.dispatch('prototypesStore/duplicatePrototype', {
+        uid: this.uid,
+        id: this.prototype.id,
+      })
     }
   },
 
@@ -80,6 +95,10 @@ export default {
       let timeOfMod = moment.unix(this.prototype.lastModification.seconds);
       return moment(timeOfMod).locale('fr').startOf().fromNow();
     },
+
+    ...mapState({
+    uid: state => state.userConnexion.currentUser.uid
+  })
   }
 };
 </script>

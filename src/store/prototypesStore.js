@@ -41,7 +41,10 @@ const prototypesStore = {
             if (!docProto.exists) {
               throw `Document ${id} does not exist!`;
             }
-            transaction.update(docPrototype, { name: newName });
+            transaction.update(docPrototype, {
+              name: newName,
+              lastModification: new Date()
+            });
           });
         })
         .catch(function(error) {
@@ -50,7 +53,24 @@ const prototypesStore = {
     },
 
     // Duplicate a Prototype
-    duplciatePrototype: ({}, { uid, id }) => {},
+    duplicatePrototype: ({}, { uid, id }) => {
+      let docPrototype = fb.usersCollection.doc(uid).collection("prototypes").doc(id);
+      let collectionPrototype = fb.usersCollection.doc(uid).collection("prototypes");
+
+      docPrototype.get().then(doc => {
+        if (doc.exists) {
+          collectionPrototype.add({
+            name: doc.data().name + " copie",
+            lastModification: new Date(),
+          });
+        } else {
+          console.log(`No document with the id "${id}" exists ;/`);
+        }
+      }).catch(function (error) {
+        console.log("Error getting document:", error);
+      });
+
+    },
 
     // Share a prototype with other people
     sharePrototype: ({}, { uid, id }) => {},
@@ -59,7 +79,9 @@ const prototypesStore = {
     exportPrototype: ({}, { uid, id }) => {},
     
     // Delete a prototype from the database
-    deletePrototype: ({}, { uid, id }) => {},
+    deletePrototype: ({}, { uid, id }) => {
+      
+    },
 
     // Get all the user's prototypes
     getPrototypes: ({ commit }, { uid }) => {

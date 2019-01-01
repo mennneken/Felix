@@ -14,7 +14,28 @@ const prototypesStore = {
       fb.usersCollection
         .doc(uid)
         .collection("prototypes")
-        .add({ name: name, lastModified: new Date() })
+        .add({ 
+          name: name, 
+          lastModification: new Date()
+        })
+        .then(() => {
+          console.log("Prototype successfully written!");
+        })
+        .catch(error => {
+          console.error("Error writing prototype: ", error);
+        });
+    },
+
+    // Rename a prototype
+    renamePrototype: ({}, { uid, name, newName }) =>{
+      fb.usersCollection
+        .doc(uid)
+        .collection("prototypes")
+        .doc()
+        .add({ 
+          name: name, 
+          lastModification: new Date()
+        })
         .then(() => {
           console.log("Prototype successfully written!");
         })
@@ -31,7 +52,11 @@ const prototypesStore = {
         .onSnapshot(querySnapshot => {
           let prototypes = [];
           querySnapshot.forEach(doc => {
-            prototypes.push(doc.data());
+            prototypes.push({
+              id: doc.id,
+              name: doc.data().name,
+              lastModification: doc.data().lastModification,
+            });
           })
           commit("setPrototypes", prototypes);
         })

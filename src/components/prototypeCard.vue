@@ -77,7 +77,7 @@ export default {
 
   computed: {
     dateOfModification() {
-      let timeOfMod = moment.unix(this.prototype.lastModified.seconds);
+      let timeOfMod = moment.unix(this.prototype.lastModification.seconds);
       return moment(timeOfMod).locale('fr').startOf().fromNow();
     },
   }

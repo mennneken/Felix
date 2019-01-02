@@ -2,8 +2,6 @@
   <div id="dashboard">
     <f-nav></f-nav>
 
-    <f-login v-if="showLogin"></f-login>
-
     <f-dialog v-show="dialog.enable" :dialog-type="dialog.type" @closeDialog="closeDialog()"></f-dialog>
 
     <div class="container">
@@ -38,7 +36,6 @@
 
 // COMPONENTS
 import fNav from "@/components/navigation";
-import fLogin from "@/components/login";
 import svgIcon from "@/components/svgIcon.vue";
 import prototypeCard from "@/components/prototypeCard.vue";
 import fDialog from "@/components/dialog/dialog.vue";
@@ -46,13 +43,12 @@ import fDialog from "@/components/dialog/dialog.vue";
 // STORE
 import { mapState } from "vuex";
 
-// FIREAUTH
+// FIREBASE
 const fb = require("../firebaseConfig.js");
 
 export default {
   components: {
     fNav,
-    fLogin,
     svgIcon,
     prototypeCard,
     fDialog

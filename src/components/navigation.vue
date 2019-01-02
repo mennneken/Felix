@@ -28,7 +28,7 @@
           </li>
 
           <li class="navigation__elem" tabindex="0" v-show="userConnected === null">
-            <a class="navigation__nav-elem" @click="login">
+            <a class="navigation__nav-elem" @click="callDialog('connexion-user')">
               <svg-icon :name="'user'"></svg-icon>
             </a>
           </li>
@@ -75,7 +75,15 @@ export default {
 
     login() {
       this.$store.dispatch("userConnexion/login", true);
-    }
+    },
+
+    // Open the corresponding dialog
+    callDialog(dialogType, data) {
+      this.$store.dispatch("dialogStore/callDialog", {
+        type: dialogType,
+        data: data
+      });
+    },
   },
   
   computed: {

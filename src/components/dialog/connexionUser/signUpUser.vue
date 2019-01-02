@@ -45,11 +45,11 @@
     
     <div class="dialog__footer">
       <div class="dialog__action">
-        <div class="dialog__action-elem dialog__action-elem--secondary">
-          <button class="btn btn--invisible" @click="callSwitchTo('login-user')">Se Connecter</button>
-        </div>
         <div class="dialog__action-elem dialog__action-elem--primary">
           <button class="btn btn--plain" @click="signup()">S’inscrire</button>
+        </div>
+        <div class="dialog__action-elem dialog__action-elem--secondary">
+          <button class="btn btn--invisible" @click="callSwitchTo('login-user')">Se Connecter</button>
         </div>
       </div>
     </div>

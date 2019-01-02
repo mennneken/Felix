@@ -7,15 +7,15 @@
       </button>
     </div>
     <div class="dialog__content">
+      
+    </div>
+    <div class="dialog__footer">
       <div class="dialog__action">
         <div class="dialog__action-elem dialog__action-elem--primary">
           <button class="btn btn--outline" @click="closeDialog()">Annuler</button>
           <button class="btn btn--plain">Dupliquer</button>
         </div>
       </div>
-    </div>
-    <div class="dialog__footer">
-      
     </div>
   </div>
 </template>

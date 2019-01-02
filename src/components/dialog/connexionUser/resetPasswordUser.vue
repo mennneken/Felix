@@ -72,6 +72,7 @@ export default {
           this.performingRequest = false;
           this.passwordResetSuccess = true;
           this.passwordForm.email = "";
+          this.closeDialog();
         })
         .catch(err => {
           console.log(err);

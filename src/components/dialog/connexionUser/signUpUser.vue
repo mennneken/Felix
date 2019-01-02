@@ -103,6 +103,7 @@ export default {
             .then(() => {
               this.$store.dispatch("userConnexion/fetchUserProfile");
               this.performingRequest = false;
+              this.closeDialog();
               this.$router.push("/dashboard");
             })
             .catch(err => {

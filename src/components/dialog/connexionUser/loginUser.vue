@@ -82,7 +82,9 @@ export default {
           this.$store.commit("userConnexion/setCurrentUser", user.user);
           this.$store.dispatch("userConnexion/fetchUserProfile");
           this.$store.dispatch("userConnexion/login", false);
+          this.closeDialog();
           this.performingRequest = false;
+
           this.$router.push("/dashboard");
         })
         .catch(err => {

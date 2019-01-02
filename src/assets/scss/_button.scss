@@ -73,14 +73,51 @@
 
   &--invisible {
     background-color: transparent;
-    border-bottom: rem(5) solid transparent;
+    overflow: hidden;
 
-    &:hover,
+    position: relative;
+
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 20%;
+      height: 20%;
+      background-color: transparent;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+      transition-duration: .5s;
+      transition-property: background-color, width, height;
+      transition-timing-function: map-get($transition, easeOutQuint);
+    }
+
+    &:hover {
+      color: map-get($colors-main, 400);
+    }
+
     &:focus {
-      border-bottom: rem(5) solid map-get($colors-main, 400);
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-      // background-color: map-get($colors-neutral, 100);
+      outline: none;
+    }
+
+    &:active,
+    &:focus {
+      color: map-get($colors-main, 600);
+      &::before {
+        height: 100%;
+        width: 100%;
+        background-color: map-get($colors-neutral, 100);
+        transition-timing-function: map-get($transition, easeOutQuint);
+      }
+    }
+
+    &:active::before {
+      transition-duration: 0.1s;
+    }
+
+    &:focus::before {
+      transition-duration: 0.3s;
     }
   }
 
@@ -106,8 +143,8 @@
       transform: translate(-50%, -50%);
       z-index: -1;
       transition: 300ms ease-out;
-      width: 15px;
-      height: 15px;
+      width: rem(15);
+      height: rem(15);
       border-radius: 50%;
       background-color: transparent;
     }
@@ -125,7 +162,7 @@
     &:active,
     &:focus {
       &::before {
-        transition-duration: .1s;
+        transition-duration: 0.1s;
         background-color: map-get($colors-main, 100);
       }
     }

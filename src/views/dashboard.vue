@@ -5,7 +5,7 @@
     <f-dialog v-show="dialog.enable" :dialog-type="dialog.type" @closeDialog="closeDialog()"></f-dialog>
 
     <div class="container">
-      <ul class="not-a-list dashboard__list">
+      <ul class="not-a-list dashboard__list" v-if="userConnected !== null">
         <!-- <li v-if="userConnected === null || userIsAnonyme === true">
           <span>{{ examples.fonts.font_1.name }}</span>
           <span>{{ examples.fonts.font_2.name }}</span>
@@ -13,7 +13,6 @@
         </li> -->
 
         <prototype-card
-          v-if="userConnected !== null"
           v-for="prototype in prototypes"
           :key="prototype.id"
           :prototype="prototype"

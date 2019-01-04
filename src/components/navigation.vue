@@ -1,5 +1,5 @@
 <template>
-  <header class="navigation" v-if="$route.name === 'Dashboard'">
+  <header class="navigation navigation--main" v-if="$route.name === 'Dashboard'">
     <div class="container navigation__container">
       <router-link to="/dashboard" tag="a" class="logo logo--brand">
         <svg-icon :name="'brand'"></svg-icon>
@@ -37,7 +37,7 @@
     </div>
   </header>
 
-  <header class="navigation" v-else-if="$route.name === 'Tool'">
+  <header class="navigation navigation--main" v-else-if="$route.name === 'Tool'">
     <router-link to="/dashboard" tag="a" class="logo logo--brand">
       <svg-icon :name="'brand'"></svg-icon>
     </router-link>

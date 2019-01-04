@@ -2,15 +2,23 @@
   <section class="tools">
     <f-nav></f-nav>
     <nav>
-      <ul>
+      <ul class="navigation navigation--secondary">
         <li>
-          <button>
+          <button class="btn btn--icon-label" @click="switchTo('typo')">
             <svg-icon :name="'typo'"></svg-icon>
             <span>TYPO</span>
           </button>
         </li>
+
+        <li v-show="twoFontChoice">
+          <button class="btn btn--icon-label" @click="switchTo('comp')">
+            <svg-icon :name="'comp'"></svg-icon>
+            <span>COMPARAISON</span>
+          </button>
+        </li>
+
         <li>
-          <button>
+          <button class="btn btn--icon-label" @click="switchTo('format')">
             <svg-icon :name="'format'"></svg-icon>
             <span>FORMAT</span>
           </button>
@@ -19,18 +27,19 @@
     </nav>
     
     <div class="tools__content">
-      <typo-choice></typo-choice>
-      <typo-comp></typo-comp>
-      <typo-size></typo-size>
-      <typo-format></typo-format>
-      <typo-spaces></typo-spaces>
-      <color-palette></color-palette>
-      <colot-adjust></colot-adjust>
+      <typo-choice v-show="display === 'typo'"></typo-choice>
+      <typo-size v-show="display === 'typo'"></typo-size>
+      <typo-comp v-show="display === 'comp'"></typo-comp>
+      <typo-format v-show="display === 'format'"></typo-format>
+      <typo-spaces v-show="display === 'format'"></typo-spaces>
+      <color-palette v-show="display === 'color'"></color-palette>
+      <colot-adjust v-show="display === 'color'"></colot-adjust>
     </div>
   </section>
 </template>
 
 <script>
+// COMPONENTS
 import svgIcon from "@/components/svgIcon";
 import fNav from "@/components/navigation";
 import TypoChoice from "./typography/typoChoice.vue";
@@ -41,6 +50,9 @@ import TypoSpaces from "./typography/typoSpaces.vue";
 import ColorPalette from "./colors/colorPalette.vue";
 import ColotAdjust from "./colors/colorAdjust.vue";
 import navigationTool from "./navigationTool.vue";
+
+//VUEX
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -54,6 +66,31 @@ export default {
     ColorPalette,
     ColotAdjust,
     navigationTool
+  },
+
+  data() {
+    return {
+      display: 'typo',
+    }
+  },
+
+  methods: {
+    switchTo(target) {
+      this.display = target;
+    }
+  },
+
+  computed: {
+    twoFontChoice() {
+      if (this.fontChoices.font_1.name && this.fontChoices.font_2.name) {
+        return true
+      } else {
+        return false
+      }
+    },
+    ...mapState({
+      fontChoices: state => state.prototypesStore.prototype.typography.fontChoices
+    })
   }
 };
 </script>

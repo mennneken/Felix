@@ -1,15 +1,15 @@
 {
   "name": "felix",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "firebase": "^5.7.0",
+    "firebase": "^5.7.2",
     "register-service-worker": "^1.5.2",
-    "vue": "^2.5.17",
+    "vue": "^2.5.21",
     "vue-click-outside": "^1.0.7",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
@@ -17,16 +17,16 @@
     "vuexfire": "^2.3.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.2.0",
-    "@vue/cli-plugin-pwa": "^3.2.0",
-    "@vue/cli-service": "^3.2.0",
+    "@vue/cli-plugin-babel": "^3.2.2",
+    "@vue/cli-plugin-pwa": "^3.2.2",
+    "@vue/cli-service": "^3.2.3",
     "moment": "^2.23.0",
-    "node-sass": "^4.10.0",
+    "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "svg-sprite-loader": "^4.1.3",
     "svgo": "^1.1.1",
     "svgo-loader": "^2.2.0",
     "vue-cli-plugin-svg-sprite": "^0.3.1",
-    "vue-template-compiler": "^2.5.17"
+    "vue-template-compiler": "^2.5.21"
   }
 }

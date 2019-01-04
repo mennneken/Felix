@@ -15,7 +15,3 @@
     <p>Bref, du renard, en veux-tu en voilà.</p>
   </div>
 </template>
-
-<script>
-export default {};
-</script>

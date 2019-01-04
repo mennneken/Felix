@@ -14,33 +14,33 @@
         <h4 class="title title--upp title--alt h5">Longueur de ligne</h4>
         <input
           type="range"
-          :min="rangeMin(titleLineWidth.unit)"
-          :max="rangeMax(titleLineWidth.unit)"
-          :step="rangeStep(titleLineWidth.unit)"
-          v-model="titleLineWidth.value"
+          :min="rangeMin(title.line.length.unit)"
+          :max="rangeMax(title.line.length.unit)"
+          :step="rangeStep(title.line.length.unit)"
+          v-model="title.line.length.value"
         >
         <input
           type="number"
-          :min="rangeMin(titleLineWidth.unit)"
-          :max="rangeMax(titleLineWidth.unit)"
-          :step="rangeStep(titleLineWidth.unit)"
-          v-model.number="titleLineWidth.value"
+          :min="rangeMin(title.line.length.unit)"
+          :max="rangeMax(title.line.length.unit)"
+          :step="rangeStep(title.line.length.unit)"
+          v-model.number="title.line.length.value"
         >
-        <select v-model="titleLineWidth.unit">
+        <select v-model="title.line.length.unit">
           <optgroup label="Relative">
             <option value="em">Em</option>
-            <option value="ch" selected>{{ titleLineWidth.value > 1 ? 'Characters' : 'Character'}}</option>
+            <option value="ch" selected>{{ title.line.length.value > 1 ? 'Characters' : 'Character'}}</option>
           </optgroup>
           <optgroup label="Fixe">
             <option value="rem">Rem</option>
-            <option value="px">{{ titleLineWidth.value > 1 ? 'Pixels' : 'Pixel'}}</option>
+            <option value="px">{{ title.line.length.value > 1 ? 'Pixels' : 'Pixel'}}</option>
           </optgroup>
         </select>
       </div>
       <div>
         <h4 class="title title--upp title--alt h5">Hauteur de ligne</h4>
-        <input type="range" min="1.2" max="1.45" step="0.01" v-model="titleLineHeight">
-        <input type="number" min="1.2" max="1.45" step="0.01" v-model.number="titleLineHeight">
+        <input type="range" min="1.2" max="1.45" step="0.01" v-model="title.line.height">
+        <input type="number" min="1.2" max="1.45" step="0.01" v-model.number="title.line.height">
       </div>
     </div>
 
@@ -52,40 +52,44 @@
         <!-- Set the value  of the line width -->
         <input
           type="range"
-          :min="rangeMin(textLineWidth.unit)"
-          :max="rangeMax(textLineWidth.unit)"
-          :step="rangeStep(textLineWidth.unit)"
-          v-model="textLineWidth.value"
+          :min="rangeMin(text.line.length.unit)"
+          :max="rangeMax(text.line.length.unit)"
+          :step="rangeStep(text.line.length.unit)"
+          v-model="text.line.length.value"
         >
         <input
           type="number"
-          :min="rangeMin(textLineWidth.unit)"
-          :max="rangeMax(textLineWidth.unit)"
-          :step="rangeStep(textLineWidth.unit)"
-          v-model.number="textLineWidth.value"
+          :min="rangeMin(text.line.length.unit)"
+          :max="rangeMax(text.line.length.unit)"
+          :step="rangeStep(text.line.length.unit)"
+          v-model.number="text.line.length.value"
         >
         <!-- Set the unit for the line width value -->
-        <select v-model="textLineWidth.unit">
+        <select v-model="text.line.length.unit">
           <optgroup label="Relative">
             <option value="em">Em</option>
-            <option value="ch" selected>{{ textLineWidth.value > 1 ? 'Characters' : 'Character'}}</option>
+            <option value="ch" selected>{{ text.line.length.value > 1 ? 'Characters' : 'Character'}}</option>
           </optgroup>
           <optgroup label="Fixe">
             <option value="rem">Rem</option>
-            <option value="px">{{ textLineWidth.value > 1 ? 'Pixels' : 'Pixel'}}</option>
+            <option value="px">{{ text.line.length.value > 1 ? 'Pixels' : 'Pixel'}}</option>
           </optgroup>
         </select>
       </div>
       <div>
         <h4 class="title title--upp title--alt h5">Hauteur de ligne</h4>
-        <input type="range" min="1.2" max="1.45" step="0.05" v-model="textLineHeight">
-        <input type="number" min="1.2" max="1.45" step="0.01" v-model.number="textLineHeight">
+        <input type="range" min="1.2" max="1.45" step="0.05" v-model="text.line.height">
+        <input type="number" min="1.2" max="1.45" step="0.01" v-model.number="text.line.height">
       </div>
     </div>
   </section>
 </template>
 
 <script>
+
+// VUEX
+import { mapState } from 'vuex'
+
 export default {
   data() {
     return {
@@ -94,32 +98,10 @@ export default {
     };
   },
 
-  computed: {
-    titleLineWidth: {
-      get() {
-        return this.$store.state.protoParams.title.linewidth;
-      },
-      set() {}
-    },
-    titleLineHeight: {
-      get() {
-        return this.$store.state.protoParams.text.lineheight;
-      },
-      set() {}
-    },
-    textLineWidth: {
-      get() {
-        return this.$store.state.protoParams.title.linewidth;
-      },
-      set() {}
-    },
-    textLineHeight: {
-      get() {
-        return this.$store.state.protoParams.text.lineheight;
-      },
-      set() {}
-    }
-  },
+  computed: mapState({
+    title: state => state.prototypesStore.prototype.typography.format.titles,
+    text: state => state.prototypesStore.prototype.typography.format.texts,
+  }),
 
   methods: {
     rangeMin(unit) {

@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
 import { sync } from "vuex-router-sync";
+import router from './router'
 import { store } from './store'
 import './registerServiceWorker'
 const fb = require("./firebaseConfig.js");
 import "./assets/scss/main.scss";
 
-Vue.config.productionTip = false
+// Vue.config.productionTip = true;
 
 const unsync = sync(store, router);
 

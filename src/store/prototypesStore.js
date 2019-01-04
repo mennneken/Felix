@@ -7,26 +7,170 @@ import router from "@/router.js";
 const prototypesStore = {
   namespaced: true,
   state: {
-    userPrototypes: []
+    userPrototypes: [],
+    prototype: {
+      typography: {
+        fontChoices: {
+          font_1: {
+            name: "",
+            style: "",
+            weight: 400
+          },
+          font_2: {
+            name: "",
+            style: "",
+            weight: 800
+          }
+        },
+        format: {
+          size: {
+            base: {
+              value: 16,
+              unit: "px"
+            },
+            ratio: 1.25
+          },
+          titles: {
+            line: {
+              height: 1.2,
+              length: {
+                value: 65,
+                unit: "ch"
+              }
+            },
+            spaces: {
+              before: {
+                value: 1,
+                unit: "em"
+              },
+              after: {
+                value: 1,
+                unit: "em"
+              }
+            }
+          },
+          texts: {
+            line: {
+              height: 1.2,
+              length: {
+                value: 65,
+                unit: "ch"
+              }
+            },
+            spaces: {
+              before: {
+                value: 1,
+                unit: "em"
+              },
+              after: {
+                value: 1,
+                unit: "em"
+              }
+            }
+          }
+        }
+      },
+      color: {
+        harmony: "",
+        colors: {
+          lightShade: "",
+          lightAccent: "",
+          main: "",
+          darkAccent: "",
+          darkShade: ""
+        }
+      }
+    }
   },
 
   getters: {},
 
   actions: {
     // Add a new prototype to the db
-    createNewPrototype: ({}, { uid, name }) => {
+    createNewPrototype: ({ commit }, { uid, name }) => {
       fb.usersCollection
         .doc(uid)
         .collection("prototypes")
-        .add({ 
-          name: name, 
-          lastModification: new Date() 
+        .add({
+          name: name,
+          lastModification: new Date(),
+          parameters: {
+            typography: {
+              fontChoices: {
+                font_1: {
+                  name: "",
+                  style: "",
+                  weight: 400
+                },
+                font_2: {
+                  name: "",
+                  style: "",
+                  weight: 800
+                }
+              },
+              format: {
+                size: {
+                  base: {
+                    value: 16,
+                    unit: "px"
+                  },
+                  ratio: 1.25
+                },
+                titles: {
+                  line: {
+                    height: 1.2,
+                    length: {
+                      value: 65,
+                      unit: "ch"
+                    }
+                  },
+                  spaces: {
+                    before: {
+                      value: 1,
+                      unit: "em"
+                    },
+                    after: {
+                      value: 1,
+                      unit: "em"
+                    }
+                  }
+                },
+                texts: {
+                  line: {
+                    height: 1.2,
+                    length: {
+                      value: 65,
+                      unit: "ch"
+                    }
+                  },
+                  spaces: {
+                    before: {
+                      value: 1,
+                      unit: "em"
+                    },
+                    after: {
+                      value: 1,
+                      unit: "em"
+                    }
+                  }
+                }
+              }
+            },
+            color: {
+              harmony: "",
+              colors: {
+                lightShade: "",
+                lightAccent: "",
+                main: "",
+                darkAccent: "",
+                darkShade: ""
+              }
+            }
+          }
         })
         .then(docRef => {
-          router.push({
-            name: "Tool",
-            params: { uid: docRef.id }
-          });
+          commit("setPrototype", docRef.parameters);
+          router.push({ name: "Tool", params: { uid: docRef.id } });
         })
         .catch(error => {
           console.error("Error writing prototype: ", error);
@@ -131,6 +275,11 @@ const prototypesStore = {
     // Set all the user prototypes
     setPrototypes(state, data) {
       state.userPrototypes = data;
+    },
+
+    // Set the prototype parameters
+    setPrototype(state, data) {
+      state.prototype = data;
     }
   }
 };

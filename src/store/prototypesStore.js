@@ -2,6 +2,8 @@ const fb = require("@/firebaseConfig.js");
 
 import { db } from "@/firebaseConfig";
 
+import router from "@/router.js";
+
 const prototypesStore = {
   namespaced: true,
   state: {
@@ -16,12 +18,15 @@ const prototypesStore = {
       fb.usersCollection
         .doc(uid)
         .collection("prototypes")
-        .add({
-          name: name,
-          lastModification: new Date()
+        .add({ 
+          name: name, 
+          lastModification: new Date() 
         })
-        .then(() => {
-          this.$router.push({ name: "Tool", params: { uid: '123' } });
+        .then(docRef => {
+          router.push({
+            name: "Tool",
+            params: { uid: docRef.id }
+          });
         })
         .catch(error => {
           console.error("Error writing prototype: ", error);

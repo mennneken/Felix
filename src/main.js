@@ -1,12 +1,15 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import { sync } from "vuex-router-sync";
 import { store } from './store'
 import './registerServiceWorker'
 const fb = require("./firebaseConfig.js");
 import "./assets/scss/main.scss";
 
 Vue.config.productionTip = false
+
+const unsync = sync(store, router);
 
 let app
 fb.auth.onAuthStateChanged(user => {
@@ -20,3 +23,4 @@ fb.auth.onAuthStateChanged(user => {
   }
 })
 
+unsync() // Unsyncs store from router

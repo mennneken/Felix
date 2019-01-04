@@ -21,7 +21,7 @@ const prototypesStore = {
           lastModification: new Date()
         })
         .then(() => {
-          console.log("Prototype successfully written!");
+          this.$router.push({ name: "Tool", params: { uid: '123' } });
         })
         .catch(error => {
           console.error("Error writing prototype: ", error);

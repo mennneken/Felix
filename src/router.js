@@ -22,7 +22,7 @@ const router = new Router({
       props: true
     },
     {
-      path: "/tool/:prototypeName",
+      path: "/tool/:uid",
       name: "Tool",
       component: Tool
     },

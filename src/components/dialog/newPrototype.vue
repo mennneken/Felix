@@ -20,7 +20,7 @@
       <div class="dialog__action">
         <div class="dialog__action-elem dialog__action-elem--primary">
           <button class="btn btn--outline" @click="closeDialog()">Annuler</button>
-          <button class="btn btn--plain" @click="createPrototype">Suivant</button>
+          <button class="btn btn--plain" @click="createPrototype()">Suivant</button>
         </div>
       </div>
     </div>

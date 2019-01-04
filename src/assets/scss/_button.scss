@@ -125,6 +125,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
     background-color: transparent;
     padding: 0;
 
@@ -175,6 +176,35 @@
       margin: auto;
       width: rem(25);
       height: rem(25);
+    }
+  }
+
+  &--icon-label {
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+
+    & span {
+      font-size: map-get($fz, h6);
+    }
+
+    &:hover {
+      span {
+        color: map-get($colors-main, 400);
+      }
+    }
+
+    &:active {
+      span {
+        color: map-get($colors-main, 600);
+      }
+    }
+
+    &:focus {
+      outline: none;
+      span {
+        color: map-get($colors-main, 600);
+      }
     }
   }
 }

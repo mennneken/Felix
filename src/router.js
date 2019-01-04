@@ -13,13 +13,17 @@ const router = new Router({
   routes: [
     {
       path: "*",
-      redirect: "/dashboard"
+      redirect: { name: "Dashboard" }
+    },
+    {
+      path: "/",
+      redirect: { name: "Dashboard" }
     },
     {
       path: "/dashboard",
       name: "Dashboard",
-      component: Dashboard,
-      props: true
+      component: Dashboard
+      // props: true
     },
     {
       path: "/tool/:uid",

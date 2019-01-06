@@ -170,11 +170,21 @@ const prototypesStore = {
         })
         .then(docRef => {
           commit("setPrototype", docRef.parameters);
-          router.push({ name: "Tool", params: { uid: docRef.id } });
+          router.push({ 
+            name: "Tool", 
+            params: { 
+              uid: docRef.id 
+            }
+          });
         })
         .catch(error => {
           console.error("Error writing prototype: ", error);
         });
+    },
+
+    continutePrototype: ({ state, commit }, { prototypeId }) => {
+      commit("setPrototype", state.userPrototypes.find(userPrototype => userPrototype.id === prototypeId));
+      router.push({ name: "Tool", params: { uid: prototypeId } });
     },
 
     // Rename a prototype
@@ -196,7 +206,7 @@ const prototypesStore = {
             });
           });
         })
-        .catch(function(error) {
+        .catch(error => {
           console.log("Transaction failed: ", error);
         });
     },
@@ -224,7 +234,7 @@ const prototypesStore = {
             console.log(`No document with the id "${id}" exists ;/`);
           }
         })
-        .catch(function(error) {
+        .catch(error => {
           console.log("Error getting document:", error);
         });
     },
@@ -247,7 +257,7 @@ const prototypesStore = {
         .then(function() {
           dispatch("dialogStore/closeDialog", [], { root: true });
         })
-        .catch(function(error) {
+        .catch(error => {
           console.error("Error removing document: ", error);
         });
     },
@@ -263,7 +273,8 @@ const prototypesStore = {
             prototypes.push({
               id: doc.id,
               name: doc.data().name,
-              lastModification: doc.data().lastModification
+              lastModification: doc.data().lastModification,
+              prototype: doc.data().parameters
             });
           });
           commit("setPrototypes", prototypes);

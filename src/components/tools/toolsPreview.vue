@@ -12,7 +12,7 @@
       styleTitle,
       { fontSize: fontSizeLevel(3) }
     ]"
-    >Fantastique M. Renard</h2>
+    >Fantastique M. Renard</h2> 
     <p :style="styleParagraphe">Il est souvent considéré comme rusé, comme dans “Le renard et le corbeau” du fabuliste Jean de La Fontaine. Où le Maître Renard, par l’odeur alléchée, trompe un Maître Corbeau par des flatteries sur sa voix. Pour que ce dernier laisse tomber le fromage qu’il tenait dans son bec.</p>
     <h3 
     :style=" [
@@ -73,12 +73,12 @@ export default {
     },
     
     ...mapState ({
-      prototype: state => state.prototypesStore.prototype,
-      fontSize: state => state.prototypesStore.prototype.typography.format.size,
-      titleLine: state => state.prototypesStore.prototype.typography.format.titles.line,
-      titleSpace: state => state.prototypesStore.prototype.typography.format.titles.spaces,
-      textLine: state => state.prototypesStore.prototype.typography.format.texts.line,
-      textSpace: state => state.prototypesStore.prototype.typography.format.texts.spaces
+      prototype:  state => state.prototypesStore.prototype.prototype,
+      fontSize:   state => state.prototypesStore.prototype.prototype.typography.format.size,
+      titleLine:  state => state.prototypesStore.prototype.prototype.typography.format.titles.line,
+      titleSpace: state => state.prototypesStore.prototype.prototype.typography.format.titles.spaces,
+      textLine:   state => state.prototypesStore.prototype.prototype.typography.format.texts.line,
+      textSpace:  state => state.prototypesStore.prototype.prototype.typography.format.texts.spaces
     })
   },
 

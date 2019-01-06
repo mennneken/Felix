@@ -1,5 +1,5 @@
 <template>
-  <li class="card">
+  <li class="card" @click="callPrototyping()">
     <div class="card__header"></div>
     <div class="card__content">
       <p class="card__name title">{{ prototype.name || 'Sans Titre'}}</p>
@@ -50,7 +50,7 @@ import svgIcon from "@/components/svgIcon.vue";
 import { mapState } from "vuex";
 
 // JS PLUGIN
-var moment = require('moment');
+const moment = require('moment');
 
 export default {
   components: {
@@ -62,6 +62,11 @@ export default {
   },
 
   methods: {
+    // Open a prototype
+    callPrototyping() {
+      this.$store.dispatch('prototypesStore/continutePrototype', { prototypeId: this.prototype.id})
+    },
+
     // Open the corresponding dialog
     callDialog(dialogType, data) {
       this.$store.dispatch("dialogStore/callDialog", {
@@ -97,8 +102,8 @@ export default {
     },
 
     ...mapState({
-    uid: state => state.userConnexion.currentUser.uid
-  })
+      uid: state => state.userConnexion.currentUser.uid
+    })
   }
 };
 </script>

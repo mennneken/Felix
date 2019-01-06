@@ -99,8 +99,8 @@ export default {
   },
 
   computed: mapState({
-    title: state => state.prototypesStore.prototype.typography.format.titles,
-    text: state => state.prototypesStore.prototype.typography.format.texts,
+    title:  state => state.prototypesStore.prototype.prototype.typography.format.titles,
+    text:   state => state.prototypesStore.prototype.prototype.typography.format.texts,
   }),
 
   methods: {

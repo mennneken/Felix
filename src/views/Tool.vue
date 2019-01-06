@@ -10,13 +10,13 @@
 </template>
 
 <script>
-import fTools from "@/components/tools/tools";
-import fPreview from "@/components/preview";
+import fTools from "@/components/tools/toolsTool";
+import fPreview from "@/components/tools/toolsPreview";
 
 export default {
   components: {
     fTools,
     fPreview
-  },
+  }
 }
 </script>

@@ -135,8 +135,8 @@ export default {
 
   computed: {
     ...mapState ({
-      titleSpace: state => state.prototypesStore.prototype.typography.format.titles.spaces,
-      textSpace: state => state.prototypesStore.prototype.typography.format.texts.spaces,
+      titleSpace: state => state.prototypesStore.prototype.prototype.typography.format.titles.spaces,
+      textSpace:  state => state.prototypesStore.prototype.prototype.typography.format.texts.spaces,
     })
   }
 

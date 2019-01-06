@@ -10,7 +10,8 @@
           </button>
         </li>
 
-        <li v-show="twoFontChoice">
+        <!-- <li v-show="fontChoices"> -->
+        <li v-show="fontChoices">
           <button class="btn btn--icon-label" @click="switchTo('comp')">
             <svg-icon :name="'comp'"></svg-icon>
             <span>COMPARAISON</span>
@@ -80,17 +81,18 @@ export default {
     }
   },
 
-  computed: {
-    twoFontChoice() {
-      if (this.fontChoices.font_1.name && this.fontChoices.font_2.name) {
-        return true
-      } else {
-        return false
-      }
-    },
-    ...mapState({
-      fontChoices: state => state.prototypesStore.prototype.typography.fontChoices
-    })
-  }
+  computed: mapState({
+    fontChoices:  state => state.prototypesStore.prototype.prototype.typography.fontChoices,
+    fontSize:     state => state.prototypesStore.prototype.prototype.typography.format.size,
+    
+    // twoFontChoice() {
+    //   if (this.fontChoices.font_1.name && this.fontChoices.font_2.name) {
+    //     return true
+    //   } else {
+    //     return false
+    //   }
+    // },
+  }),
+
 };
 </script>

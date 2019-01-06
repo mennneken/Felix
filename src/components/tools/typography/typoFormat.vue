@@ -107,11 +107,11 @@ export default {
     rangeMin(unit) {
       switch (unit) {
         case "em":
-          return 5;
+          return 10;
           break;
 
         case "rem":
-          return 5;
+          return 10;
           break;
 
         case "px":

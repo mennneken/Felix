@@ -5,25 +5,25 @@
       <h4 class="title title--upp title--alt h5">Taille de Base</h4>
       <input
         type="range"
-        :min="rangeMin(fontSize.unit)"
-        :max="rangeMax(fontSize.unit)"
-        :step="rangeStep(fontSize.unit)"
-        v-model="fontSize.base"
+        :min="rangeMin(fontSize.base.unit)"
+        :max="rangeMax(fontSize.base.unit)"
+        :step="rangeStep(fontSize.base.unit)"
+        v-model="fontSize.base.value"
       >
       <input
         type="number"
-        :min="rangeMin(fontSize.unit)"
-        :max="rangeMax(fontSize.unit)"
-        :step="rangeStep(fontSize.unit)"
-        v-model="fontSize.base"
+        :min="rangeMin(fontSize.base.unit)"
+        :max="rangeMax(fontSize.base.unit)"
+        :step="rangeStep(fontSize.base.unit)"
+        v-model="fontSize.base.value"
       >
-      <select v-model="fontSize.unit">
+      <select v-model="fontSize.base.unit">
         <optgroup label="Relative">
           <option value="em">Em</option>
           <option value="rem">Rem</option>
         </optgroup>
         <optgroup label="Fixe">
-          <option value="px" selected>{{ fontSize.base > 1 ? 'Pixels' : 'Pixel'}}</option>
+          <option value="px" selected>{{ fontSize.base.value > 1 ? 'Pixels' : 'Pixel'}}</option>
         </optgroup>
       </select>
     </div>
@@ -46,17 +46,11 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      fontSize: {
-        base: 16,
-        unit: "px",
-        ratio: 1.25
-      }
-    };
-  },
 
+// VUEX
+import { mapState } from "vuex";
+
+export default {
   methods: {
     rangeMin(unit) {
       switch (unit) {
@@ -103,6 +97,12 @@ export default {
           break;
       }
     }
+  },
+
+  computed: {
+    ...mapState ({
+      fontSize: state => state.prototypesStore.prototype.typography.format.size,
+    })
   }
 };
 </script>

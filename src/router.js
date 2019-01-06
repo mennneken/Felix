@@ -14,22 +14,28 @@ const router = new Router({
     {
       path: "*",
       redirect: { name: "Dashboard" }
-    }, {
+    },
+    {
       path: "/",
       redirect: { name: "Dashboard" }
-    }, {
+    },
+    {
       path: "/dashboard",
       name: "Dashboard",
       component: Dashboard
       // props: true
-    }, {
+    },
+    {
       path: "/tool/:uid",
       name: "Tool",
-      component: Tool
-    }, {
+      component: Tool,
+      meta: { requiresAuth: true }
+    },
+    {
       path: "/settings",
       name: "Settings",
-      component: Settings
+      component: Settings,
+      meta: { requiresAuth: true }
     }
   ]
 });
@@ -39,7 +45,7 @@ router.beforeEach((to, from, next) => {
   const currentUser = firebase.auth().currentUser
   
   if (requiresAuth && !currentUser) {
-    next("/dashboard");
+    next({ path: "/dashboard" });
   } else if (requiresAuth && currentUser) {
     next()
   } else {

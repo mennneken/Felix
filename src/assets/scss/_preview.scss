@@ -1,5 +1,6 @@
 #preview {
-  width: 75%;
-  margin-left: 25%;
-  padding: 30px;
+  width: 100%;
+  // margin-left: minmax(25vw, rem(360));
+  padding: rem(40) rem(30);
+  grid-column: 2/2;
 }

@@ -10,29 +10,29 @@
     <div v-show="firstTab">
       <div>
         <h4 class="title title--upp title--alt h5">Espace Avant</h4>
-        <input type="range" :min="rangeMin(title.spaces.unit)" :max="rangeMax(title.spaces.unit)" :step="rangeStep(title.spaces.unit)" v-model="title.spaces.before">
-        <input type="number" :min="rangeMin(title.spaces.unit)" :max="rangeMax(title.spaces.unit)" :step="rangeStep(title.spaces.unit)" v-model="title.spaces.before">
-        <select v-model="title.spaces.unit">
+        <input type="range" :min="rangeMin(titleSpace.before.unit)" :max="rangeMax(titleSpace.before.unit)" :step="rangeStep(titleSpace.before.unit)" v-model="titleSpace.before.value">
+        <input type="number" :min="rangeMin(titleSpace.before.unit)" :max="rangeMax(titleSpace.before.unit)" :step="rangeStep(titleSpace.before.unit)" v-model="titleSpace.before.value">
+        <select v-model="titleSpace.before.unit">
           <optgroup label="Relative">
             <option value="em" selected>Em</option>
             <option value="rem">Rem</option>
           </optgroup>
           <optgroup label="Fixe">
-            <option value="px">{{ title.spaces.before > 1 ? 'Pixels' : 'Pixel'}}</option>
+            <option value="px">{{ titleSpace.before.value > 1 ? 'Pixels' : 'Pixel'}}</option>
           </optgroup>
         </select>
       </div>
       <div>
         <h4 class="title title--upp title--alt h5">Espace Après</h4>
-        <input type="range" :min="rangeMin(title.spaces.unit)" :max="rangeMax(title.spaces.unit)" :step="rangeStep(title.spaces.unit)" v-model="title.spaces.after">
-        <input type="number" :min="rangeMin(title.spaces.unit)" :max="rangeMax(title.spaces.unit)" :step="rangeStep(title.spaces.unit)" v-model="title.spaces.after">
-        <select v-model="title.spaces.unit">
+        <input type="range" :min="rangeMin(titleSpace.after.unit)" :max="rangeMax(titleSpace.after.unit)" :step="rangeStep(titleSpace.after.unit)" v-model="titleSpace.after.value">
+        <input type="number" :min="rangeMin(titleSpace.after.unit)" :max="rangeMax(titleSpace.after.unit)" :step="rangeStep(titleSpace.after.unit)" v-model="titleSpace.after.value">
+        <select v-model="titleSpace.after.unit">
           <optgroup label="Relative">
             <option value="em" selected>Em</option>
             <option value="rem">Rem</option>
           </optgroup>
           <optgroup label="Fixe">
-            <option value="px">{{ title.spaces.after > 1 ? 'Pixels' : 'Pixel'}}</option>
+            <option value="px">{{ titleSpace.after.value > 1 ? 'Pixels' : 'Pixel'}}</option>
           </optgroup>
         </select>
       </div>
@@ -42,30 +42,30 @@
     <div v-show="!firstTab">
       <div>
         <h4 class="title title--upp title--alt h5">Espace Avant</h4>
-        <input type="range" :min="rangeMin(text.spaces.unit)" :max="rangeMax(text.spaces.unit)" :step="rangeStep(text.spaces.unit)" v-model="text.spaces.before">
-        <input type="number" :min="rangeMin(text.spaces.unit)" :max="rangeMax(text.spaces.unit)" :step="rangeStep(text.spaces.unit)" v-model="text.spaces.before">
-        <select v-model="text.spaces.unit">
+        <input type="range" :min="rangeMin(textSpace.before.unit)" :max="rangeMax(textSpace.before.unit)" :step="rangeStep(textSpace.before.unit)" v-model="textSpace.before.value">
+        <input type="number" :min="rangeMin(textSpace.before.unit)" :max="rangeMax(textSpace.before.unit)" :step="rangeStep(textSpace.before.unit)" v-model="textSpace.before.value">
+        <select v-model="textSpace.before.unit">
           <optgroup label="Relative">
             <option value="em" selected>Em</option>
             <option value="rem">Rem</option>
           </optgroup>
           <optgroup label="Fixe">
-            <option value="px">{{ text.spaces.before > 1 ? 'Pixels' : 'Pixel'}}</option>
+            <option value="px">{{ textSpace.before.value > 1 ? 'Pixels' : 'Pixel'}}</option>
           </optgroup>
         </select>
       </div>
      
       <div>
         <h4 class="title title--upp title--alt h5">Espace Après</h4>
-        <input type="range" :min="rangeMin(text.spaces.unit)" :max="rangeMax(text.spaces.unit)" :step="rangeStep(text.spaces.unit)" v-model="text.spaces.after">
-        <input type="number" :min="rangeMin(text.spaces.unit)" :max="rangeMax(text.spaces.unit)" :step="rangeStep(text.spaces.unit)" v-model="text.spaces.after">
-        <select v-model="text.spaces.unit">
+        <input type="range" :min="rangeMin(textSpace.after.unit)" :max="rangeMax(textSpace.after.unit)" :step="rangeStep(textSpace.after.unit)" v-model="textSpace.after.value">
+        <input type="number" :min="rangeMin(textSpace.after.unit)" :max="rangeMax(textSpace.after.unit)" :step="rangeStep(textSpace.after.unit)" v-model="textSpace.after.value">
+        <select v-model="textSpace.after.unit">
           <optgroup label="Relative">
             <option value="em" selected>Em</option>
             <option value="rem">Rem</option>
           </optgroup>
           <optgroup label="Fixe">
-            <option value="px">{{ text.spaces.after > 1 ? 'Pixels' : 'Pixel'}}</option>
+            <option value="px">{{ textSpace.after.value > 1 ? 'Pixels' : 'Pixel'}}</option>
           </optgroup>
         </select>
       </div>
@@ -74,24 +74,14 @@
 </template>
 
 <script>
+
+// VUEX
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
       firstTab: true,
-      title: {
-        spaces: {
-          before: '0.75',
-          after: '0.75',
-          unit: 'em'
-        }
-      },
-      text: {
-        spaces: {
-          before: '0.75',
-          after: '0.75',
-          unit: 'em'
-        }
-      }
     }
   },
 
@@ -141,6 +131,13 @@ export default {
           break;
       }
     }
+  },
+
+  computed: {
+    ...mapState ({
+      titleSpace: state => state.prototypesStore.prototype.typography.format.titles.spaces,
+      textSpace: state => state.prototypesStore.prototype.typography.format.texts.spaces,
+    })
   }
 
 };

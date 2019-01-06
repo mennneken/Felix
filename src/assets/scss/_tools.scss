@@ -2,11 +2,12 @@
   background-color: map-get($colors-neutral, 0);
   box-shadow: map-get($shadow, right);
   height: 100vh;
-  width: 25%;
-  position: fixed;
+
+  grid-column: 1/1;
   
   &__wrapper {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(1fr, 360px) 1fr;
     flex-direction: row;
   }
 

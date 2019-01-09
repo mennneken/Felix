@@ -7,83 +7,25 @@ import router from "@/router.js";
 const prototypesStore = {
   namespaced: true,
   state: {
-    userPrototypes: [],
-    prototype: {
-      typography: {
-        fontChoices: {
-          font_1: {
-            name: "",
-            style: "",
-            weight: 400
-          },
-          font_2: {
-            name: "",
-            style: "",
-            weight: 800
-          }
-        },
-        format: {
-          size: {
-            base: {
-              value: 16,
-              unit: "px"
-            },
-            ratio: 1.25
-          },
-          titles: {
-            line: {
-              height: 1.2,
-              length: {
-                value: 65,
-                unit: "ch"
-              }
-            },
-            spaces: {
-              before: {
-                value: 1,
-                unit: "em"
-              },
-              after: {
-                value: 1,
-                unit: "em"
-              }
-            }
-          },
-          texts: {
-            line: {
-              height: 1.2,
-              length: {
-                value: 65,
-                unit: "ch"
-              }
-            },
-            spaces: {
-              before: {
-                value: 1,
-                unit: "em"
-              },
-              after: {
-                value: 1,
-                unit: "em"
-              }
-            }
-          }
-        }
-      },
-      color: {
-        harmony: "",
-        colors: {
-          lightShade: "",
-          lightAccent: "",
-          main: "",
-          darkAccent: "",
-          darkShade: ""
-        }
-      }
-    }
+    prototypesList: [],
+    prototype: {}
   },
 
-  getters: {},
+  getters: {
+    sortPrototypesByDate: (state) => {
+      return state.prototypesList.sort(function (a, b) {
+        a = new Date(a.lastModification.seconds * 1000);
+        b = new Date(b.lastModification.seconds * 1000);
+        return a > b ? -1 : a < b ? 1 : 0;
+      });
+    },
+
+    findAPrototype: state => id => {
+      return state.prototypesList.find(
+        userPrototype => userPrototype.id === id
+      );
+    },
+  },
 
   actions: {
     // Add a new prototype to the db
@@ -169,11 +111,11 @@ const prototypesStore = {
           }
         })
         .then(docRef => {
-          commit("setPrototype", docRef.parameters);
-          router.push({ 
-            name: "Tool", 
-            params: { 
-              uid: docRef.id 
+          commit("setActualPrototype", docRef.parameters);
+          router.push({
+            name: "Tool",
+            params: {
+              uid: docRef.id
             }
           });
         })
@@ -182,9 +124,8 @@ const prototypesStore = {
         });
     },
 
-    continutePrototype: ({ state, commit }, { prototypeId }) => {
-      commit("setPrototype", state.userPrototypes.find(userPrototype => userPrototype.id === prototypeId));
-      router.push({ name: "Tool", params: { uid: prototypeId } });
+    continutePrototype: ({ commit, getters }, { prototypeId }) => {
+      commit("setActualPrototype", getters.findAPrototype(prototypeId));
     },
 
     // Rename a prototype
@@ -264,33 +205,49 @@ const prototypesStore = {
 
     // Get all the user's prototypes
     getPrototypes: ({ commit }, { uid }) => {
+      
       fb.usersCollection
-        .doc(uid)
-        .collection("prototypes")
-        .onSnapshot(querySnapshot => {
-          let prototypes = [];
-          querySnapshot.forEach(doc => {
-            prototypes.push({
+      .doc(uid)
+      .collection("prototypes")
+      .onSnapshot(querySnapshot => {
+        commit("clearPrototypeList");
+        
+        querySnapshot.forEach(doc => {
+          commit("addPrototypeToList", {
               id: doc.id,
               name: doc.data().name,
               lastModification: doc.data().lastModification,
               prototype: doc.data().parameters
             });
           });
-          commit("setPrototypes", prototypes);
         });
     }
   },
 
   mutations: {
+    // Clear all Prototype
+    clearPrototypeList(state) {
+      state.prototypesList = [];
+    },
+
+    // Add a prototype to the list of prototypes
+    addPrototypeToList(state, prototype) {
+      state.prototypesList.push(prototype);
+    },
+
     // Set all the user prototypes
-    setPrototypes(state, data) {
-      state.userPrototypes = data;
+    setAllPrototypes(state, data) {
+      state.prototypesList = data;
     },
 
     // Set the prototype parameters
-    setPrototype(state, data) {
-      state.prototype = data;
+    setActualPrototype(state, data) {
+      state.prototype = new Object(data);
+      // let pro = state.prototype
+      // pro.name = data.name;
+      // pro.id = date.id;
+      // pro.lastModification = data.lastModification;
+      // pro.parameters = data.parameters;
     }
   }
 };

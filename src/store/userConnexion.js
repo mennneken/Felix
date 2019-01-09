@@ -26,7 +26,7 @@ const userConnexion = {
     clearData({ commit }) {
       commit("setCurrentUser", null);
       commit("setUserProfile", {});
-      commit("prototypesStore/setPrototypes", [], { root: true });
+      commit("prototypesStore/setAllPrototypes", [], { root: true });
     },
 
     fetchUserProfile({ dispatch, commit, state }) {

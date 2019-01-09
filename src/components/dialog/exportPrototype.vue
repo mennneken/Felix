@@ -34,7 +34,6 @@ export default {
   
   methods: {
     closeDialog() {
-      this.prototype.name = "";
       this.$emit('closeDialog');
     }
   },

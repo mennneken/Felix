@@ -1,3 +1,5 @@
+button,
+button.btn,
 .btn {
   border: none;
   display: flex;
@@ -207,4 +209,40 @@
       }
     }
   }
+
+  &--card {
+    box-sizing: border-box;
+    width: 100%;
+    padding: rem(10) rem(5);
+    background-color: transparent;
+    border: solid rem(2) map-get($colors-neutral, 200);
+
+    height: rem(50);
+
+    &:hover {
+      border-color: map-get($colors-neutral, 400);
+    }
+
+    &:active,
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &--tab {
+    border-radius: none;
+    background-color: transparent;
+    color: map-get($colors-main, 200);
+
+    &:hover,
+    &:active,
+    &:focus {
+      outline: none;
+    }
+    
+    &-active {
+      color: map-get($colors-main, 500);
+    }
+  }
+
 }

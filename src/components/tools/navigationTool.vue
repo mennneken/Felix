@@ -18,6 +18,7 @@
 </template>
 
 <script>
+// COMPONENTS
 import svgIcon from "@/components/svgIcon";
 
 export default {
@@ -26,16 +27,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  ul {
-    list-style: none;
-    padding-left: 0;
-    display: flex;
-    flex-direction: row;
-  }
-
-  li:not(:last-child) {
-    margin-right: 1em;
-  }
-</style>

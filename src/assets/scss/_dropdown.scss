@@ -53,8 +53,10 @@ ul li > button:active + ul.dropdown--active {
     padding: rem(10) rem(20) rem(10) rem(15);
     transition: background-color .6s map-get($transition, easeOutQuint);
 
+    border-radius: 0;
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
     align-items: center;
 
     & svg {

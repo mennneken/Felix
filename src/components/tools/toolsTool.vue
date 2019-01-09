@@ -1,6 +1,5 @@
 <template>
-  <section class="tools">
-    <f-nav></f-nav>
+  <section class="tools__tools">
     <nav>
       <ul class="navigation navigation--secondary">
         <li>
@@ -10,7 +9,6 @@
           </button>
         </li>
 
-        <!-- <li v-show="fontChoices"> -->
         <li v-show="fontChoices">
           <button class="btn btn--icon-label" @click="switchTo('comp')">
             <svg-icon :name="'comp'"></svg-icon>
@@ -28,13 +26,13 @@
     </nav>
     
     <div class="tools__content">
-      <typo-choice v-show="display === 'typo'"></typo-choice>
-      <typo-size v-show="display === 'typo'"></typo-size>
-      <typo-comp v-show="display === 'comp'"></typo-comp>
-      <typo-format v-show="display === 'format'"></typo-format>
-      <typo-spaces v-show="display === 'format'"></typo-spaces>
-      <color-palette v-show="display === 'color'"></color-palette>
-      <colot-adjust v-show="display === 'color'"></colot-adjust>
+      <typo-choice v-if="display === 'typo'"></typo-choice>
+      <typo-size v-if="display === 'typo'"></typo-size>
+      <typo-comp v-if="display === 'comp'"></typo-comp>
+      <typo-format v-if="display === 'format'"></typo-format>
+      <typo-spaces v-if="display === 'format'"></typo-spaces>
+      <color-palette v-if="display === 'color'"></color-palette>
+      <colot-adjust v-if="display === 'color'"></colot-adjust>
     </div>
   </section>
 </template>
@@ -85,13 +83,13 @@ export default {
     fontChoices:  state => state.prototypesStore.prototype.prototype.typography.fontChoices,
     fontSize:     state => state.prototypesStore.prototype.prototype.typography.format.size,
     
-    // twoFontChoice() {
-    //   if (this.fontChoices.font_1.name && this.fontChoices.font_2.name) {
-    //     return true
-    //   } else {
-    //     return false
-    //   }
-    // },
+    twoFontChoice() {
+      if (this.fontChoices.font_1.name && this.fontChoices.font_2.name) {
+        return true
+      } else {
+        return false
+      }
+    },
   }),
 
 };

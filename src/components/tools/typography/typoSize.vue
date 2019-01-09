@@ -1,7 +1,8 @@
 <template>
-  <section>
+  <section class="tools__tool">
     <h3 class="title title--upp h5">Taille Modulaire</h3>
-    <div>
+    
+    <div class="tools__elem">
       <h4 class="title title--upp title--alt h5">Taille de Base</h4>
       <input
         type="range"
@@ -27,7 +28,7 @@
         </optgroup>
       </select>
     </div>
-    <div>
+    <div class="tools__elem">
       <h4 class="title title--upp title--alt h5">Ratio de Multiplication</h4>
       <select v-model="fontSize.ratio">
         <option value="1.067">1.067</option>

@@ -1,5 +1,5 @@
 <template>
-  <div id="preview">
+  <div class="tools__preview">
     <h1 
     :style="[
       styleTitle,

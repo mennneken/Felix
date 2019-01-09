@@ -1,10 +1,11 @@
 <template>
-  <li class="card" @click="callPrototyping()">
+  <li class="card" >
     <div class="card__header"></div>
-    <div class="card__content">
+    <div class="card__content" @click="callPrototyping()">
       <p class="card__name title">{{ prototype.name || 'Sans Titre'}}</p>
       <p class="card__date h5">{{ dateOfModification }}</p>
-      <ul class="not-a-list">
+      
+      <ul class="not-a-list" @click.stop>
         <li>
           <button class="btn btn--icon">
             <svg-icon :name="'more'"></svg-icon>
@@ -62,9 +63,13 @@ export default {
   },
 
   methods: {
+    showDropdown() {}, 
+
+
     // Open a prototype
     callPrototyping() {
       this.$store.dispatch('prototypesStore/continutePrototype', { prototypeId: this.prototype.id})
+      this.$router.push({ name: "Tool", params: { uid: this.prototype.id } });
     },
 
     // Open the corresponding dialog

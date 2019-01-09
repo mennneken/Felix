@@ -1,17 +1,25 @@
 <template>
-  <section>
+  <section class="tools__tool">
     <h3 class="title title--upp h5">Format de ligne</h3>
 
-    <div class="action">
-      <button @click="firstTab = true" class="btn" :class="{ active: firstTab}">Titres</button>
-      <button @click="firstTab = false" class="btn" :class="{ active: !firstTab}">Textes</button>
+    <div class="tools__tab">
+      <button
+        @click="titleTab = true"
+        class="tools__tab-elem btn btn--tab"
+        :class="{ 'btn--tab-active': titleTab}"
+      >Titres</button>
+      <button
+        @click="titleTab = false"
+        class="tools__tab-elem btn btn--tab"
+        :class="{ 'btn--tab-active': !titleTab}"
+      >Textes</button>
     </div>
 
+    <div class="tools__elem">
+      <h4 class="title title--upp title--alt h5">Longueur de ligne</h4>
 
-    <!-- Titles -->
-    <div v-show="firstTab">
-      <div>
-        <h4 class="title title--upp title--alt h5">Longueur de ligne</h4>
+      <!-- Titles -->
+      <div v-show="titleTab">
         <input
           type="range"
           :min="rangeMin(title.line.length.unit)"
@@ -29,7 +37,10 @@
         <select v-model="title.line.length.unit">
           <optgroup label="Relative">
             <option value="em">Em</option>
-            <option value="ch" selected>{{ title.line.length.value > 1 ? 'Characters' : 'Character'}}</option>
+            <option
+              value="ch"
+              selected
+            >{{ title.line.length.value > 1 ? 'Characters' : 'Character'}}</option>
           </optgroup>
           <optgroup label="Fixe">
             <option value="rem">Rem</option>
@@ -37,18 +48,9 @@
           </optgroup>
         </select>
       </div>
-      <div>
-        <h4 class="title title--upp title--alt h5">Hauteur de ligne</h4>
-        <input type="range" min="1.2" max="1.45" step="0.01" v-model="title.line.height">
-        <input type="number" min="1.2" max="1.45" step="0.01" v-model.number="title.line.height">
-      </div>
-    </div>
 
-    <!-- Texts -->
-    <div v-show="!firstTab">
-      <div>
-        <h4 class="title title--upp title--alt h5">Longueur de ligne</h4>
-
+      <!-- Texts -->
+      <div v-show="!titleTab">
         <!-- Set the value  of the line width -->
         <input
           type="range"
@@ -76,8 +78,20 @@
           </optgroup>
         </select>
       </div>
-      <div>
-        <h4 class="title title--upp title--alt h5">Hauteur de ligne</h4>
+    </div>
+    
+    
+    <div class="tools__elem">
+      <h4 class="title title--upp title--alt h5">Hauteur de ligne</h4>
+
+      <!-- Titles -->
+      <div v-show="titleTab">
+        <input type="range" min="1.2" max="1.45" step="0.01" v-model="title.line.height">
+        <input type="number" min="1.2" max="1.45" step="0.01" v-model.number="title.line.height">
+      </div>
+      
+      <!-- Texts -->
+      <div v-show="!titleTab">
         <input type="range" min="1.2" max="1.45" step="0.05" v-model="text.line.height">
         <input type="number" min="1.2" max="1.45" step="0.01" v-model.number="text.line.height">
       </div>
@@ -86,21 +100,22 @@
 </template>
 
 <script>
-
 // VUEX
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
 export default {
   data() {
     return {
       // Flag for toggling the "tabs".
-      firstTab: true
+      titleTab: true
     };
   },
 
   computed: mapState({
-    title:  state => state.prototypesStore.prototype.prototype.typography.format.titles,
-    text:   state => state.prototypesStore.prototype.prototype.typography.format.texts,
+    title: state =>
+      state.prototypesStore.prototype.prototype.typography.format.titles,
+    text: state =>
+      state.prototypesStore.prototype.prototype.typography.format.texts
   }),
 
   methods: {
@@ -164,34 +179,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.action {
-  display: flex;
-}
-
-.btn {
-  background-color: transparent;
-  box-sizing: border-box;
-  margin-bottom: 20px;
-  width: 100%;
-  padding: 10px 0;
-  border-bottom: 3px solid transparent;
-  &.active {
-    color: orange;
-    border-bottom: 3px solid orange;
-
-    &:active,
-    &:hover,
-    &:focus {
-      outline: none;
-      outline-color: none;
-      outline-width: 0;
-    }
-  }
-}
-
-*:focus {
-  outline: none;
-}
-</style>

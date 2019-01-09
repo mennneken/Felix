@@ -1,19 +1,55 @@
 .tools {
-  background-color: map-get($colors-neutral, 0);
-  box-shadow: map-get($shadow, right);
-  height: 100vh;
-
-  grid-column: 1/1;
+  display: grid;
+  grid-template-columns: minmax(max-content, rem(360)) minmax(rem(360), 1fr);
+  grid-template-areas:
+  "side-bar preview"
+  "side-bar preview"; 
+  flex-direction: row;
   
-  &__wrapper {
-    display: grid;
-    grid-template-columns: minmax(1fr, 360px) 1fr;
-    flex-direction: row;
+  
+  &__side-bar {
+    grid-area: side-bar;
+    background-color: map-get($colors-neutral, 0);
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    box-shadow: map-get($shadow, right);
   }
 
-  &__content {
-    height: 100%;
+  &__preview {
+    width: 100%;
+    padding: rem(40) rem(30);
+    grid-column: 2/2;
+    grid-area: preview;
+  }
+
+  &__tab {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: rem(10);
+
+    &-elem {
+      width: 100%;
+    }
+  }
+
+  &__tool {
+    margin-top: rem(20);
     padding: 0 rem(10);
     overflow-y: scroll;
+    
+    &:not(:first-child) {
+      margin-top: rem(60);
+    }
   }
+
+  &__elem {
+    margin-top: rem(15);
+  }
+
+  &__elem + &__elem {
+    margin-top: rem(20);
+  }
+
+  
 }

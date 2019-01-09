@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="tools__tool">
     <h3 class="title title--upp h5">Comparaison de Fonts</h3>
     <div class="comp">
       <div class="letter letter--1">

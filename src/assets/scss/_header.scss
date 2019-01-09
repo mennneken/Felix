@@ -1,4 +1,16 @@
 header,
 .header {
   background-color: #fff;
+  height: rem(60);
+  display: flex;
+  align-items: center;
 }
+
+// #dashboard header.navigation--main {
+// }
+
+// #tools header.navigation--main {
+//   box-shadow: map-get($shadow, right);
+//   z-index: 10;
+//   grid-area: nav;
+// }

@@ -38,22 +38,29 @@
   </header>
 
   <header class="navigation navigation--main" v-else-if="$route.name === 'Tool'">
-    <router-link to="/dashboard" tag="a" class="logo logo--brand">
-      <svg-icon :name="'brand'"></svg-icon>
-    </router-link>
-    <h1>{{ $route.params.prototypeName }}</h1>
-
-    <nav class="navigation__nav">
-      <ul>
-        <li></li>
-      </ul>
-    </nav>
+    <div class="container navigation__container">
+      <router-link to="/dashboard" tag="a" class="logo logo--brand">
+        <svg-icon :name="'brand'"></svg-icon>
+      </router-link>
+      <h1>{{ prototypeName }}</h1>
+      <nav class="navigation__nav">
+        <ul>
+          <li></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 </template>
 
 <script>
+// FIREBASE
 const fb = require("../firebaseConfig.js");
+
+// COMPONENTS
 import svgIcon from "@/components/svgIcon.vue";
+
+// VUEX
+import { mapState } from "vuex";
 
 export default {
   components: {
@@ -92,7 +99,10 @@ export default {
     },
     userIsAnonyme() {
       return this.$store.state.userConnexion.currentUser.isAnonymous;
-    }
+    },
+    ...mapState({
+      prototypeName: state => state.prototypesStore.prototype.name
+    })
   }
 };
 </script>

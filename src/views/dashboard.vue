@@ -13,7 +13,7 @@
         </li> -->
 
         <prototype-card
-          v-for="prototype in prototypes"
+          v-for="prototype in prototypesByDate"
           :key="prototype.id"
           :prototype="prototype"
           @callDialog="enableDialog($event)"
@@ -32,25 +32,24 @@
 </template>
 
 <script>
-
 // COMPONENTS
-import fNav from "@/components/navigation";
 import svgIcon from "@/components/svgIcon.vue";
 import prototypeCard from "@/components/prototypeCard.vue";
 import fDialog from "@/components/dialog/dialog.vue";
+import fNav from "@/components/navigation";
 
 // STORE
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 // FIREBASE
 const fb = require("../firebaseConfig.js");
 
 export default {
   components: {
-    fNav,
     svgIcon,
     prototypeCard,
-    fDialog
+    fDialog,
+    fNav
   },
 
   data() {
@@ -83,15 +82,21 @@ export default {
     },
   },
 
-  computed: mapState({
-    userConnexion: state => state.userConnexion,
-    showLogin: state => state.userConnexion.wantToLogin,
-    userConnected: state => state.userConnexion.currentUser,
-    userUid: state => state.userConnexion.currentUser.uid,
-    userIsAnonyme: state => state.userConnexion.currentUser.isAnonymous,
-    prototypes: state => state.prototypesStore.userPrototypes,
-    dialog: state => state.dialogStore.dialog,
-  })
+  computed:{
+
+    ...mapGetters({
+      prototypesByDate: 'prototypesStore/sortPrototypesByDate'
+    }),
+    ...mapState({
+      userConnexion: state => state.userConnexion,
+      showLogin: state => state.userConnexion.wantToLogin,
+      userConnected: state => state.userConnexion.currentUser,
+      userUid: state => state.userConnexion.currentUser.uid,
+      userIsAnonyme: state => state.userConnexion.currentUser.isAnonymous,
+      prototypes: state => state.prototypesStore.prototypesList,
+      dialog: state => state.dialogStore.dialog,
+    })
+  }
 
   // updated() {
   //   this.$store.dispatch("prototypesStore/getPrototypes", {

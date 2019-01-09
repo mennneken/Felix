@@ -39,12 +39,9 @@ nav > ul {
   }
 
   .logo {
-    height: 100%;
     width: rem(40);
     height: rem(40);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: rem(7.5);
     cursor: pointer;
   }
 

@@ -1,4 +1,3 @@
-button,
 button.btn,
 .btn {
   border: none;
@@ -29,9 +28,25 @@ button.btn,
   }
 
   &--outline {
-    box-shadow: 0 0 0 rem(2) map-get($colors-main, 400) inset;
+    box-sizing: border-box;
+
+    // box-shadow: 0 0 0 rem(2) map-get($colors-main, 400) inset;
     background-color: transparent;
     color: map-get($colors-main, 400);
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      z-index: -1;
+      background-color: transparent;
+      width: 50%;
+      height: 50%;
+      border-radius: $br;
+      transition: .3s map-get($transition, easeInOutQuart);
+      transition-property: width, height, background-color, color, box-shadow;
+    }
   }
 
   &--main-action {
@@ -51,7 +66,8 @@ button.btn,
       transition: transform 300ms map-get($transition, easeInOutCubic);
     }
 
-    &:hover {
+    &:hover,
+    &:focus {
       background-color: map-get($colors-main, 700);
 
       box-shadow: map-get($shadow-soft, down);
@@ -67,8 +83,7 @@ button.btn,
       outline: none;
     }
 
-    &:active,
-    &:focus {
+    &:active {
       background-color: map-get($colors-main, 900);
     }
   }
@@ -96,16 +111,8 @@ button.btn,
     }
 
     &:hover {
-      color: map-get($colors-main, 400);
-    }
-
-    &:focus {
-      outline: none;
-    }
-
-    &:active,
-    &:focus {
-      color: map-get($colors-main, 600);
+      color: map-get($colors-main, 700);
+      
       &::before {
         height: 100%;
         width: 100%;
@@ -114,12 +121,22 @@ button.btn,
       }
     }
 
-    &:active::before {
-      transition-duration: 0.1s;
+    &:active,
+    &:focus {
+      outline: none;
     }
 
-    &:focus::before {
-      transition-duration: 0.3s;
+    &:active {
+      color: map-get($colors-main, 900);
+      &::before {
+        transition-duration: 0.1s;
+      }
+    }
+
+    &:focus {
+      &::before {
+        transition-duration: 0.3s;
+      }
     }
   }
 
@@ -145,11 +162,14 @@ button.btn,
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: -1;
-      transition: 300ms ease-out;
+      transition: .3s map-get($transition, easeInOutQuart);
+      transition-property: width, height, background-color;
       width: rem(15);
       height: rem(15);
       border-radius: 50%;
       background-color: transparent;
+
+      transform-origin: center;
     }
 
     &:hover,
@@ -244,5 +264,68 @@ button.btn,
       color: map-get($colors-main, 500);
     }
   }
+}
 
+.dialog--alert {
+  & .btn {
+    &--outline,
+    &--invisible {
+      color: map-get($colors-alert, 500);
+    }
+
+    &--outline {
+      position: relative;
+
+      &:hover,
+      &:focus {
+        box-shadow: 0 0 0 0 map-get($colors-alert, 700) inset;
+        color: #fff;
+
+        &::before {
+          box-shadow: 0 0 1em 1em map-get($colors-alert, 700);
+          background-color: map-get($colors-alert, 700);
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      &:active {
+        background-color: map-get($colors-alert, 900);
+        outline: none;
+      }
+    }
+
+    &--invisible {
+      
+
+      &:hover,
+      &:focus {
+        color: map-get($colors-alert, 700);
+        &::before {
+          background-color: map-get($colors-alert, 100);
+        }
+      }
+
+      &:active{
+        color: map-get($colors-alert, 900);
+        &::before {
+          background-color: map-get($colors-alert, 200);
+        }
+      } 
+    }
+
+    &--plain {
+      background-color: map-get($colors-alert, 500);
+
+      &:hover,
+      &:focus {
+        background-color: map-get($colors-alert, 700);
+      }
+
+      &:active {
+        background-color: map-get($colors-alert, 900);
+        outline: none;
+      }
+    }
+  }
 }

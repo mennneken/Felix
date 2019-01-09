@@ -17,17 +17,8 @@
 
   &--alert {
 
-    .title,
-    .btn--outline {
+    .title {
       color: map-get($colors-alert, 900);
-    }
-
-    .btn--plain {
-      background-color: map-get($colors-alert, 900);
-    }
-
-    .btn--outline {
-      box-shadow: 0 0 0 rem(2) map-get($colors-alert, 900) inset;
     }
   }
 

@@ -2,6 +2,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+// PLUGIN
+import VuexPersist from "vuex-persist";
+
 // MODULES
 import userConnexion from "./store/userConnexion";
 import prototypesStore from "./store/prototypesStore";
@@ -20,10 +23,19 @@ fb.auth.onAuthStateChanged(user => {
   }
 });
 
+const vuexLocalStorage = new VuexPersist({
+  key: "vuex",
+  storage: window.localStorage,
+  reducer: state => ({
+    prototypesStore: state.prototypesStore
+  })
+});
+
 export const store = new Vuex.Store({
   modules: {
     userConnexion,
     prototypesStore,
     dialogStore
-  }
+  },
+  plugins: [vuexLocalStorage.plugin]
 });

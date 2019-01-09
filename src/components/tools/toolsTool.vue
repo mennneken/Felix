@@ -92,5 +92,12 @@ export default {
     },
   }),
 
+  // beforeMount() {
+  //   if (!this.$store.state.prototypesStore.prototype.prototype) {
+
+  //     console.log(this.store.state.prototype)
+  //     // this.store.commit('prototypesStore/setActualPrototype', )
+  //   }
+  // }
 };
 </script>

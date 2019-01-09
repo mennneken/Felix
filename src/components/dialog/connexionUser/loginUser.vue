@@ -1,5 +1,5 @@
 <template>
-  <div class="dialog">
+  <div class="dialog" @keyup.enter="login()" @keyup.esc="closeDialog()">
     <div class="dialog__header">
       <h1 class="title p title--upp title--alt dialog__title">Se Connecter</h1>
       <button @click="closeDialog()" class="dialog__close btn btn--icon">

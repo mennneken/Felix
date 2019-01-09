@@ -1,38 +1,42 @@
 <template>
-  <li class="card" >
+  <li class="card">
     <div class="card__header"></div>
     <div class="card__content" @click="callPrototyping()">
       <p class="card__name title">{{ prototype.name || 'Sans Titre'}}</p>
       <p class="card__date h5">{{ dateOfModification }}</p>
-      
-      <ul class="not-a-list" @click.stop>
+
+      <ul class="not-a-list">
         <li>
-          <button class="btn btn--icon">
+          <button class="btn btn--icon"  @click.stop="dropdownActive = !dropdownActive">
             <svg-icon :name="'more'"></svg-icon>
           </button>
-          <ul class="not-a-list dropdown dropdown--active">
+          <ul
+            class="not-a-list dropdown dropdown--active"
+            :class="{ 'dropdown--open': dropdownActive }"
+            v-click-outside="isDropdownActive"
+          >
             <li class="dropdown__elem">
-              <button @click="callDialog('rename-prototype', prototype)">
+              <button @click.stop="callDialog('rename-prototype', prototype)">
                 <svg-icon :name="'edit'"></svg-icon>Renommer
               </button>
             </li>
             <li class="dropdown__elem">
-              <button @click="duplicatePrototype()">
+              <button @click.stop="duplicatePrototype()">
                 <svg-icon :name="'duplicate'"></svg-icon>Dupliquer
               </button>
             </li>
             <li class="dropdown__elem">
-              <button @click="callDialog('share-prototype', prototype)">
+              <button @click.stop="callDialog('share-prototype', prototype)">
                 <svg-icon :name="'share'"></svg-icon>Partager
               </button>
             </li>
             <li class="dropdown__elem">
-              <button @click="callDialog('export-prototype', prototype)">
+              <button @click.stop="callDialog('export-prototype', prototype)">
                 <svg-icon :name="'export'"></svg-icon>Exporter
               </button>
             </li>
             <li class="dropdown__elem">
-              <button @click="callDialog('delete-prototype', prototype)">
+              <button @click.stop="callDialog('delete-prototype', prototype)">
                 <svg-icon :name="'delete'"></svg-icon>Supprimer
               </button>
             </li>
@@ -51,11 +55,16 @@ import svgIcon from "@/components/svgIcon.vue";
 import { mapState } from "vuex";
 
 // JS PLUGIN
-const moment = require('moment');
+const moment = require("moment");
 
 export default {
   components: {
     svgIcon
+  },
+  data() {
+    return {
+      dropdownActive: false
+    };
   },
 
   props: {
@@ -63,12 +72,16 @@ export default {
   },
 
   methods: {
-    showDropdown() {}, 
-
+    isDropdownActive: function() {
+      console.log('click outside')
+      this.dropdownActive = false;
+    },
 
     // Open a prototype
     callPrototyping() {
-      this.$store.dispatch('prototypesStore/continutePrototype', { prototypeId: this.prototype.id})
+      this.$store.dispatch("prototypesStore/continutePrototype", {
+        prototypeId: this.prototype.id
+      });
       this.$router.push({ name: "Tool", params: { uid: this.prototype.id } });
     },
 
@@ -90,20 +103,22 @@ export default {
       this.dropdownEnable = false;
     },
 
-
     // Duplicate Element
     duplicatePrototype() {
-      this.$store.dispatch('prototypesStore/duplicatePrototype', {
+      this.$store.dispatch("prototypesStore/duplicatePrototype", {
         uid: this.uid,
-        id: this.prototype.id,
-      })
+        id: this.prototype.id
+      });
     }
   },
 
   computed: {
     dateOfModification() {
       let timeOfMod = moment.unix(this.prototype.lastModification.seconds);
-      return moment(timeOfMod).locale('fr').startOf().fromNow();
+      return moment(timeOfMod)
+        .locale("fr")
+        .startOf()
+        .fromNow();
     },
 
     ...mapState({

@@ -1,0 +1,79 @@
+.about {
+  
+  header {
+    min-height: 100vh;
+    background-image: url('/assets/images/header_working-together@1x.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    color: #fff;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+
+    padding-bottom: rem(80);
+
+    .logo {
+      height: rem(250);
+      margin-bottom: rem(40);
+    }
+
+    h1 {
+      text-align: center;
+      width: 100%;
+      font-size: map-get($fz, h0);
+      max-width: 25ch;
+      text-shadow: 0 0 .75em rgba(0, 0, 0, 0.2);
+      margin: 0;
+    }
+  }
+
+  main {
+    background-image: linear-gradient( 0.49turn, map-get($colors-main, 100), map-get($colors-main, 900));
+    padding: rem(80) rem(30);
+    box-sizing: border-box;
+    
+    
+
+    section {
+      display: grid;
+      max-width: rem(1410);
+      margin: 0 auto;
+      grid-template-columns: repeat(auto-fill, minmax(rem(97), 1fr));
+      grid-gap: 0 rem(30);
+      grid-auto-flow: row;
+      padding: rem(80) 0;
+      background-repeat: no-repeat;
+      background-position: 90% center;
+      
+      & > h2, & > p {
+        margin: 0;
+        grid-column: 2 / span	3;
+      }
+      
+      & > p {
+        margin-top: 1em;
+      }
+      
+      &:first-child {
+        background-image: url('/assets/images/illu_1.png');
+      }
+      
+      &:nth-child(2) {
+        background-image: url('/assets/images/illu_2.png');
+        background-position: 10% 0;
+
+        & > h2, & > p {
+          grid-column: -5 / span	3;
+        }
+      }
+      
+      &:nth-child(3) {
+        background-image: url('/assets/images/illu_3.png');
+      }
+    }
+  }
+}

@@ -32,11 +32,3 @@ export default {
   }
 };
 </script>
-
-<style>
-  .svg-icon {
-    fill: currentColor;
-    height: 25px;
-    width: 25px;
-  }
-</style>

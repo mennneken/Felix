@@ -5,7 +5,10 @@
   "side-bar preview"
   "side-bar preview"; 
   flex-direction: row;
-  
+
+  &__label {
+    margin-bottom: rem(5);
+  }
   
   &__side-bar {
     grid-area: side-bar;
@@ -16,11 +19,14 @@
     box-shadow: map-get($shadow, right);
   }
 
+  &__font-list,
+  &__preview {
+    grid-area: preview;
+  }
+
   &__preview {
     width: 100%;
     padding: rem(40) rem(30);
-    grid-column: 2/2;
-    grid-area: preview;
   }
 
   &__tab {

@@ -2,8 +2,8 @@
   <li class="card">
     <div class="card__header"></div>
     <div class="card__content" @click="callPrototyping()">
-      <p class="card__name title">{{ prototype.name || 'Sans Titre'}}</p>
-      <p class="card__date h5">{{ dateOfModification }}</p>
+      <h2 class="card__name title title--m0 h4">{{ prototype.name || 'Sans Titre'}}</h2>
+      <p class="card__date p">{{ dateOfModification }}</p>
 
       <ul class="not-a-list">
         <li>
@@ -73,7 +73,6 @@ export default {
 
   methods: {
     isDropdownActive: function() {
-      console.log('click outside')
       this.dropdownActive = false;
     },
 
@@ -127,4 +126,3 @@ export default {
   }
 };
 </script>
-

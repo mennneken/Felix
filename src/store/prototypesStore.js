@@ -12,8 +12,8 @@ const prototypesStore = {
   },
 
   getters: {
-    sortPrototypesByDate: (state) => {
-      return state.prototypesList.sort(function (a, b) {
+    sortPrototypesByDate: state => {
+      return state.prototypesList.sort(function(a, b) {
         a = new Date(a.lastModification.seconds * 1000);
         b = new Date(b.lastModification.seconds * 1000);
         return a > b ? -1 : a < b ? 1 : 0;
@@ -24,7 +24,7 @@ const prototypesStore = {
       return state.prototypesList.find(
         userPrototype => userPrototype.id === id
       );
-    },
+    }
   },
 
   actions: {
@@ -205,15 +205,14 @@ const prototypesStore = {
 
     // Get all the user's prototypes
     getPrototypes: ({ commit }, { uid }) => {
-      
       fb.usersCollection
-      .doc(uid)
-      .collection("prototypes")
-      .onSnapshot(querySnapshot => {
-        commit("clearPrototypeList");
-        
-        querySnapshot.forEach(doc => {
-          commit("addPrototypeToList", {
+        .doc(uid)
+        .collection("prototypes")
+        .onSnapshot(querySnapshot => {
+          commit("clearPrototypeList");
+
+          querySnapshot.forEach(doc => {
+            commit("addPrototypeToList", {
               id: doc.id,
               name: doc.data().name,
               lastModification: doc.data().lastModification,
@@ -221,6 +220,11 @@ const prototypesStore = {
             });
           });
         });
+    },
+
+    // set the font
+    setFontPrincipal({ commit }, fontFamily) {
+      commit('setFont_1', fontFamily);
     }
   },
 
@@ -248,6 +252,10 @@ const prototypesStore = {
       // pro.id = date.id;
       // pro.lastModification = data.lastModification;
       // pro.parameters = data.parameters;
+    },
+
+    setFont_1(state, fontFamily) {
+      state.prototype.prototype.typography.fontChoices.font_1.name = fontFamily;
     }
   }
 };

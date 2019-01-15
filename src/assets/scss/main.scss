@@ -1,7 +1,13 @@
 @import "_fonts","_function", "_variables";
 
+@import "_header", "_navigation", "_user", "_dashboard", "_button", "_svg", "_input", "_tools", "_dropdown", "_login", "_form", "_card", "_dialog", "_about", "_font-list";
+
 *, *::after, *::before {
   box-sizing: border-box;
+}
+
+*::selection {
+  background-color: map-get($colors-main, 200);
 }
 
 body {
@@ -68,21 +74,29 @@ h6, .h6 {
 
 .title {
 
-  &.h1, &.h2, &.h3, &.h4 {
-    margin-top: 0;
-    margin-bottom: rem(20);
-  }
+  // &.h1, &.h2, &.h3, &.h4 {
+  //   margin-top: 0;
+  //   margin-bottom: rem(20);
+  // }
 
-  &.p, &.h5, &.h6 {
-    margin-top: 0;
-    margin-bottom: rem(10);
-  }
+  // &.p, &.h5, &.h6 {
+  //   margin-top: 0;
+  //   margin-bottom: rem(10);
+  // }
+  
+  &.h1, &.h2, &.h3, &.h4, &.p, &.h5, &.h6 {
+    margin: 0;
+  } 
 
   &--upp {
     text-transform: uppercase;
   }
+  
   &--alt {
     color: map-get($colors-main, 500);
+    &::selection {
+      color: map-get($colors-secondary, 500);
+    }
   }
 }
 
@@ -92,8 +106,7 @@ h6, .h6 {
 
 ul.not-a-list {
   padding-left: 0;
-  margin: 0;
+  margin-top: initial;
+  margin-bottom: initial;
   list-style: none;
 }
-
-@import "_header", "_navigation", "_user", "_dashboard", "_button", "_input", "_tools", "_dropdown", "_login", "_form", "_card", "_dialog";

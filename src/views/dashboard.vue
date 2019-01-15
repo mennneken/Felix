@@ -105,13 +105,3 @@ export default {
   // }
 };
 </script>
-
-<style lang="scss" scoped>
-  .box {
-    width: 50vw;
-    height: 100px;
-    margin: 0 auto;
-    border: 1px solid black;
-  }
-</style>
-

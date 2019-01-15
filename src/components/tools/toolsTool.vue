@@ -74,6 +74,7 @@ export default {
   },
 
   methods: {
+    // Navigation switch to targeted tool
     switchTo(target) {
       this.display = target;
     }

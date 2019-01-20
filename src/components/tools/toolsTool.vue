@@ -3,36 +3,60 @@
     <nav>
       <ul class="navigation navigation--secondary">
         <li>
-          <button class="btn btn--icon-label" @click="switchTo('typo')">
+          <button
+            class="btn btn--icon-label"
+            :class="{ 'btn--active': toolsDisplayed === 'typo' }"
+            @click="switchTo('typo')"
+          >
             <svg-icon :name="'typo'"></svg-icon>
-            <span>TYPO</span>
+            <span class="title title--upp">CHOIX TYPOGRAPHIQUE</span>
           </button>
         </li>
 
         <li v-show="fontChoices">
-          <button class="btn btn--icon-label" @click="switchTo('comp')">
+          <button
+            class="btn btn--icon-label"
+            :class="{ 'btn--active': toolsDisplayed === 'comp' }"
+            @click="switchTo('comp')"
+          >
             <svg-icon :name="'comp'"></svg-icon>
-            <span>COMPARAISON</span>
+            <span class="title title--upp">COMPARATEUR FONT</span>
           </button>
         </li>
 
         <li>
-          <button class="btn btn--icon-label" @click="switchTo('format')">
+          <button
+            class="btn btn--icon-label"
+            :class="{ 'btn--active': toolsDisplayed === 'format' }"
+            @click="switchTo('format')"
+          >
             <svg-icon :name="'format'"></svg-icon>
-            <span>FORMAT</span>
+            <span class="title title--upp">MISE EN FORME</span>
+          </button>
+        </li>
+
+        <li>
+          <button
+            class="btn btn--icon-label"
+            :class="{ 'btn--active': toolsDisplayed === 'color' }"
+            @click="switchTo('color')"
+          >
+            <svg-icon :name="'palette'"></svg-icon>
+            <span class="title title--upp">COULEURS</span>
           </button>
         </li>
       </ul>
     </nav>
-    
+
     <div class="tools__content">
-      <typo-choice v-if="display === 'typo'"></typo-choice>
-      <typo-size v-if="display === 'typo'"></typo-size>
-      <typo-comp v-if="display === 'comp'"></typo-comp>
-      <typo-format v-if="display === 'format'"></typo-format>
-      <typo-spaces v-if="display === 'format'"></typo-spaces>
-      <color-palette v-if="display === 'color'"></color-palette>
-      <colot-adjust v-if="display === 'color'"></colot-adjust>
+      <typo-choice v-show="toolsDisplayed === 'typo'"></typo-choice>
+      <typo-size v-show="toolsDisplayed === 'typo'"></typo-size>
+      <typo-comp v-show="toolsDisplayed === 'comp'"></typo-comp>
+      <typo-format v-show="toolsDisplayed === 'format'"></typo-format>
+      <typo-spaces v-show="toolsDisplayed === 'format'"></typo-spaces>
+      <color-palette v-show="toolsDisplayed === 'color'"></color-palette>
+      <colot-adjust v-show="toolsDisplayed === 'color'"></colot-adjust>
+      <tools-font-filter v-show="toolsDisplayed === 'fontList'"></tools-font-filter>
     </div>
   </section>
 </template>
@@ -48,6 +72,7 @@ import TypoSize from "./typography/typoSize.vue";
 import TypoSpaces from "./typography/typoSpaces.vue";
 import ColorPalette from "./colors/colorPalette.vue";
 import ColotAdjust from "./colors/colorAdjust.vue";
+import toolsFontFilter from "./font/toolsFontFilter.vue";
 import navigationTool from "./navigationTool.vue";
 
 //VUEX
@@ -64,34 +89,40 @@ export default {
     TypoSpaces,
     ColorPalette,
     ColotAdjust,
-    navigationTool
+    navigationTool,
+    toolsFontFilter
   },
 
   data() {
-    return {
-      display: 'typo',
-    }
+    return {};
   },
 
   methods: {
     // Navigation switch to targeted tool
     switchTo(target) {
-      this.display = target;
+      this.$store.dispatch("toolsStore/changeToolsDisplay", target);
     }
   },
 
   computed: mapState({
-    fontChoices:  state => state.prototypesStore.prototype.prototype.typography.fontChoices,
-    fontSize:     state => state.prototypesStore.prototype.prototype.typography.format.size,
-    
+    fontChoices: state =>
+      state.prototypesStore.prototype.prototype.typography.fontChoices,
+    fontSize: state =>
+      state.prototypesStore.prototype.prototype.typography.format.size,
+    fontListEnable: state => state.toolsStore.fontList.enable,
+    toolsDisplayed: state => state.toolsStore.toolsDisplayed,
+
     twoFontChoice() {
-      if (this.fontChoices.font_1.name && this.fontChoices.font_2.name) {
-        return true
+      if (
+        this.fontChoices.fontTitle.family &&
+        this.fontChoices.fontText.family
+      ) {
+        return true;
       } else {
-        return false
+        return false;
       }
-    },
-  }),
+    }
+  })
 
   // beforeMount() {
   //   if (!this.$store.state.prototypesStore.prototype.prototype) {

@@ -3,7 +3,10 @@
     <h1 
     :style="[
       styleTitle,
-      { fontSize: fontSizeLevel(4) }
+      { 
+        fontSize: fontSizeLevel(4),
+        marginTop: 0
+      }
     ]"
     >Renard des villes</h1>
     <p :style="styleParagraphe">Le Renard est une figure bien connue de tous, tant il est représenté dans la culture. De la poésie à la série, on lui prête bien des traits de caractère.</p>
@@ -55,6 +58,9 @@ export default {
   computed: {
     styleParagraphe() {
       return {
+        fontFamily: this.fontText.family,
+        fontWeight: this.fontText.weight,
+        fontStyle: this.fontText.style,
         fontSize: this.fontSize.base.value.toString() + this.fontSize.base.unit,
         maxWidth: this.textLine.length.value.toString() + this.textLine.length.unit,
         lineHeight: this.textLine.height,
@@ -65,6 +71,9 @@ export default {
     
     styleTitle() {
       return {
+        fontFamily: this.fontTitle.family,
+        fontWeight: this.fontTitle.weight,
+        fontStyle: this.fontTitle.style,
         maxWidth: this.titleLine.length.value.toString() + this.titleLine.length.unit,
         lineHeight: this.titleLine.height,
         marginTop: this.titleSpace.before.value.toString() + this.titleSpace.before.unit,
@@ -74,6 +83,8 @@ export default {
     
     ...mapState ({
       prototype:  state => state.prototypesStore.prototype.prototype,
+      fontTitle: state => state.prototypesStore.prototype.prototype.typography.fontChoices.fontTitle,
+      fontText: state => state.prototypesStore.prototype.prototype.typography.fontChoices.fontText,
       fontSize:   state => state.prototypesStore.prototype.prototype.typography.format.size,
       titleLine:  state => state.prototypesStore.prototype.prototype.typography.format.titles.line,
       titleSpace: state => state.prototypesStore.prototype.prototype.typography.format.titles.spaces,

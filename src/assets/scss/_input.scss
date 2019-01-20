@@ -7,14 +7,14 @@ input[type="password"] {
   border: none;
   background-color: map-get($colors-neutral, 100);
   color: #000;
-  // Set box shadow for a nice transition whit elem:focus 
+  // Set box shadow for a nice transition whit elem:focus
   box-shadow: 0 0 0 0 map-get($colors-main, 400) inset;
 
-  transition: box-shadow .3s cubic-bezier(0.68, -1.55, 0.265, 2.55);
+  transition: box-shadow 0.3s cubic-bezier(0.68, -1.55, 0.265, 2.55);
 
   &::placeholder {
     color: map-get($colors-neutral, 900);
-  }   
+  }
 
   &:focus {
     outline: none;
@@ -29,4 +29,51 @@ label + input[type="password"] {
 
 input[type="password"]::placeholder {
   letter-spacing: 0.07em;
+}
+
+input[type="checkbox"] {
+  height: 1em;
+  width: 1em;
+  padding: 0.5em;
+  margin: 0.5em;
+}
+
+select {
+  font-family: $ff-h;
+  font-size: map-get($fz, p);
+  height: rem(30);
+  box-sizing: border-box;
+
+  @include border();
+
+  &:hover {
+    border-color: map-get($colors-main, 400);
+    outline: none;
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+    border-color: map-get($colors-main, 600);
+  }
+}
+
+input[type="range"] {
+  outline-color: map-get($colors-main, 400);
+}
+
+input[type="range"] + input[type="number"] {
+  background-color: transparent;
+  font-family: $ff-h;
+  font-size: map-get($fz, p);
+  border: none;
+  text-align: center;
+  width: rem(50);
+  padding: 0;
+  margin: 0 rem(3) 0 rem(12);
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
 }

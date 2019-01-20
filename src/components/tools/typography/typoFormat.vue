@@ -1,6 +1,6 @@
 <template>
   <section class="tools__tool">
-    <h3 class="title title--upp h5">Format de ligne</h3>
+    <h3 class="title title--upp p">Format de ligne</h3>
 
     <div class="tools__tab">
       <button

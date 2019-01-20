@@ -1,13 +1,15 @@
 @import "_fonts","_function", "_variables";
 
-@import "_header", "_navigation", "_user", "_dashboard", "_button", "_svg", "_input", "_tools", "_dropdown", "_login", "_form", "_card", "_dialog", "_about", "_font-list";
-
 *, *::after, *::before {
   box-sizing: border-box;
 }
 
 *::selection {
   background-color: map-get($colors-main, 200);
+}
+
+:root {
+  font-size: 100%;
 }
 
 body {
@@ -110,3 +112,5 @@ ul.not-a-list {
   margin-bottom: initial;
   list-style: none;
 }
+
+@import "_header", "_navigation", "_user", "_dashboard", "_button", "_svg", "_input", "_tools", "_dropdown", "_login", "_form", "_card", "_dialog", "_about", "_font-list", "_font-details";

@@ -5,19 +5,19 @@ $ff-t: "Barlow", sans-serif;
 $fz: (
   h0: 3.0517578125em,
   // 39
-  h1: 2.44140625em,
+    h1: 2.44140625em,
   // 31
-  h2: 1.953125em,
+    h2: 1.953125em,
   // 25
-  h3: 1.5625em,
+    h3: 1.5625em,
   // 20
-  h4: 1.25em,
+    h4: 1.25em,
   // 16
-  p: 1em,
+    p: 1em,
   // 13
-  h5: 0.8em,
+    h5: 0.8em,
   // 10
-  h6: 0.64em,
+    h6: 0.64em
 );
 
 // Colors
@@ -46,15 +46,15 @@ $colors-secondary: (
 );
 
 $colors-alert: (
-  100: #FFC8C6,
-  200: #FFAFAC,
-  300: #FF9692,
-  400: #FF7E79,
-  500: #FF655F,
-  600: #FF4C46,
-  700: #FF342C,
-  800: #FF1B13,
-  900: #F90800
+  100: #ffc8c6,
+  200: #ffafac,
+  300: #ff9692,
+  400: #ff7e79,
+  500: #ff655f,
+  600: #ff4c46,
+  700: #ff342c,
+  800: #ff1b13,
+  900: #f90800
 );
 
 $colors-neutral: (
@@ -97,8 +97,16 @@ $shadow-hard: (
   down: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.15)
 );
 
-// BORDER-RADIUS
+// BORDER
+$bw: rem(2);
+$bs: solid;
+$bc: map-get($colors-neutral, 400);
 $br: 0.3125rem; // 5px
+
+@mixin border($bw: $bw, $bs: $bs, $bc: $bc, $br: $br) {
+  border: $bw $bs $bc;
+  border-radius: $br;
+}
 
 // TRANSITION (FROM EASING.NET)
 $transition: (

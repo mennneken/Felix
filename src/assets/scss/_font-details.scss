@@ -1,0 +1,21 @@
+.font-details {
+  padding: rem(30);
+  & header {
+    display: flex;
+    align-items: baseline;
+
+    & h1 {
+      margin-right: rem(20);
+    }
+  }
+  &__preview {
+    font-size: map-get($fz, h1);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 75%;
+    width: 75%;
+    max-width: 100%;
+  }
+}

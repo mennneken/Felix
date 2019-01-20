@@ -1,6 +1,6 @@
 <template>
   <section class="tools__tool">
-    <h3 class="title title--upp h5">Espaces Avant &amp; Après</h3>
+    <h3 class="title title--upp p">Espaces Avant &amp; Après</h3>
 
     <!-- TABS -->
     <div class="tools__tab">

@@ -2,14 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import firebase from 'firebase'
 
-import { store } from './store'
+// import { store } from './store'
 
 // VIEWS
 import Settings from '@/views/Settings'
 import Tool from '@/views/Tool'
 import Dashboard from '@/views/Dashboard'
 import About from '@/views/About'
-import { isEmpty } from '@firebase/util';
+// import { isEmpty } from '@firebase/util';
 
 Vue.use(Router)
 
@@ -18,7 +18,7 @@ const router = new Router({
   routes: [
     {
       path: "/",
-      redirect: "/about"
+      redirect: { name: "About" }
     },
     {
       path: "*",

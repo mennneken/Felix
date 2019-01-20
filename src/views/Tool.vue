@@ -4,8 +4,9 @@
       <f-nav></f-nav>
       <f-tools></f-tools>
     </div>
-    <font-list v-if="fontListEnable"></font-list>
-    <f-preview v-if="!fontListEnable"></f-preview>
+    <f-preview v-show="previewToDisplay === 'preview'"></f-preview>
+    <font-list v-show="previewToDisplay === 'fontList'"></font-list>
+    <font-details v-show="previewToDisplay === 'fontDetails'"></font-details>
   </div>
 </template>
 
@@ -13,7 +14,8 @@
 // COMPONENTS
 import fTools from "@/components/tools/toolsTool";
 import fPreview from "@/components/tools/toolsPreview";
-import fontList from "@/components/tools/toolsFontList";
+import fontList from "@/components/tools/font/toolsFontList";
+import fontDetails from "@/components/tools/font/toolsFontDetails";
 import fNav from "@/components/navigation";
 
 //VUEX
@@ -22,6 +24,7 @@ import { mapState } from "vuex";
 export default {
   components: {
     fontList,
+    fontDetails,
     fTools,
     fPreview,
     fNav
@@ -34,8 +37,13 @@ export default {
 
   computed: {
     ...mapState ({
-      fontListEnable: state => state.prototypesStore.prototype.prototype.typography.format.size,
+      previewToDisplay: state => state.toolsStore.previewDisplayed,
     }),
+  },
+
+  beforeCreated() {
+    this.$store.commit('toolsStore/setPreviewDisplay', 'preview')
+    this.$store.commit('toolsStore/setToolsDisplay', 'typo')
   }
 };
 </script>

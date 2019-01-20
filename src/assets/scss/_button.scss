@@ -44,7 +44,7 @@ button.btn,
       width: 50%;
       height: 50%;
       border-radius: $br;
-      transition: .3s map-get($transition, easeInOutQuart);
+      transition: 0.3s map-get($transition, easeInOutQuart);
       transition-property: width, height, background-color, color, box-shadow;
     }
   }
@@ -105,14 +105,14 @@ button.btn,
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: -1;
-      transition-duration: .5s;
+      transition-duration: 0.5s;
       transition-property: background-color, width, height;
       transition-timing-function: map-get($transition, easeOutQuint);
     }
 
     &:hover {
       color: map-get($colors-main, 700);
-      
+
       &::before {
         height: 100%;
         width: 100%;
@@ -160,17 +160,17 @@ button.btn,
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%) scale(.5);
+      transform: translate(-50%, -50%) scale(0.5);
       transform-origin: center;
       z-index: -1;
-      transition: .3s map-get($transition, easeInOutQuart);
+      transition: 0.3s map-get($transition, easeInOutQuart);
       transition-property: transform, background-color;
       width: 100%;
       height: 100%;
       border-radius: 50%;
       background-color: transparent;
     }
-    
+
     &:hover,
     &:active,
     &:focus {
@@ -199,6 +199,40 @@ button.btn,
     }
   }
 
+  &--icon-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    background-color: transparent;
+    box-sizing: border-box;
+    height: rem(30);
+    padding: 0 rem(5) 0 rem(10);
+    font-size: map-get($fz, p);
+    line-height: 0;
+
+    @include border();
+
+    &:hover,
+    &:active,
+    &:focus {
+    }
+
+    &:active,
+    &:focus {
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    & svg {
+      margin: 0 0 0 0.5em;
+      width: 1em;
+      height: 1em;
+    }
+  }
+
   &--icon-label {
     background-color: transparent;
     display: flex;
@@ -214,10 +248,9 @@ button.btn,
       }
     }
 
+    &.btn--active,
     &:active {
-      span {
-        color: map-get($colors-main, 600);
-      }
+      color: map-get($colors-main, 600);
     }
 
     &:focus {
@@ -229,21 +262,25 @@ button.btn,
   }
 
   &--card {
-    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column-reverse;
     width: 100%;
     padding: rem(10) rem(5);
     background-color: transparent;
-    border: solid rem(2) map-get($colors-neutral, 200);
+    border: solid rem(2) map-get($colors-neutral, 400);
 
-    height: rem(50);
+    height: rem(80);
 
     &:hover {
-      border-color: map-get($colors-neutral, 400);
+      border-color: map-get($colors-main, 400);
     }
 
     &:active,
     &:focus {
       outline: none;
+      border-color: map-get($colors-main, 600);
     }
   }
 
@@ -257,7 +294,7 @@ button.btn,
     &:focus {
       outline: none;
     }
-    
+
     &-active {
       color: map-get($colors-main, 500);
     }
@@ -294,8 +331,6 @@ button.btn,
     }
 
     &--invisible {
-      
-
       &:hover,
       &:focus {
         color: map-get($colors-alert, 700);
@@ -304,12 +339,12 @@ button.btn,
         }
       }
 
-      &:active{
+      &:active {
         color: map-get($colors-alert, 900);
         &::before {
           background-color: map-get($colors-alert, 200);
         }
-      } 
+      }
     }
 
     &--plain {

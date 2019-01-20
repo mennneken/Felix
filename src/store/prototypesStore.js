@@ -24,6 +24,22 @@ const prototypesStore = {
       return state.prototypesList.find(
         userPrototype => userPrototype.id === id
       );
+    },
+
+    getColorHSLA: state => {
+      let dA = state.prototype.prototype.color.colors.darkAccent;
+      let dS = state.prototype.prototype.color.colors.darkShade;
+      let lA = state.prototype.prototype.color.colors.lightAccent;
+      let lS = state.prototype.prototype.color.colors.lightShade;
+      let main = state.prototype.prototype.color.colors.main;
+
+      return {
+        darkAccent: `hsla(${dA.h}, ${dA.s}%, ${dA.l}%, ${dA.a})`,
+        darkShade: `hsla(${dS.h}, ${dS.s}%, ${dS.l}%, ${dS.a})`,
+        lightAccent: `hsla(${lA.h}, ${lA.s}%, ${lA.l}%, ${lA.a})`,
+        lightShade: `hsla(${lS.h}, ${lS.s}%, ${lS.l}%, ${lS.a})`,
+        main: `hsla(${main.h}, ${main.s}%, ${main.l}%, ${main.a})`
+      };
     }
   },
 
@@ -39,15 +55,15 @@ const prototypesStore = {
           parameters: {
             typography: {
               fontChoices: {
-                font_1: {
-                  name: "",
-                  style: "",
-                  weight: 400
+                fontTitle: {
+                  family: "Sans-serif",
+                  style: "normal",
+                  weight: "600"
                 },
-                font_2: {
-                  name: "",
-                  style: "",
-                  weight: 800
+                fontText: {
+                  family: "Serif",
+                  style: "normal",
+                  weight: "400"
                 }
               },
               format: {
@@ -101,23 +117,18 @@ const prototypesStore = {
             color: {
               harmony: "",
               colors: {
-                lightShade: "",
-                lightAccent: "",
-                main: "",
-                darkAccent: "",
-                darkShade: ""
+                lightShade: { h: 0, s: 0, l: 87.5, a: 1 },
+                lightAccent: { h: 0, s: 0, l: 75, a: 1 },
+                main: { h: 0, s: 0, l: 50, a: 1 },
+                darkAccent: { h: 0, s: 0, l: 25, a: 1 },
+                darkShade: { h: 0, s: 0, l: 12.5, a: 1 }
               }
             }
           }
         })
         .then(docRef => {
           commit("setActualPrototype", docRef.parameters);
-          router.push({
-            name: "Tool",
-            params: {
-              uid: docRef.id
-            }
-          });
+          router.push({ name: "Tool", params: { uid: docRef.id } });
         })
         .catch(error => {
           console.error("Error writing prototype: ", error);
@@ -223,8 +234,539 @@ const prototypesStore = {
     },
 
     // set the font
-    setFontPrincipal({ commit }, fontFamily) {
-      commit('setFont_1', fontFamily);
+    setFont({ commit, dispatch, rootState }, font) {
+      let fontToload = `${font.family}:${font.variants.join(",")}:latin`;
+
+      dispatch("googleFontStore/loadSpecificFonts", fontToload, {
+        root: true
+      });
+
+      commit("setFontFamily", {
+        target: rootState.toolsStore.fontList.target,
+        fontFamily: font.family
+      });
+
+      let normalRegex = new RegExp("(^\\d{3}$)|((^regular$))");
+      let reguOrItalRegex = new RegExp("(^regular$)|(^italic$)");
+      let style;
+      let weight;
+
+      /* Define style by
+       * Checking if a regular weight exist
+       * if true --> style is normal
+       * else --> style is italic
+       */
+      if (font.variants.find(variant => normalRegex.test(variant))) {
+        style = "normal";
+      } else {
+        style = "italic";
+      }
+
+      /* Define weight by
+       * Checking if regular or italic weight
+       * if true --> weight is 400
+       * else --> weight is the closest to 400
+       */
+      if (font.variants.find(variant => reguOrItalRegex.test(variant))) {
+        weight = 400;
+      } else {
+        let weightArr = [];
+
+        function closest(num, arr) {
+          var curr = arr[0];
+
+          var diff = Math.abs(num - curr);
+          for (var val = 0; val < arr.length; val++) {
+            var newdiff = Math.abs(num - arr[val]);
+            if (newdiff < diff) {
+              diff = newdiff;
+              curr = arr[val];
+            }
+          }
+          return curr;
+        }
+
+        font.variants.forEach(variant => {
+          if (!reguOrItalRegex.test(variant)) {
+            weightArr = [
+              ...new Set([...weightArr, ...[Number.parseInt(variant)]])
+            ];
+          }
+        });
+
+        weight = closest(400, weightArr);
+      }
+
+      commit("setFontStyle", {
+        target: rootState.toolsStore.fontList.target,
+        style
+      });
+
+      commit("setFontWeight", {
+        target: rootState.toolsStore.fontList.target,
+        weight
+      });
+    },
+
+    //
+    randomColor({ commit }, { colorName = "main", h, s, l, a = [1, 1] }) {
+      function getRandomNumber(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      let hue = getRandomNumber(h[0], h[1]);
+      let saturation = getRandomNumber(s[0], s[1]);
+      let lightness = getRandomNumber(l[0], l[1]);
+      let alpha = getRandomNumber(a[0] * 100, a[1] * 100) / 100;
+
+      // console.log(colorName, "h:", hue, "s:", saturation, "l:", lightness);
+
+      commit("setColor", {
+        colorName,
+        h: hue,
+        s: saturation,
+        l: lightness,
+        a: alpha
+      });
+    },
+
+    generateSchemeColor(
+      { state, dispatch },
+      harmony = state.prototype.prototype.color.harmony
+    ) {
+      let schemeColor = state.prototype.prototype.color.colors;
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          h: [0, 360],
+          s: [20, 80],
+          l: [35, 65],
+          a: [1, 1]
+        },
+        { root: true }
+      );
+
+      // console.clear();
+
+      if (harmony === "monochromatic") {
+        dispatch("generateSchemeColorMonochromatic");
+      } else if (harmony === "analogous") {
+        dispatch("generateSchemeColorAnalogous");
+      } else if (harmony === "complementary") {
+        dispatch("generateSchemeColorComplementary");
+      } else if (harmony === "split-complementary") {
+        dispatch("generateSchemeColorSplitComplementary");
+      } else if (harmony === "triadic") {
+        dispatch("generateSchemeColorTriadic");
+      } else if (harmony === "tetradic") {
+        dispatch("generateSchemeColorTetradic");
+      }
+    },
+
+    generateSchemeColorMonochromatic(
+      { state, dispatch },
+      color = state.prototype.prototype.color.colors.main
+    ) {
+      let lightShade = {
+        h: [color.h - 5, color.h + 5],
+        s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
+        l: [78, 95]
+      };
+      let lightAccent = {
+        h: [color.h - 5, color.h + 5],
+        s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
+        l: [68, 75]
+      };
+      let darkAccent = {
+        h: [color.h - 5, color.h + 5],
+        s: [color.s + (color.s / 100) * -30, color.s + (color.s / 100) * 30],
+        l: [22, 32]
+      };
+      let darkShade = {
+        h: [color.h - 5, color.h + 5],
+        s: [color.s + (color.s / 100) * -30, color.s + (color.s / 100) * 30],
+        l: [10, 20]
+      };
+
+      dispatch("randomColor", {
+        colorName: "lightShade",
+        h: lightShade.h,
+        s: lightShade.s,
+        l: lightShade.l
+      });
+
+      dispatch("randomColor", {
+        colorName: "lightAccent",
+        h: lightAccent.h,
+        s: lightAccent.s,
+        l: lightAccent.l
+      });
+
+      dispatch("randomColor", {
+        colorName: "darkAccent",
+        h: darkAccent.h,
+        s: darkAccent.s,
+        l: darkAccent.l
+      });
+
+      dispatch("randomColor", {
+        colorName: "darkShade",
+        h: darkShade.h,
+        s: darkShade.s,
+        l: darkShade.l
+      });
+    },
+
+    generateSchemeColorAnalogous(
+      { state, dispatch },
+      color = state.prototype.prototype.color.colors.main
+    ) {
+      let lightShade = {
+        h: [color.h - 30, color.h - 30],
+        s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
+        l: [78, 95]
+      };
+      let lightAccent = {
+        h: [color.h + 30, color.h + 30],
+        s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
+        l: [68, 75]
+      };
+      let darkAccent = {
+        h: [color.h + 30, color.h + 30],
+        s: [color.s + (color.s / 100) * -30, color.s + (color.s / 100) * 30],
+        l: [22, 32]
+      };
+      let darkShade = {
+        h: [color.h - 30, color.h - 30],
+        s: [color.s + (color.s / 100) * -30, color.s + (color.s / 100) * 30],
+        l: [10, 20]
+      };
+
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          colorName: "lightShade",
+          h: lightShade.h,
+          s: lightShade.s,
+          l: lightShade.l
+        },
+        { root: true }
+      );
+
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          colorName: "lightAccent",
+          h: lightAccent.h,
+          s: lightAccent.s,
+          l: lightAccent.l
+        },
+        { root: true }
+      );
+
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          colorName: "darkAccent",
+          h: darkAccent.h,
+          s: darkAccent.s,
+          l: darkAccent.l
+        },
+        { root: true }
+      );
+
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          colorName: "darkShade",
+          h: darkShade.h,
+          s: darkShade.s,
+          l: darkShade.l
+        },
+        { root: true }
+      );
+    },
+
+    generateSchemeColorComplementary(
+      { state, dispatch },
+      color = state.prototype.prototype.color.colors.main
+    ) {
+      let lightShade = {
+        h: [color.h, color.h],
+        s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
+        l: [78, 95]
+      };
+      let lightAccent = {
+        h: [color.h - 180, color.h - 180],
+        s: [color.s + (color.s / 100) * -30, color.s + (color.s / 100) * -30],
+        l: [68, 75]
+      };
+      let darkAccent = {
+        h: [color.h - 180, color.h - 180],
+        s: [color.s + (color.s / 100) * -30, color.s + (color.s / 100) * 30],
+        l: [22, 32]
+      };
+      let darkShade = {
+        h: [color.h, color.h],
+        s: [color.s - (color.s / 100) * 75, color.s - (color.s / 100) * 25],
+        l: [10, 20]
+      };
+
+      console.log("colormain", "h:", color.h, "s:", color.s, "l:", color.l);
+
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          colorName: "lightShade",
+          h: lightShade.h,
+          s: lightShade.s,
+          l: lightShade.l
+        },
+        { root: true }
+      );
+
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          colorName: "lightAccent",
+          h: lightAccent.h,
+          s: lightAccent.s,
+          l: lightAccent.l
+        },
+        { root: true }
+      );
+
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          colorName: "darkAccent",
+          h: darkAccent.h,
+          s: darkAccent.s,
+          l: darkAccent.l
+        },
+        { root: true }
+      );
+
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          colorName: "darkShade",
+          h: darkShade.h,
+          s: darkShade.s,
+          l: darkShade.l
+        },
+        { root: true }
+      );
+    },
+
+    generateSchemeColorSplitComplementary(
+      { state, dispatch },
+      color = state.prototype.prototype.color.colors.main
+    ) {
+      let lightShade = {
+        h: [color.h + 30, color.h + 150],
+        s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
+        l: [78, 95]
+      };
+      let lightAccent = {
+        h: [color.h - 150, color.h - 150],
+        s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
+        l: [68, 75]
+      };
+      let darkAccent = {
+        h: [color.h - 150, color.h - 150],
+        s: [color.s - (color.s / 100) * 50, color.s - (color.s / 100) * 30],
+        l: [22, 32]
+      };
+      let darkShade = {
+        h: [color.h + 150, color.h + 150],
+        s: [color.s - (color.s / 100) * 75, color.s - (color.s / 100) * 50],
+        l: [10, 20]
+      };
+
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          colorName: "lightShade",
+          h: lightShade.h,
+          s: lightShade.s,
+          l: lightShade.l
+        },
+        { root: true }
+      );
+
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          colorName: "lightAccent",
+          h: lightAccent.h,
+          s: lightAccent.s,
+          l: lightAccent.l
+        },
+        { root: true }
+      );
+
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          colorName: "darkAccent",
+          h: darkAccent.h,
+          s: darkAccent.s,
+          l: darkAccent.l
+        },
+        { root: true }
+      );
+
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          colorName: "darkShade",
+          h: darkShade.h,
+          s: darkShade.s,
+          l: darkShade.l
+        },
+        { root: true }
+      );
+    },
+
+    generateSchemeColorTriadic(
+      { state, dispatch },
+      color = state.prototype.prototype.color.colors.main
+    ) {
+      let lightShade = {
+        h: [color.h + 120, color.h + 120],
+        s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
+        l: [78, 95]
+      };
+      let lightAccent = {
+        h: [color.h - 120, color.h - 120],
+        s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
+        l: [68, 75]
+      };
+      let darkAccent = {
+        h: [color.h - 120, color.h - 120],
+        s: [color.s - (color.s / 100) * 50, color.s - (color.s / 100) * 30],
+        l: [22, 32]
+      };
+      let darkShade = {
+        h: [color.h + 120, color.h + 120],
+        s: [color.s - (color.s / 100) * 75, color.s - (color.s / 100) * 50],
+        l: [10, 20]
+      };
+
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          colorName: "lightShade",
+          h: lightShade.h,
+          s: lightShade.s,
+          l: lightShade.l
+        },
+        { root: true }
+      );
+
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          colorName: "lightAccent",
+          h: lightAccent.h,
+          s: lightAccent.s,
+          l: lightAccent.l
+        },
+        { root: true }
+      );
+
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          colorName: "darkAccent",
+          h: darkAccent.h,
+          s: darkAccent.s,
+          l: darkAccent.l
+        },
+        { root: true }
+      );
+
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          colorName: "darkShade",
+          h: darkShade.h,
+          s: darkShade.s,
+          l: darkShade.l
+        },
+        { root: true }
+      );
+    },
+
+    generateSchemeColorTetradic(
+      { state, dispatch },
+      color = state.prototype.prototype.color.colors.main
+    ) {
+      let lightShade = {
+        h: [color.h + 60, color.h + 60],
+        s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
+        l: [78, 95]
+      };
+      let lightAccent = {
+        h: [color.h, color.h],
+        s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
+        l: [68, 75]
+      };
+      let darkAccent = {
+        h: [color.h - 120, color.h - 120],
+        s: [color.s - (color.s / 100) * 50, color.s - (color.s / 100) * 30],
+        l: [22, 32]
+      };
+      let darkShade = {
+        h: [color.h - 180, color.h - 180],
+        s: [color.s - (color.s / 100) * 75, color.s - (color.s / 100) * 50],
+        l: [10, 20]
+      };
+
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          colorName: "lightShade",
+          h: lightShade.h,
+          s: lightShade.s,
+          l: lightShade.l
+        },
+        { root: true }
+      );
+
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          colorName: "lightAccent",
+          h: lightAccent.h,
+          s: lightAccent.s,
+          l: lightAccent.l
+        },
+        { root: true }
+      );
+
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          colorName: "darkAccent",
+          h: darkAccent.h,
+          s: darkAccent.s,
+          l: darkAccent.l
+        },
+        { root: true }
+      );
+
+      dispatch(
+        "prototypesStore/randomColor",
+        {
+          colorName: "darkShade",
+          h: darkShade.h,
+          s: darkShade.s,
+          l: darkShade.l
+        },
+        { root: true }
+      );
     }
   },
 
@@ -254,8 +796,47 @@ const prototypesStore = {
       // pro.parameters = data.parameters;
     },
 
-    setFont_1(state, fontFamily) {
-      state.prototype.prototype.typography.fontChoices.font_1.name = fontFamily;
+    setFontFamily(state, { target, fontFamily }) {
+      state.prototype.prototype.typography.fontChoices[
+        target
+      ].family = fontFamily;
+    },
+
+    setFontStyle(state, { target, style }) {
+      state.prototype.prototype.typography.fontChoices[target].style = style;
+    },
+
+    setFontWeight(state, { target, weight }) {
+      state.prototype.prototype.typography.fontChoices[target].weight = weight;
+    },
+
+    setColor(state, { colorName, h, s, l, a }) {
+      state.prototype.prototype.color.colors[colorName] = {
+        h: h,
+        s: s,
+        l: l,
+        a: a
+      };
+    },
+
+    setHue(state, { colorName, h }) {
+      state.prototype.prototype.color.colors[colorName].h = h;
+    },
+
+    setSaturation(state, { colorName, s }) {
+      state.prototype.prototype.color.colors[colorName].s = s;
+    },
+
+    setLightness(state, { colorName, l }) {
+      state.prototype.prototype.color.colors[colorName].l = l;
+    },
+
+    setAlpha(state, { colorName, a }) {
+      state.prototype.prototype.color.colors[colorName].a = a;
+    },
+
+    updateColorHarmony(state, harmony) {
+      state.prototype.prototype.color.harmony = harmony;
     }
   }
 };

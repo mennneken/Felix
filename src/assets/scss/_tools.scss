@@ -6,7 +6,7 @@
   "side-bar preview"; 
   flex-direction: row;
 
-  &__label {
+  &__label.title {
     margin-bottom: rem(5);
   }
   
@@ -20,6 +20,7 @@
   }
 
   &__font-list,
+  &__font-details,
   &__preview {
     grid-area: preview;
   }
@@ -47,7 +48,32 @@
     &:not(:first-child) {
       margin-top: rem(60);
     }
+
+    &--comp {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    &--font-list {
+      text-align: right;
+
+      & ul > li {
+        font-size: map-get($fz, h4 );
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        
+        &:not(:last-child) {
+          margin-bottom: .5em;
+        }
+      }
+    }
+
+    &--typo {
+    }
   }
+
 
   &__elem {
     margin-top: rem(15);
@@ -56,6 +82,17 @@
   &__elem + &__elem {
     margin-top: rem(20);
   }
+}
 
-  
+.typo-choice {
+  &__elem {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: rem(10) rem(20);
+
+
+    & button {
+      grid-column: span 2;
+    }
+  }
 }

@@ -1,9 +1,9 @@
 <template>
   <section class="tools__tool">
-    <h3 class="title title--upp h5">Taille Modulaire</h3>
+    <h3 class="title title--upp p">Taille Modulaire</h3>
     
     <div class="tools__elem">
-      <h4 class="title title--upp title--alt h5">Taille de Base</h4>
+      <h4 class="title title--upp title--alt h5 tools__label">Taille de Base</h4>
       <input
         type="range"
         :min="rangeMin(fontSize.base.unit)"
@@ -29,7 +29,7 @@
       </select>
     </div>
     <div class="tools__elem">
-      <h4 class="title title--upp title--alt h5">Ratio de Multiplication</h4>
+      <h4 class="title title--upp title--alt h5 tools__label">Ratio de Multiplication</h4>
       <select v-model="fontSize.ratio">
         <option value="1.067">1.067</option>
         <option value="1.125">1.125</option>

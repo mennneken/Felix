@@ -10,6 +10,7 @@ import userConnexion from "./store/userConnexion";
 import prototypesStore from "./store/prototypesStore";
 import dialogStore from "./store/dialogStore";
 import toolsStore from "./store/toolsStore";
+import googleFontStore from "./store/googleFontStore";
 
 // FIREBASE
 const fb = require("@/firebaseConfig.js");
@@ -28,7 +29,9 @@ const vuexLocalStorage = new VuexPersist({
   key: "vuex",
   storage: window.localStorage,
   reducer: state => ({
-    prototypesStore: state.prototypesStore
+    prototypesStore: state.prototypesStore,
+    toolsStore: state.toolsStore,
+    googleFontStore: state.googleFontStore
   })
 });
 
@@ -37,7 +40,8 @@ export const store = new Vuex.Store({
     userConnexion,
     prototypesStore,
     dialogStore,
-    toolsStore
+    toolsStore,
+    googleFontStore
   },
   plugins: [vuexLocalStorage.plugin]
 });

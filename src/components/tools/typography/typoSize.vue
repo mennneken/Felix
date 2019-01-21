@@ -102,7 +102,7 @@ export default {
 
   computed: {
     ...mapState ({
-      fontSize: state => state.prototypesStore.prototype.prototype.typography.format.size,
+      fontSize: state => state.prototypesStore.prototype.typography.format.size,
     })
   }
 };

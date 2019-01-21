@@ -13,7 +13,7 @@
           </button>
         </li>
 
-        <li v-show="fontChoices">
+        <li v-show="twoFontChoice">
           <button
             class="btn btn--icon-label"
             :class="{ 'btn--active': toolsDisplayed === 'comp' }"
@@ -49,14 +49,14 @@
     </nav>
 
     <div class="tools__content">
-      <typo-choice v-show="toolsDisplayed === 'typo'"></typo-choice>
-      <typo-size v-show="toolsDisplayed === 'typo'"></typo-size>
-      <typo-comp v-show="toolsDisplayed === 'comp'"></typo-comp>
-      <typo-format v-show="toolsDisplayed === 'format'"></typo-format>
-      <typo-spaces v-show="toolsDisplayed === 'format'"></typo-spaces>
-      <color-palette v-show="toolsDisplayed === 'color'"></color-palette>
-      <colot-adjust v-show="toolsDisplayed === 'color'"></colot-adjust>
-      <tools-font-filter v-show="toolsDisplayed === 'fontList'"></tools-font-filter>
+      <typo-choice v-if="toolsDisplayed === 'typo'"></typo-choice>
+      <typo-size v-if="toolsDisplayed === 'typo'"></typo-size>
+      <typo-comp v-if="toolsDisplayed === 'comp'"></typo-comp>
+      <typo-format v-if="toolsDisplayed === 'format'"></typo-format>
+      <typo-spaces v-if="toolsDisplayed === 'format'"></typo-spaces>
+      <color-palette v-if="toolsDisplayed === 'color'"></color-palette>
+      <colot-adjust v-if="toolsDisplayed === 'color'"></colot-adjust>
+      <tools-font-filter v-if="toolsDisplayed === 'fontList'"></tools-font-filter>
     </div>
   </section>
 </template>
@@ -104,32 +104,24 @@ export default {
     }
   },
 
-  computed: mapState({
-    fontChoices: state =>
-      state.prototypesStore.prototype.prototype.typography.fontChoices,
-    fontSize: state =>
-      state.prototypesStore.prototype.prototype.typography.format.size,
-    fontListEnable: state => state.toolsStore.fontList.enable,
-    toolsDisplayed: state => state.toolsStore.toolsDisplayed,
-
+  computed: {
+    ...mapState({
+      fontChoices: state =>
+        state.prototypesStore.prototype.typography.fontChoices,
+      fontSize: state => state.prototypesStore.prototype.typography.format.size,
+      fontListEnable: state => state.toolsStore.fontList.enable,
+      toolsDisplayed: state => state.toolsStore.toolsDisplayed
+    }),
     twoFontChoice() {
       if (
-        this.fontChoices.fontTitle.family &&
-        this.fontChoices.fontText.family
+        this.fontChoices.fontTitle.family !== "sans-serif" &&
+        this.fontChoices.fontText.family !== "serif"
       ) {
         return true;
       } else {
         return false;
       }
     }
-  })
-
-  // beforeMount() {
-  //   if (!this.$store.state.prototypesStore.prototype.prototype) {
-
-  //     console.log(this.store.state.prototype)
-  //     // this.store.commit('prototypesStore/setActualPrototype', )
-  //   }
-  // }
+  }
 };
 </script>

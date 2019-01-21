@@ -1,5 +1,8 @@
 <template>
-  <header class="navigation navigation--main" v-if="$route.name === 'Dashboard'">
+  <header
+    class="navigation navigation--main"
+    v-if="$route.name === 'Dashboard' || $route.name === 'Credits'"
+  >
     <div class="container navigation__container">
       <router-link to="/dashboard" tag="a" class="logo logo--brand">
         <svg-icon :name="'brand'"></svg-icon>
@@ -9,7 +12,7 @@
 
       <nav class="navigation__nav">
         <ul>
-          <li class="navigation__elem" tabindex="0" v-show="userConnected !== null && userIsAnonyme !== true">
+          <li class="navigation__elem" tabindex="0" v-if="isConnected && !isAnonymous">
             <a class="navigation__nav-elem">
               <svg-icon :name="'login_user'"></svg-icon>
             </a>
@@ -27,7 +30,7 @@
             </ul>
           </li>
 
-          <li class="navigation__elem" tabindex="0" v-show="userConnected === null">
+          <li class="navigation__elem" tabindex="0" v-else>
             <a class="navigation__nav-elem" @click="callDialog('connexion-user')">
               <svg-icon :name="'user'"></svg-icon>
             </a>
@@ -50,6 +53,17 @@
       </nav>
     </div>
   </header>
+
+  <header class="navigation navigation--main" v-else-if="$route.name === 'About'">
+    <div class="container navigation__container">
+      <router-link to="/dashboard" tag="a" class="logo logo--brand">
+        <svg-icon :name="'brand'"></svg-icon>
+      </router-link>
+      <nav class="navigation__nav">
+        <router-link tag="a" class="link link--outline" to="/dashboard">Passer</router-link>
+      </nav>
+    </div>
+  </header>
 </template>
 
 <script>
@@ -60,13 +74,13 @@ const fb = require("../firebaseConfig.js");
 import svgIcon from "@/components/svgIcon.vue";
 
 // VUEX
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 export default {
   components: {
     svgIcon
   },
-  
+
   methods: {
     logout() {
       fb.auth
@@ -90,18 +104,16 @@ export default {
         type: dialogType,
         data: data
       });
-    },
+    }
   },
-  
+
   computed: {
-    userConnected() {
-      return this.$store.state.userConnexion.currentUser;
-    },
-    userIsAnonyme() {
-      return this.$store.state.userConnexion.currentUser.isAnonymous;
-    },
+    ...mapGetters({
+      isConnected: "userConnexion/isConnected"
+    }),
     ...mapState({
-      prototypeName: state => state.prototypesStore.prototype.name
+      prototypeName: state => state.prototypesStore.prototype.name,
+      isAnonymous: state => state.userConnexion.currentUser.isAnonymous
     })
   }
 };

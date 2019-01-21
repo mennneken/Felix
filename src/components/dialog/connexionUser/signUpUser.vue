@@ -5,12 +5,10 @@
       <button @click="closeDialog()" class="dialog__close btn btn--icon">
         <svg-icon :name="'close'"></svg-icon>
       </button>
-
     </div>
-    
+
     <div class="dialog__content">
       <form @submit.prevent>
-
         <fieldset>
           <label for="name">Nom</label>
           <input v-model.trim="signupForm.lastname" type="text" placeholder="Ginette" id="name">
@@ -18,16 +16,21 @@
 
         <fieldset>
           <label for="firstname">Prénom</label>
-          <input v-model.trim="signupForm.firstname" type="text" placeholder="Besson" id="firstname">
+          <input
+            v-model.trim="signupForm.firstname"
+            type="text"
+            placeholder="Besson"
+            id="firstname"
+          >
         </fieldset>
 
         <fieldset>
-          <label for="email2">Email</label>
+          <label for="email">Email</label>
           <input
             v-model.trim="signupForm.email"
-            type="text"
+            type="email"
             placeholder="gigibesson@mail.com"
-            id="email2"
+            id="email"
           >
         </fieldset>
 
@@ -39,10 +42,10 @@
             placeholder="min 6 characters"
             id="password2"
           >
-        </fieldset>    
+        </fieldset>
       </form>
     </div>
-    
+
     <div class="dialog__footer">
       <div class="dialog__action">
         <div class="dialog__action-elem dialog__action-elem--primary">
@@ -64,7 +67,7 @@ import svgIcon from "@/components/svgIcon.vue";
 const fb = require("@/firebaseConfig.js");
 
 export default {
-  name: 'signUpUser',
+  name: "signUpUser",
   components: {
     svgIcon
   },
@@ -78,7 +81,7 @@ export default {
         password: ""
       },
       errorMsg: ""
-    }
+    };
   },
 
   methods: {
@@ -121,12 +124,12 @@ export default {
 
     // Close the dialog
     closeDialog() {
-      this.$emit('closeDialog');
+      this.$emit("closeDialog");
     },
 
     // Emit a to the parent the switch methods
     callSwitchTo(destination) {
-      this.$emit('switchConnexion', destination)
+      this.$emit("switchConnexion", destination);
     }
   }
 };

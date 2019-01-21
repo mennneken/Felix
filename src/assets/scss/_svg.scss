@@ -2,4 +2,8 @@
   height: rem(25);
   width: rem(25);
   fill: currentColor;
+  vertical-align: middle;
+  a:hover & {
+    fill: map-get($colors-main, 500);
+  }
 }

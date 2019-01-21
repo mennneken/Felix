@@ -176,29 +176,17 @@ export default {
   },
 
   computed: {
-    // main: {
-    //   get() {
-    //     return this.$store.state.prototypesStore.prototype.prototype.color
-    //       .colors.main;
-    //   },
-    //   set(value) {
-    //     console.log("value :", value);
-    //     this.store.commit("prototypesStore/setSaturation", main, value);
-    //   }
-    // },
-
     ...mapState({
-      colors: state => state.prototypesStore.prototype.prototype.color.colors,
-      main: state =>
-        state.prototypesStore.prototype.prototype.color.colors.main,
+      colors: state => state.prototypesStore.prototype.color.colors,
+      main: state => state.prototypesStore.prototype.color.colors.main,
       lightShade: state =>
-        state.prototypesStore.prototype.prototype.color.colors.lightShade,
+        state.prototypesStore.prototype.color.colors.lightShade,
       lightAccent: state =>
-        state.prototypesStore.prototype.prototype.color.colors.lightAccent,
+        state.prototypesStore.prototype.color.colors.lightAccent,
       darkShade: state =>
-        state.prototypesStore.prototype.prototype.color.colors.darkShade,
+        state.prototypesStore.prototype.color.colors.darkShade,
       darkAccent: state =>
-        state.prototypesStore.prototype.prototype.color.colors.darkAccent
+        state.prototypesStore.prototype.color.colors.darkAccent
     })
   }
 };

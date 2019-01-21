@@ -1,27 +1,34 @@
 <template>
   <div class="tools__font-details font-details">
+    <a @click.prevent="backToFontList()">
+      <svg-icon class="font-list__action" :name="'arrow-left'"></svg-icon>Retour
+    </a>
     <header>
       <h1 class="title title--alt">{{ font.family }}</h1>
-      <span class="title h3">{{ numberOfStyle }} </span>
+      <span class="title h3">{{ numberOfStyle }}</span>
     </header>
 
     <input type="text" v-model="previewString" :placeholder="previewPlaceholder">
 
     <ul class="not-a-list">
       <li class="font-details__preview" v-for="(style, id) in font.variants" :key="id">
-        <p :style="{
+        <p
+          :style="{
             fontFamily: `${font.family}, ${font.category}`, 
             fontWeight: `${weightIs(style)}`,
             fontStyle: `${styleIs(style)}`,
-          }"> {{ previewString || `${font.family} ${styleToString(style)}` }} </p>
+          }"
+        >{{ previewString || `${font.family} ${styleToString(style)}` }}</p>
 
-        <button class="font-list__action btn btn--icon" @click="addFont(weightIs(style), styleIs(style))">
+        <button
+          class="font-list__action btn btn--icon"
+          @click="addFont(weightIs(style), styleIs(style))"
+        >
           <svg-icon class="font-list__action" :name="'add'"></svg-icon>
         </button>
       </li>
     </ul>
   </div>
-  
 </template>
 
 <script>
@@ -32,7 +39,7 @@ import { mapState } from "vuex";
 import svgIcon from "@/components/svgIcon";
 
 export default {
-  components: {
+  components: {
     svgIcon
   },
 
@@ -40,49 +47,49 @@ export default {
     return {
       previewString: "",
       previewPlaceholder: "Aperçu du texte"
-    }
+    };
   },
 
   methods: {
     styleToString(style) {
-      let weightString = '';
-      const regx = new RegExp('(^\\d{3}italic$)');
-      
-      if (style === 'regular' | style === 'italic') {
-        weightString = style
+      let weightString = "";
+      const regx = new RegExp("(^\\d{3}italic$)");
+
+      if ((style === "regular") | (style === "italic")) {
+        weightString = style;
       } else {
         switch (Number.parseInt(style)) {
           case 100:
-            weightString = 'Thin'
+            weightString = "Thin";
             break;
           case 200:
-            weightString = 'Extra-Light'
+            weightString = "Extra-Light";
             break;
           case 300:
-            weightString = 'Light'
+            weightString = "Light";
             break;
           case 400:
-            weightString = 'Regular'
+            weightString = "Regular";
             break;
           case 500:
-            weightString = 'Medium'
+            weightString = "Medium";
             break;
           case 600:
-            weightString = 'Semi-Bold'
+            weightString = "Semi-Bold";
             break;
           case 700:
-            weightString = 'Bold'
+            weightString = "Bold";
             break;
           case 800:
-            weightString = 'Extra-Bold'
+            weightString = "Extra-Bold";
             break;
           case 900:
-            weightString = 'Black'
+            weightString = "Black";
             break;
         }
 
-        if(regx.test(style)) {
-          weightString += ' Italic'
+        if (regx.test(style)) {
+          weightString += " Italic";
         }
       }
 
@@ -91,34 +98,34 @@ export default {
 
     weightIs(style) {
       let weight;
-      if(style === "regular" || style === "italic") {
+      if (style === "regular" || style === "italic") {
         weight = 400;
       } else {
-        weight = Number.parseInt(style)
+        weight = Number.parseInt(style);
       }
 
-      return weight
+      return weight;
     },
-    
+
     styleIs(style) {
       let fontStyle;
-      const regx = new RegExp('(^\\d{3}italic$)');
-      if(regx.test(style) || style === "italic") {
-        fontStyle = 'italic';
+      const regx = new RegExp("(^\\d{3}italic$)");
+      if (regx.test(style) || style === "italic") {
+        fontStyle = "italic";
       } else {
-        fontStyle = 'normal';
+        fontStyle = "normal";
       }
 
-      return fontStyle
+      return fontStyle;
     },
 
     cssStyle(style) {
-      let obj = {}
-      let regx = new RegExp('(^\\d{3}(italic)$)')
-      if(style === 'italic' || regx.test(style)) {
-        obj.style = 'italic';
+      let obj = {};
+      let regx = new RegExp("(^\\d{3}(italic)$)");
+      if (style === "italic" || regx.test(style)) {
+        obj.style = "italic";
       } else {
-        obj.style = 'normal';
+        obj.style = "normal";
       }
 
       if (style === "regular" || style === "italic") {
@@ -132,52 +139,54 @@ export default {
     // add font to the state
     addFont(fontWeight, fontStyle) {
       // set new font
-      this.$store.commit('prototypesStore/setFontFamily', { 
+      this.$store.commit("prototypesStore/setFontFamily", {
         target: this.target,
-        fontFamily: this.font.family 
+        fontFamily: this.font.family
       });
-      this.$store.commit('prototypesStore/setFontWeight', { 
+      this.$store.commit("prototypesStore/setFontWeight", {
         target: this.target,
-        weight : fontWeight 
+        weight: fontWeight
       });
-      this.$store.commit('prototypesStore/setFontStyle', { 
+      this.$store.commit("prototypesStore/setFontStyle", {
         target: this.target,
-        style : fontStyle
+        style: fontStyle
       });
-      this.$store.commit('toolsStore/setToolsDisplay', 'typo');
-      this.$store.commit('toolsStore/setPreviewDisplay', 'preview');
+      this.$store.commit("toolsStore/setToolsDisplay", "typo");
+      this.$store.commit("toolsStore/setPreviewDisplay", "preview");
+    },
+
+    backToFontList() {
+      this.$store.commit("toolsStore/setPreviewDisplay", "fontList");
     }
   },
 
   computed: {
-    ...mapState ({
+    ...mapState({
       font: state => state.toolsStore.fontInDetails,
-      target: state => state.toolsStore.fontList.target,
+      target: state => state.toolsStore.fontList.target
     }),
-    
+
     computedStyle() {
       return {
-        fontFamily: `${this.font.family}, ${this.font.category}`,
+        fontFamily: `${this.font.family}, ${this.font.category}`
       };
     },
 
     numberOfStyle() {
       if (this.font) {
-        return `${this.font.variants.length} style${this.font.variants.length > 1 ? 's' : ''}`
+        return `${this.font.variants.length} style${
+          this.font.variants.length > 1 ? "s" : ""
+        }`;
       }
-    },
-  },
-
-  beforeMount() {
-    if (this.font) {
-      this.$store.dispatch("googleFontStore/loadSpecificFonts", `${this.font.family}:${this.font.variants.join(",")}:latin`);
     }
   },
 
-  beforeUpdate() {
-    if (this.font) {
-      this.$store.dispatch("googleFontStore/loadSpecificFonts", `${this.font.family}:${this.font.variants.join(",")}:latin`);
-    }
+  created() {
+    this.$store.dispatch(
+      "googleFontStore/loadSpecificFonts",
+      `${this.font.family}:${this.font.variants.join(",")}:latin`
+    );
+    console.log(`WebFontLoader load: ${this.font.family}`);
   }
-}
+};
 </script>

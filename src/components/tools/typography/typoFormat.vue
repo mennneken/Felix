@@ -79,8 +79,7 @@
         </select>
       </div>
     </div>
-    
-    
+
     <div class="tools__elem">
       <h4 class="title title--upp title--alt h5">Hauteur de ligne</h4>
 
@@ -89,7 +88,7 @@
         <input type="range" min="1.2" max="1.45" step="0.01" v-model="title.line.height">
         <input type="number" min="1.2" max="1.45" step="0.01" v-model.number="title.line.height">
       </div>
-      
+
       <!-- Texts -->
       <div v-show="!titleTab">
         <input type="range" min="1.2" max="1.45" step="0.05" v-model="text.line.height">
@@ -113,9 +112,9 @@ export default {
 
   computed: mapState({
     title: state =>
-      state.prototypesStore.prototype.prototype.typography.format.titles,
+      state.prototypesStore.prototype.typography.format.titles,
     text: state =>
-      state.prototypesStore.prototype.prototype.typography.format.texts
+      state.prototypesStore.prototype.typography.format.texts
   }),
 
   methods: {

@@ -47,8 +47,7 @@ export default {
 
   computed: {
     ...mapState({
-      actualHarmony: state =>
-        state.prototypesStore.prototype.prototype.color.harmony,
+      actualHarmony: state => state.prototypesStore.prototype.color.harmony,
       colorHarmonies: state => state.toolsStore.colorHarmonies
     }),
     ...mapGetters({

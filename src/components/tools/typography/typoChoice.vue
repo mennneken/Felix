@@ -275,9 +275,9 @@ export default {
 
     ...mapState({
       fontTitle: state =>
-        state.prototypesStore.prototype.prototype.typography.fontChoices.fontTitle,
+        state.prototypesStore.prototype.typography.fontChoices.fontTitle,
       fontText: state =>
-        state.prototypesStore.prototype.prototype.typography.fontChoices.fontText,
+        state.prototypesStore.prototype.typography.fontChoices.fontText,
     })
   }
 };

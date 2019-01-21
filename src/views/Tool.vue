@@ -6,7 +6,7 @@
     </div>
     <f-preview v-show="previewToDisplay === 'preview'"></f-preview>
     <font-list v-show="previewToDisplay === 'fontList'"></font-list>
-    <font-details v-show="previewToDisplay === 'fontDetails'"></font-details>
+    <font-details v-if="previewToDisplay === 'fontDetails'"></font-details>
   </div>
 </template>
 
@@ -36,14 +36,14 @@ export default {
   methods: {},
 
   computed: {
-    ...mapState ({
-      previewToDisplay: state => state.toolsStore.previewDisplayed,
-    }),
+    ...mapState({
+      previewToDisplay: state => state.toolsStore.previewDisplayed
+    })
   },
 
-  beforeCreated() {
-    this.$store.commit('toolsStore/setPreviewDisplay', 'preview')
-    this.$store.commit('toolsStore/setToolsDisplay', 'typo')
+  created() {
+    this.$store.commit("toolsStore/setPreviewDisplay", "preview");
+    this.$store.commit("toolsStore/setToolsDisplay", "typo");
   }
 };
 </script>

@@ -1,42 +1,47 @@
 <template>
-  <section class="tools__tool tools__tool--comp">
+  <section class="tools__tool tools__tool--font-comparator font-comparator">
     <h3 class="title title--upp p">Comparaison de Fonts</h3>
-    <div class="comp">
-      <div v-for="(letter, id) in letters" :key="id" class="letter">
-        <input
-          type="text"
-          class="letter__input"
-          :placeholder="lettersBackup[id]"
-          v-model="letters[id]"
-          minlength="1"
-          maxlength="1"
-          pattern="/[a-zA-Z0-9]/"
-          @change="checkInput(id)"
-        >
+    <div class="tools__elem">
+      <input
+        class="font-comparator__input"
+        type="text"
+        :placeholder="letterBackup"
+        v-model.trim="letter"
+        maxlength="1"
+      >
+      <div class="font-comparator__letters">
         <span
-          class="letter__font letter__font--1"
-          :style="{fontFamily: fontTitle.family, fontSize: '90px',fontWeight: fontTitle.weight}"
-        >{{ letter || lettersBackup[id] }}</span>
+          class="font-comparator__letters-elem"
+          :class="{ 'font-comparator__letters-elem--overlay': positionOverlay }"
+          :style="{
+            fontFamily: this.fontTitle.family,
+            fontStyle: this.fontTitle.style,
+            fontWeight: this.fontTitle.weight
+          }"
+        >{{ letter || letterBackup }}</span>
         <span
-          class="letter__font letter__font--2"
-          :style="{fontFamily: fontText.family, fontSize: '90px',fontWeight: fontText.weight}"
-        >{{ letter || lettersBackup[id] }}</span>
+          class="font-comparator__letters-elem"
+          :class="{ 'font-comparator__letters-elem--overlay': positionOverlay }"
+          :style="{
+            fontFamily: this.fontText.family,
+            fontStyle: this.fontText.style,
+            fontWeight: this.fontText.weight
+          }"
+        >{{ letter || letterBackup }}</span>
       </div>
-      <!-- <div class="letter letter--2">
-        <input type="text" class="letter__input" placeholder="o" v-model="letters[1]" maxlength="1" pattern="[A-Za-z]">
-        <span class="letter__font letter__font--1">{{ letters[1] || 'o' }}</span>
-        <span class="letter__font letter__font--2">{{ letters[1] || 'o' }}</span>
-      </div>
-      <div class="letter letter--3">
-        <input type="text" class="letter__input" placeholder="g" v-model="letters[2]" maxlength="1" pattern="[A-Za-z]">
-        <span class="letter__font letter__font--1">{{ letters[2] || 'g' }}</span>
-        <span class="letter__font letter__font--2">{{ letters[2] || 'g' }}</span>
-      </div>
-      <div class="letter letter--4">
-        <input type="text" class="letter__input" placeholder="t" v-model="letters[3]" maxlength="1" pattern="[A-Za-z]">
-        <span class="letter__font letter__font--1">{{ letters[3] || 'h' }}</span>
-        <span class="letter__font letter__font--2">{{ letters[3] || 'h' }}</span>
-      </div>-->
+    </div>
+
+    <div class="tools__tab">
+      <button
+        @click="setOverlay(false)"
+        class="tools__tab-elem btn btn--tab"
+        :class="{ 'btn--tab-active': !positionOverlay}"
+      >Côte à côte</button>
+      <button
+        @click="setOverlay(true)"
+        class="tools__tab-elem btn btn--tab"
+        :class="{ 'btn--tab-active': positionOverlay}"
+      >Superposition</button>
     </div>
   </section>
 </template>
@@ -48,16 +53,19 @@ import { mapState } from "vuex";
 export default {
   data() {
     return {
-      letters: ["x", "o", "g", "h"],
-      lettersBackup: ["x", "o", "g", "h"],
+      positionOverlay: false,
+      letter: "x",
+      letterBackup: "x",
       regx: new RegExp("[a-zA-Z0-9]")
     };
   },
 
   methods: {
-    checkInput(id) {
-      if (!this.regx.test(this.letters[id])) {
-        this.letters[id] = this.lettersBackup[id];
+    setOverlay(flag) {
+      if (flag) {
+        this.positionOverlay = true;
+      } else {
+        this.positionOverlay = false;
       }
     }
   },
@@ -65,54 +73,10 @@ export default {
   computed: {
     ...mapState({
       fontTitle: state =>
-        state.prototypesStore.prototype.prototype.typography.fontChoices
-          .fontTitle,
+        state.prototypesStore.prototype.typography.fontChoices.fontTitle,
       fontText: state =>
-        state.prototypesStore.prototype.prototype.typography.fontChoices
-          .fontText
+        state.prototypesStore.prototype.typography.fontChoices.fontText
     })
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.comp {
-  flex-grow: 0;
-  display: flex;
-  flex-direction: column;
-  align-content: stretch;
-  align-items: stretch;
-  align-content: stretch;
-  height: 100%;
-  padding-bottom: 30px;
-}
-
-.letter {
-  position: relative;
-  height: 20%;
-
-  &__input {
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-  }
-
-  &__font {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    pointer-events: none;
-
-    &:first-child {
-      color: rgba(255, 0, 0, 0.5);
-    }
-
-    &:last-child {
-      color: rgba(0, 255, 0, 0.5);
-    }
-  }
-}
-</style>
-

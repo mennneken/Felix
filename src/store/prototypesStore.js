@@ -8,7 +8,79 @@ const prototypesStore = {
   namespaced: true,
   state: {
     prototypesList: [],
-    prototype: {}
+    prototype: {
+      typography: {
+        fontChoices: {
+          fontTitle: {
+            family: "Sans-serif",
+            style: "normal",
+            weight: "600"
+          },
+          fontText: {
+            family: "Serif",
+            style: "normal",
+            weight: "400"
+          }
+        },
+        format: {
+          size: {
+            base: {
+              value: 16,
+              unit: "px"
+            },
+            ratio: 1.25
+          },
+          titles: {
+            line: {
+              height: 1.2,
+              length: {
+                value: 65,
+                unit: "ch"
+              }
+            },
+            spaces: {
+              before: {
+                value: 1,
+                unit: "em"
+              },
+              after: {
+                value: 1,
+                unit: "em"
+              }
+            }
+          },
+          texts: {
+            line: {
+              height: 1.2,
+              length: {
+                value: 65,
+                unit: "ch"
+              }
+            },
+            spaces: {
+              before: {
+                value: 1,
+                unit: "em"
+              },
+              after: {
+                value: 1,
+                unit: "em"
+              }
+            }
+          }
+        }
+      },
+      color: {
+        harmony: "monochromatic",
+        colors: {
+          lightShade: { h: 0, s: 0, l: 87.5, a: 1 },
+          lightAccent: { h: 0, s: 0, l: 75, a: 1 },
+          main: { h: 0, s: 0, l: 50, a: 1 },
+          darkAccent: { h: 0, s: 0, l: 25, a: 1 },
+          darkShade: { h: 0, s: 0, l: 12.5, a: 1 }
+        }
+      }
+    }
   },
 
   getters: {
@@ -27,11 +99,11 @@ const prototypesStore = {
     },
 
     getColorHSLA: state => {
-      let dA = state.prototype.prototype.color.colors.darkAccent;
-      let dS = state.prototype.prototype.color.colors.darkShade;
-      let lA = state.prototype.prototype.color.colors.lightAccent;
-      let lS = state.prototype.prototype.color.colors.lightShade;
-      let main = state.prototype.prototype.color.colors.main;
+      let dA = state.prototype.color.colors.darkAccent;
+      let dS = state.prototype.color.colors.darkShade;
+      let lA = state.prototype.color.colors.lightAccent;
+      let lS = state.prototype.color.colors.lightShade;
+      let main = state.prototype.color.colors.main;
 
       return {
         darkAccent: `hsla(${dA.h}, ${dA.s}%, ${dA.l}%, ${dA.a})`,
@@ -45,89 +117,16 @@ const prototypesStore = {
 
   actions: {
     // Add a new prototype to the db
-    createNewPrototype: ({ commit }, { uid, name }) => {
+    createNewPrototype: ({ commit, state }, { uid, name }) => {
       fb.usersCollection
         .doc(uid)
         .collection("prototypes")
         .add({
           name: name,
           lastModification: new Date(),
-          parameters: {
-            typography: {
-              fontChoices: {
-                fontTitle: {
-                  family: "Sans-serif",
-                  style: "normal",
-                  weight: "600"
-                },
-                fontText: {
-                  family: "Serif",
-                  style: "normal",
-                  weight: "400"
-                }
-              },
-              format: {
-                size: {
-                  base: {
-                    value: 16,
-                    unit: "px"
-                  },
-                  ratio: 1.25
-                },
-                titles: {
-                  line: {
-                    height: 1.2,
-                    length: {
-                      value: 65,
-                      unit: "ch"
-                    }
-                  },
-                  spaces: {
-                    before: {
-                      value: 1,
-                      unit: "em"
-                    },
-                    after: {
-                      value: 1,
-                      unit: "em"
-                    }
-                  }
-                },
-                texts: {
-                  line: {
-                    height: 1.2,
-                    length: {
-                      value: 65,
-                      unit: "ch"
-                    }
-                  },
-                  spaces: {
-                    before: {
-                      value: 1,
-                      unit: "em"
-                    },
-                    after: {
-                      value: 1,
-                      unit: "em"
-                    }
-                  }
-                }
-              }
-            },
-            color: {
-              harmony: "",
-              colors: {
-                lightShade: { h: 0, s: 0, l: 87.5, a: 1 },
-                lightAccent: { h: 0, s: 0, l: 75, a: 1 },
-                main: { h: 0, s: 0, l: 50, a: 1 },
-                darkAccent: { h: 0, s: 0, l: 25, a: 1 },
-                darkShade: { h: 0, s: 0, l: 12.5, a: 1 }
-              }
-            }
-          }
+          parameters: state.prototype
         })
         .then(docRef => {
-          commit("setActualPrototype", docRef.parameters);
           router.push({ name: "Tool", params: { uid: docRef.id } });
         })
         .catch(error => {
@@ -159,7 +158,7 @@ const prototypesStore = {
           });
         })
         .catch(error => {
-          console.log("Transaction failed: ", error);
+          console.error("Transaction failed: ", error);
         });
     },
 
@@ -183,11 +182,11 @@ const prototypesStore = {
               lastModification: new Date()
             });
           } else {
-            console.log(`No document with the id "${id}" exists ;/`);
+            console.error(`No document with the id "${id}" exists ;/`);
           }
         })
         .catch(error => {
-          console.log("Error getting document:", error);
+          console.error("Error getting document:", error);
         });
     },
 
@@ -332,9 +331,9 @@ const prototypesStore = {
 
     generateSchemeColor(
       { state, dispatch },
-      harmony = state.prototype.prototype.color.harmony
+      harmony = state.prototype.color.harmony
     ) {
-      let schemeColor = state.prototype.prototype.color.colors;
+      let schemeColor = state.prototype.color.colors;
       dispatch(
         "prototypesStore/randomColor",
         {
@@ -365,7 +364,7 @@ const prototypesStore = {
 
     generateSchemeColorMonochromatic(
       { state, dispatch },
-      color = state.prototype.prototype.color.colors.main
+      color = state.prototype.color.colors.main
     ) {
       let lightShade = {
         h: [color.h - 5, color.h + 5],
@@ -419,7 +418,7 @@ const prototypesStore = {
 
     generateSchemeColorAnalogous(
       { state, dispatch },
-      color = state.prototype.prototype.color.colors.main
+      color = state.prototype.color.colors.main
     ) {
       let lightShade = {
         h: [color.h - 30, color.h - 30],
@@ -489,7 +488,7 @@ const prototypesStore = {
 
     generateSchemeColorComplementary(
       { state, dispatch },
-      color = state.prototype.prototype.color.colors.main
+      color = state.prototype.color.colors.main
     ) {
       let lightShade = {
         h: [color.h, color.h],
@@ -561,7 +560,7 @@ const prototypesStore = {
 
     generateSchemeColorSplitComplementary(
       { state, dispatch },
-      color = state.prototype.prototype.color.colors.main
+      color = state.prototype.color.colors.main
     ) {
       let lightShade = {
         h: [color.h + 30, color.h + 150],
@@ -631,7 +630,7 @@ const prototypesStore = {
 
     generateSchemeColorTriadic(
       { state, dispatch },
-      color = state.prototype.prototype.color.colors.main
+      color = state.prototype.color.colors.main
     ) {
       let lightShade = {
         h: [color.h + 120, color.h + 120],
@@ -701,7 +700,7 @@ const prototypesStore = {
 
     generateSchemeColorTetradic(
       { state, dispatch },
-      color = state.prototype.prototype.color.colors.main
+      color = state.prototype.color.colors.main
     ) {
       let lightShade = {
         h: [color.h + 60, color.h + 60],
@@ -786,32 +785,20 @@ const prototypesStore = {
       state.prototypesList = data;
     },
 
-    // Set the prototype parameters
-    setActualPrototype(state, data) {
-      state.prototype = new Object(data);
-      // let pro = state.prototype
-      // pro.name = data.name;
-      // pro.id = date.id;
-      // pro.lastModification = data.lastModification;
-      // pro.parameters = data.parameters;
-    },
-
     setFontFamily(state, { target, fontFamily }) {
-      state.prototype.prototype.typography.fontChoices[
-        target
-      ].family = fontFamily;
+      state.prototype.typography.fontChoices[target].family = fontFamily;
     },
 
     setFontStyle(state, { target, style }) {
-      state.prototype.prototype.typography.fontChoices[target].style = style;
+      state.prototype.typography.fontChoices[target].style = style;
     },
 
     setFontWeight(state, { target, weight }) {
-      state.prototype.prototype.typography.fontChoices[target].weight = weight;
+      state.prototype.typography.fontChoices[target].weight = weight;
     },
 
     setColor(state, { colorName, h, s, l, a }) {
-      state.prototype.prototype.color.colors[colorName] = {
+      state.prototype.color.colors[colorName] = {
         h: h,
         s: s,
         l: l,
@@ -820,23 +807,23 @@ const prototypesStore = {
     },
 
     setHue(state, { colorName, h }) {
-      state.prototype.prototype.color.colors[colorName].h = h;
+      state.prototype.color.colors[colorName].h = h;
     },
 
     setSaturation(state, { colorName, s }) {
-      state.prototype.prototype.color.colors[colorName].s = s;
+      state.prototype.color.colors[colorName].s = s;
     },
 
     setLightness(state, { colorName, l }) {
-      state.prototype.prototype.color.colors[colorName].l = l;
+      state.prototype.color.colors[colorName].l = l;
     },
 
     setAlpha(state, { colorName, a }) {
-      state.prototype.prototype.color.colors[colorName].a = a;
+      state.prototype.color.colors[colorName].a = a;
     },
 
     updateColorHarmony(state, harmony) {
-      state.prototype.prototype.color.harmony = harmony;
+      state.prototype.color.harmony = harmony;
     }
   }
 };

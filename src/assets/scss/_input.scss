@@ -1,4 +1,5 @@
 input[type="text"],
+input[type="email"],
 input[type="password"] {
   width: 100%;
   font-size: 1em;
@@ -20,11 +21,15 @@ input[type="password"] {
     outline: none;
     box-shadow: 0 0 0 rem(2.5) map-get($colors-main, 400) inset;
   }
-}
 
-label + input[type="text"],
-label + input[type="password"] {
-  margin-top: 5px;
+  &:invalid {
+    background-color: map-get($colors-alert, 100);
+    box-shadow: 0 0 0 rem(2.5) map-get($colors-alert, 400) inset;
+  }
+
+  label + & {
+    margin-top: 5px;
+  }
 }
 
 input[type="password"]::placeholder {
@@ -60,20 +65,20 @@ select {
 
 input[type="range"] {
   outline-color: map-get($colors-main, 400);
-}
 
-input[type="range"] + input[type="number"] {
-  background-color: transparent;
-  font-family: $ff-h;
-  font-size: map-get($fz, p);
-  border: none;
-  text-align: center;
-  width: rem(50);
-  padding: 0;
-  margin: 0 rem(3) 0 rem(12);
+  & + input[type="number"] {
+    background-color: transparent;
+    font-family: $ff-h;
+    font-size: map-get($fz, p);
+    border: none;
+    text-align: center;
+    width: rem(50);
+    padding: 0;
+    margin: 0 rem(3) 0 rem(12);
 
-  &:active,
-  &:focus {
-    outline: none;
+    &:active,
+    &:focus {
+      outline: none;
+    }
   }
 }

@@ -1,28 +1,33 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import firebase from 'firebase'
+import Vue from "vue";
+import Router from "vue-router";
+import firebase from "firebase";
 
 // import { store } from './store'
 
 // VIEWS
-import Settings from '@/views/Settings'
-import Tool from '@/views/Tool'
-import Dashboard from '@/views/Dashboard'
-import About from '@/views/About'
+import Settings from "@/views/Settings";
+import Tool from "@/views/Tool";
+import Dashboard from "@/views/Dashboard";
+import About from "@/views/About";
+import Credits from "@/views/Credits";
 // import { isEmpty } from '@firebase/util';
 
-Vue.use(Router)
+Vue.use(Router);
 
 const router = new Router({
   mode: "history",
   routes: [
     {
+      path: "*",
+      redirect: { name: "Dashboard" }
+    },
+    {
       path: "/",
       redirect: { name: "About" }
     },
     {
-      path: "*",
-      redirect: { name: "Dashboard" }
+      path: "/index.html",
+      redirect: { name: "About" }
     },
     {
       path: "/about",
@@ -30,10 +35,14 @@ const router = new Router({
       component: About
     },
     {
+      path: "/credits",
+      name: "Credits",
+      component: Credits
+    },
+    {
       path: "/dashboard",
       name: "Dashboard",
       component: Dashboard
-      // props: true
     },
     {
       path: "/tool/:uid",
@@ -51,16 +60,16 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
-  const currentUser = firebase.auth().currentUser
-  
+  const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
+  const currentUser = firebase.auth().currentUser;
+
   if (requiresAuth && !currentUser) {
     next({ path: "/dashboard" });
   } else if (requiresAuth && currentUser) {
-    next()
+    next();
   } else {
-    next()
+    next();
   }
-})
+});
 
-export default router
+export default router;

@@ -1,25 +1,18 @@
 const fb = require("@/firebaseConfig.js");
 
+import router from "@/router.js";
+
 const userConnexion = {
   namespaced: true,
   state: {
     currentUser: null,
     userProfile: {},
-    wantToLogin: false
+    wantToLogin: false,
+    errorMessage: ""
   },
 
-  mutations: {
-    setCurrentUser(state, val) {
-      state.currentUser = val;
-    },
-
-    setUserProfile(state, val) {
-      state.userProfile = val;
-    },
-
-    setWantToLogin(state, val) {
-      state.wantToLogin = val;
-    }
+  getters: {
+    isConnected: state => (state.currentUser ? true : false)
   },
 
   actions: {
@@ -46,8 +39,53 @@ const userConnexion = {
         });
     },
 
-    login({ commit }, val) {
-      commit("setWantToLogin", val);
+    signIn({ dispatch, commit }, { email, password }) {
+      console.log(typeof email, `email ${email}`);
+      console.log(typeof password, `password ${password}`);
+      fb.auth
+        .signInWithEmailAndPassword(email, password)
+        .then(user => {
+          commit("setCurrentUser", user.user);
+          dispatch("fetchUserProfile");
+          commit("setWantToLogin", false);
+
+          router.push("/dashboard");
+        })
+        .catch(err => {
+          console.error(err);
+          this.performingRequest = false;
+          this.errorMsg = err.message;
+        });
+    },
+
+    signInAnonymously({ commit }) {
+      fb.auth
+        .signInAnonymously()
+        .then(user => {
+          commit("setCurrentUser", user.user);
+        })
+        .then(() => {
+          dispatch("fetchUserProfile");
+        })
+        .catch(error => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.error(errorMessage);
+        });
+    }
+  },
+
+  mutations: {
+    setCurrentUser(state, val) {
+      state.currentUser = val;
+    },
+
+    setUserProfile(state, val) {
+      state.userProfile = val;
+    },
+
+    setWantToLogin(state, val) {
+      state.wantToLogin = val;
     }
   }
 };

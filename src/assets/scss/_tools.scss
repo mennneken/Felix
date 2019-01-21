@@ -1,15 +1,15 @@
 .tools {
   display: grid;
-  grid-template-columns: minmax(max-content, rem(360)) minmax(rem(360), 1fr);
+  grid-template-columns: minmax(min-content, rem(360)) minmax(rem(360), 1fr);
   grid-template-areas:
-  "side-bar preview"
-  "side-bar preview"; 
+    "side-bar preview"
+    "side-bar preview";
   flex-direction: row;
 
   &__label.title {
     margin-bottom: rem(5);
   }
-  
+
   &__side-bar {
     grid-area: side-bar;
     background-color: map-get($colors-neutral, 0);
@@ -17,6 +17,7 @@
     position: sticky;
     top: 0;
     box-shadow: map-get($shadow, right);
+    overflow-y: scroll;
   }
 
   &__font-list,
@@ -40,13 +41,22 @@
     }
   }
 
+  &__tools {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content 1fr;
+  }
+
   &__tool {
     margin-top: rem(20);
     padding: 0 rem(10);
-    overflow-y: scroll;
-    
+
     &:not(:first-child) {
       margin-top: rem(60);
+    }
+
+    &:last-child {
+      margin-bottom: rem(20);
     }
 
     &--comp {
@@ -54,18 +64,18 @@
       display: flex;
       flex-direction: column;
     }
-    
+
     &--font-list {
       text-align: right;
 
       & ul > li {
-        font-size: map-get($fz, h4 );
+        font-size: map-get($fz, h4);
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        
+
         &:not(:last-child) {
-          margin-bottom: .5em;
+          margin-bottom: 0.5em;
         }
       }
     }
@@ -73,7 +83,6 @@
     &--typo {
     }
   }
-
 
   &__elem {
     margin-top: rem(15);
@@ -90,9 +99,53 @@
     grid-template-columns: 1fr 1fr;
     grid-gap: rem(10) rem(20);
 
-
     & button {
       grid-column: span 2;
+    }
+  }
+}
+
+.font-comparator {
+  &__input {
+    text-align: center;
+  }
+
+  &__letters {
+    margin: rem(10) 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+
+    &-elem {
+      transition: 0.2s ease;
+      font-size: 10em;
+      transform-origin: center center;
+      margin: 0 rem(10);
+
+      &:first-child {
+        color: map-get($colors-secondary, 700);
+      }
+
+      &:last-child {
+        color: map-get($colors-main, 700);
+      }
+
+      &--overlay {
+        margin: 0;
+        mix-blend-mode: multiply;
+      }
+
+      &--overlay:first-child {
+        transform: translateX(50%);
+      }
+
+      &--overlay:last-child {
+        transform: translateX(-50%);
+      }
+
+      // position: absolute;
+      // top: 50%;
+      // transform: translateY(-50%);
     }
   }
 }

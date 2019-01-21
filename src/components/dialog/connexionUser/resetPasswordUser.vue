@@ -8,21 +8,20 @@
     </div>
     <div class="dialog__content">
       <form @submit.prevent>
-          <div v-if="!passwordResetSuccess">
-
-            <label for="email3">Email</label>
-            <input
-              v-model.trim="passwordForm.email"
-              type="text"
-              placeholder="you@email.com"
-              id="email3"
-            >
-          </div>
-          <div v-else>
-            <h2 class="title p title--upp title--main">Email envoyer !</h2>
-            <p>Vérifiez vos emails pour réinitialisé le mot de passe.</p>
-          </div>
-        </form>
+        <div v-if="!passwordResetSuccess">
+          <label for="email">Email</label>
+          <input
+            v-model.trim="passwordForm.email"
+            type="email"
+            placeholder="you@email.com"
+            id="email"
+          >
+        </div>
+        <div v-else>
+          <h2 class="title p title--upp title--main">Email envoyer !</h2>
+          <p>Vérifiez vos emails pour réinitialisé le mot de passe.</p>
+        </div>
+      </form>
     </div>
     <div class="dialog__footer">
       <div class="dialog__action">
@@ -45,7 +44,7 @@ import svgIcon from "@/components/svgIcon.vue";
 const fb = require("@/firebaseConfig.js");
 
 export default {
-  name: 'resetPasswordUser',
+  name: "resetPasswordUser",
   components: {
     svgIcon
   },
@@ -55,13 +54,13 @@ export default {
       passwordForm: {
         email: ""
       },
-      
+
       passwordResetSuccess: false,
       errorMsg: ""
-    }
+    };
   },
 
-  methods: {
+  methods: {
     // Send the user an email to reset is password.
     resetPassword() {
       this.performingRequest = true;
@@ -83,13 +82,13 @@ export default {
 
     // Close the dialog
     closeDialog() {
-      this.$emit('closeDialog');
+      this.$emit("closeDialog");
     },
 
     // Emit a to the parent the switch methods
     callSwitchTo(destination) {
-      this.$emit('switchConnexion', destination)
+      this.$emit("switchConnexion", destination);
     }
   }
-}
+};
 </script>

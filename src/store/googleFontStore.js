@@ -61,6 +61,33 @@ const googleFontStore = {
       "Le spectacle devant nous était vraiment sublime.",
       "Puis vint la nuit de la première étoile filante."
     ],
+    // familiesFilters: {
+    //   sansSerif: {
+    //     name: "Sans-serif",
+    //     active: true,
+    //     value: "sans-serif"
+    //   },
+    //   serif: {
+    //     name: "Serif",
+    //     active: true,
+    //     value: "serif"
+    //   },
+    //   display: {
+    //     name: "Display",
+    //     active: true,
+    //     value: "display"
+    //   },
+    //   monospace: {
+    //     name: "Monospace",
+    //     active: true,
+    //     value: "monospace"
+    //   },
+    //   handwriting: {
+    //     name: "Manuscrit",
+    //     active: true,
+    //     value: "handwriting"
+    //   }
+    // },
     familiesFilters: [
       {
         name: "Sans-serif",
@@ -171,8 +198,8 @@ const googleFontStore = {
     },
 
     // Update the fontList.filters to filter the fonts show
-    updateFontFamiliesFilters(state, filters) {
-      state.familiesFilters = filters;
+    updateFontFamiliesFilters(state, filterName, isActive) {
+      state.familiesFilters[filterName].active = isActive;
     }
   }
 };

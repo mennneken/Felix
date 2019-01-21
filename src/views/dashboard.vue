@@ -10,8 +10,7 @@
           <span>{{ examples.fonts.font_1.name }}</span>
           <span>{{ examples.fonts.font_2.name }}</span>
           <span>{{ examples.name }}</span>
-        </li> -->
-
+        </li>-->
         <prototype-card
           v-for="prototype in prototypesByDate"
           :key="prototype.id"
@@ -62,14 +61,6 @@ export default {
   },
 
   methods: {
-    // Create a new prototype
-    createPrototype() {
-      this.$store.dispatch("prototypesStore/createNewPrototype", {
-        uid: this.userUid,
-        name: this.prototype.name
-      });
-    },
-
     goPrototyping() {
       this.$router.push({
         name: "Tool",
@@ -78,23 +69,24 @@ export default {
     },
 
     callDialog(dialogType, data) {
-      this.$store.dispatch("dialogStore/callDialog", { type: dialogType , data: data });
-    },
+      this.$store.dispatch("dialogStore/callDialog", {
+        type: dialogType,
+        data: data
+      });
+    }
   },
 
-  computed:{
-
+  computed: {
     ...mapGetters({
-      prototypesByDate: 'prototypesStore/sortPrototypesByDate'
+      prototypesByDate: "prototypesStore/sortPrototypesByDate"
     }),
     ...mapState({
-      userConnexion: state => state.userConnexion,
       showLogin: state => state.userConnexion.wantToLogin,
       userConnected: state => state.userConnexion.currentUser,
       userUid: state => state.userConnexion.currentUser.uid,
       userIsAnonyme: state => state.userConnexion.currentUser.isAnonymous,
       prototypes: state => state.prototypesStore.prototypesList,
-      dialog: state => state.dialogStore.dialog,
+      dialog: state => state.dialogStore.dialog
     })
   }
 

@@ -6,38 +6,41 @@
         <svg-icon :name="'close'"></svg-icon>
       </button>
     </div>
-    
+
     <div class="dialog__content">
       <form @submit.prevent>
         <fieldset>
-          <label for="email1">Email</label>
+          <label for="email">Email</label>
           <input
             v-model.trim="loginForm.email"
-            type="text"
+            type="email"
             placeholder="gigibesson@felix.com"
-            id="email1"
+            id="email"
           >
         </fieldset>
 
         <fieldset>
-          <label for="password1">Mot de Passe</label>
+          <label for="password">Mot de Passe</label>
           <input
             v-model.trim="loginForm.password"
             type="password"
             placeholder="************"
-            id="password1"
+            id="password"
           >
         </fieldset>
       </form>
     </div>
-    
+
     <div class="dialog__footer">
       <div class="dialog__action">
         <div class="dialog__action-elem dialog__action-elem--primary">
           <button class="btn btn--plain" @click="login()">Se Connecter</button>
         </div>
         <div class="dialog__action-elem dialog__action-elem--secondary">
-          <button class="btn btn--invisible" @click="callSwitchTo('reset-password-user')">Mot de passe oublié</button>
+          <button
+            class="btn btn--invisible"
+            @click="callSwitchTo('reset-password-user')"
+          >Mot de passe oublié</button>
           <button class="btn btn--invisible" @click="callSwitchTo('sign-up-user')">S’inscrire</button>
         </div>
       </div>
@@ -49,11 +52,8 @@
 // COMPONENTS
 import svgIcon from "@/components/svgIcon.vue";
 
-// FIREBASE
-const fb = require("@/firebaseConfig.js");
-
 export default {
-  name: 'loginUser',
+  name: "loginUser",
   components: {
     svgIcon
   },
@@ -65,44 +65,30 @@ export default {
         password: ""
       },
       errorMsg: ""
-    }
+    };
   },
 
   methods: {
     // Log the user in and fetch his prototypes.
     login() {
       this.performingRequest = true;
+      this.$store.dispatch("userConnexion/signIn", {
+        email: this.loginForm.email,
+        password: this.loginForm.password
+      });
 
-      fb.auth
-        .signInWithEmailAndPassword(
-          this.loginForm.email,
-          this.loginForm.password
-        )
-        .then(user => {
-          this.$store.commit("userConnexion/setCurrentUser", user.user);
-          this.$store.dispatch("userConnexion/fetchUserProfile");
-          this.$store.dispatch("userConnexion/login", false);
-          this.closeDialog();
-          this.performingRequest = false;
-
-          this.$router.push("/dashboard");
-        })
-        .catch(err => {
-          console.log(err);
-          this.performingRequest = false;
-          this.errorMsg = err.message;
-        });
+      this.closeDialog;
     },
 
     // Close the dialog
     closeDialog() {
-      this.$emit('closeDialog');
+      this.$emit("closeDialog");
     },
 
     // Emit a to the parent the switch methods
     callSwitchTo(destination) {
-      this.$emit('switchConnexion', destination)
+      this.$emit("switchConnexion", destination);
     }
   }
-}
+};
 </script>

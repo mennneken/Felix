@@ -4,21 +4,18 @@ const dialogStore = {
     dialog: {
       enable: false,
       type: "",
-      data: ''
-    },
+      data: ""
+    }
   },
 
   getters: {},
 
   mutations: {
     setDialogEnable(state, enableStatus) {
-      typeof enableStatus === "boolean" ?
-        state.dialog.enable = enableStatus
-      :
-        console.error(`setDialogEnable recieve a ${typeof enableStatus} in place of a boolean`);
+      state.dialog.enable = enableStatus;
     },
 
-    setDialogData(state, data){
+    setDialogData(state, data) {
       state.dialog.data = data;
     },
 
@@ -31,9 +28,9 @@ const dialogStore = {
 
   actions: {
     callDialog({ commit }, payload) {
-      commit("setDialogType", payload.type );
-      commit("setDialogData", payload.data );
-      commit("setDialogEnable", true );
+      commit("setDialogType", payload.type);
+      commit("setDialogData", payload.data);
+      commit("setDialogEnable", true);
     },
 
     closeDialog({ commit }) {

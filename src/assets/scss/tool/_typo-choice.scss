@@ -1,0 +1,29 @@
+.typo-choice {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: min-content 1fr;
+  gap: rem(10);
+  grid-template-areas:
+    "title title"
+    "font1 font2";
+
+  & .title {
+    grid-area: title;
+  }
+
+  &__elem {
+    &:first-child {
+      grid-area: font1;
+    }
+    &:last-child {
+      grid-area: font2;
+    }
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: rem(10);
+
+    & button {
+      grid-column: span 2;
+    }
+  }
+}

@@ -8,11 +8,11 @@ const userConnexion = {
     currentUser: null,
     userProfile: {},
     wantToLogin: false,
-    errorMessage: ""
+    errorMessage: "",
   },
 
   getters: {
-    isConnected: state => (state.currentUser ? true : false)
+    isConnected: state => (state.currentUser ? true : false),
   },
 
   actions: {
@@ -40,8 +40,6 @@ const userConnexion = {
     },
 
     signIn({ dispatch, commit }, { email, password }) {
-      console.log(typeof email, `email ${email}`);
-      console.log(typeof password, `password ${password}`);
       fb.auth
         .signInWithEmailAndPassword(email, password)
         .then(user => {
@@ -58,7 +56,7 @@ const userConnexion = {
         });
     },
 
-    signInAnonymously({ commit }) {
+    signInAnonymously({ commit, dispatch }) {
       fb.auth
         .signInAnonymously()
         .then(user => {
@@ -72,7 +70,7 @@ const userConnexion = {
           var errorMessage = error.message;
           console.error(errorMessage);
         });
-    }
+    },
   },
 
   mutations: {
@@ -86,8 +84,8 @@ const userConnexion = {
 
     setWantToLogin(state, val) {
       state.wantToLogin = val;
-    }
-  }
+    },
+  },
 };
 
 export default userConnexion;

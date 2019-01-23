@@ -18,45 +18,41 @@ const router = new Router({
   mode: "history",
   routes: [
     {
-      path: "*",
-      redirect: { name: "Dashboard" }
-    },
-    {
       path: "/",
-      redirect: { name: "About" }
+      redirect: { name: "About" },
     },
     {
-      path: "/index.html",
-      redirect: { name: "About" }
+      path: "*",
+      redirect: { name: "About" },
     },
     {
       path: "/about",
       name: "About",
-      component: About
+      component: About,
     },
     {
       path: "/credits",
       name: "Credits",
-      component: Credits
+      component: Credits,
     },
     {
       path: "/dashboard",
       name: "Dashboard",
-      component: Dashboard
+      component: Dashboard,
     },
     {
       path: "/tool/:uid",
       name: "Tool",
       component: Tool,
-      meta: { requiresAuth: true }
+      meta: { requiresAuth: true },
     },
     {
       path: "/settings",
       name: "Settings",
       component: Settings,
-      meta: { requiresAuth: true }
-    }
-  ]
+      meta: { requiresAuth: true },
+    },
+  ],
 });
 
 router.beforeEach((to, from, next) => {

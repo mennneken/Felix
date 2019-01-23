@@ -1,6 +1,6 @@
-import firebase from 'firebase/app';
-require("firebase/auth");
-require("firebase/firestore");
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
 
 // firebase init goes here
 const config = {
@@ -10,25 +10,25 @@ const config = {
   projectId: "felix-7de64",
   storageBucket: "felix-7de64.appspot.com",
   messagingSenderId: "365007969810"
-}
-firebase.initializeApp(config)
+};
+firebase.initializeApp(config);
 
 // firebase utils
-const db = firebase.firestore()
-const auth = firebase.auth()
-const currentUser = auth.currentUser
+const db = firebase.firestore();
+const auth = firebase.auth();
+const currentUser = auth.currentUser;
 
 // date issue fix according to firebase
 const settings = {
   timestampsInSnapshots: true
-}
+};
 
-db.settings(settings)
+db.settings(settings);
 
 // firebase collections
-const usersCollection = db.collection('users')
-const prototypesCollection = db.collection('prototypes')
-const examplesCollection = db.collection('examples')
+const usersCollection = db.collection("users");
+const prototypesCollection = db.collection("prototypes");
+const examplesCollection = db.collection("examples");
 
 export {
   db,

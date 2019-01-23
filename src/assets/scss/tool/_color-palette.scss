@@ -1,0 +1,35 @@
+.color-palette {
+  display: grid;
+  grid-template-columns: max-content 1fr min-content;
+  grid-template-rows: min-content 1fr min-content;
+  grid-gap: rem(10);
+
+  height: 100%;
+
+  grid-template-areas: "title title title" "palette palette palette" "harmony . generate";
+
+  & .title {
+    grid-area: title;
+  }
+  &__palette {
+    grid-area: palette;
+
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+
+    border-radius: $br;
+    overflow: hidden;
+
+    &-elem {
+      height: 100%;
+      width: 100%;
+    }
+  }
+  &__harmony {
+    grid-area: harmony;
+  }
+  &__generate {
+    grid-area: generate;
+  }
+}

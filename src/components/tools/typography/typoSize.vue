@@ -1,34 +1,36 @@
 <template>
-  <section class="tools__tool">
+  <section class="tool__elem typo-size">
     <h3 class="title title--upp p">Taille Modulaire</h3>
-    
-    <div class="tools__elem">
-      <h4 class="title title--upp title--alt h5 tools__label">Taille de Base</h4>
-      <input
-        type="range"
-        :min="rangeMin(fontSize.base.unit)"
-        :max="rangeMax(fontSize.base.unit)"
-        :step="rangeStep(fontSize.base.unit)"
-        v-model="fontSize.base.value"
-      >
-      <input
-        type="number"
-        :min="rangeMin(fontSize.base.unit)"
-        :max="rangeMax(fontSize.base.unit)"
-        :step="rangeStep(fontSize.base.unit)"
-        v-model="fontSize.base.value"
-      >
-      <select v-model="fontSize.base.unit">
-        <optgroup label="Relative">
-          <option value="em">Em</option>
-          <option value="rem">Rem</option>
-        </optgroup>
-        <optgroup label="Fixe">
-          <option value="px" selected>{{ fontSize.base.value > 1 ? 'Pixels' : 'Pixel'}}</option>
-        </optgroup>
-      </select>
+
+    <div class="tool__field">
+      <h4 class="title title--upp title--alt h5">Taille de Base</h4>
+      <div class="tool__field-actions">
+        <input
+          type="range"
+          :min="rangeMin(fontSize.base.unit)"
+          :max="rangeMax(fontSize.base.unit)"
+          :step="rangeStep(fontSize.base.unit)"
+          v-model="fontSize.base.value"
+        >
+        <input
+          type="number"
+          :min="rangeMin(fontSize.base.unit)"
+          :max="rangeMax(fontSize.base.unit)"
+          :step="rangeStep(fontSize.base.unit)"
+          v-model="fontSize.base.value"
+        >
+        <select v-model="fontSize.base.unit">
+          <optgroup label="Relative">
+            <option value="em">Em</option>
+            <option value="rem">Rem</option>
+          </optgroup>
+          <optgroup label="Fixe">
+            <option value="px" selected>{{ fontSize.base.value > 1 ? 'Pixels' : 'Pixel'}}</option>
+          </optgroup>
+        </select>
+      </div>
     </div>
-    <div class="tools__elem">
+    <div class="tool__field">
       <h4 class="title title--upp title--alt h5 tools__label">Ratio de Multiplication</h4>
       <select v-model="fontSize.ratio">
         <option value="1.067">1.067</option>
@@ -47,7 +49,6 @@
 </template>
 
 <script>
-
 // VUEX
 import { mapState } from "vuex";
 
@@ -101,8 +102,8 @@ export default {
   },
 
   computed: {
-    ...mapState ({
-      fontSize: state => state.prototypesStore.prototype.typography.format.size,
+    ...mapState({
+      fontSize: state => state.prototypesStore.prototype.typography.format.size
     })
   }
 };

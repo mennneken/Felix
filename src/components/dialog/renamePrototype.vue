@@ -1,5 +1,5 @@
 <template>
-  <div class="dialog" >
+  <div class="dialog">
     <div class="dialog__header">
       <h1 class="title p title--upp title--alt dialog__title">Renommer le prototype</h1>
       <button @click="closeDialog()" class="dialog__close btn btn--icon">
@@ -9,8 +9,10 @@
     <div class="dialog__content">
       <input
         type="text"
-        v-model="prototype.name"
+        v-model="newName"
         placeholder="Nouveau Nom"
+        @keyup.esc="closeDialog()"
+        @keyup.enter="renamePrototype()"
       >
     </div>
     <div class="dialog__footer">
@@ -35,28 +37,31 @@ export default {
   components: {
     svgIcon
   },
-  
-  methods: {
+  data() {
+    return {
+      newName: ""
+    };
+  },
 
+  methods: {
     // Close Dialog Window
     closeDialog() {
-      this.$emit('closeDialog');
+      this.newName = "";
+      this.$emit("closeDialog");
     },
 
     // Call The action to rename the Prototype
     renamePrototype() {
-      this.$store.dispatch('prototypesStore/renamePrototype', {
-        uid: this.uid,
+      this.$store.dispatch("prototypesStore/renamePrototype", {
         id: this.prototype.id,
-        newName: this.prototype.name
+        newName: this.newName
       });
-      this.closeDialog()
+      this.closeDialog();
     }
   },
-  
+
   computed: mapState({
-    uid: state => state.userConnexion.currentUser.uid,
-    prototype: state => state.dialogStore.dialog.data,
+    prototype: state => state.dialogStore.dialog.data
   })
 };
 </script>

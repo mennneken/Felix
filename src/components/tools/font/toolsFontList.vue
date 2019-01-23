@@ -25,7 +25,7 @@ export default {
   computed: {
     ...mapState({
       fonts: state => state.googleFontStore.googleFontList,
-      textsPreview: state => state.googleFontStore.textsPreview,
+      textsPreview: state => state.googleFontStore.textsPreview
     }),
 
     ...mapGetters({

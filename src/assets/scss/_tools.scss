@@ -1,11 +1,38 @@
 .tools {
   display: grid;
-  grid-template-columns: minmax(min-content, rem(360)) minmax(rem(360), 1fr);
   grid-template-areas:
-    "side-bar preview"
-    "side-bar preview";
-  flex-direction: row;
+    "nav"
+    "preview"
+    "tool";
+  // grid-template-columns: 1fr;
+  grid-template-rows: min-content 1fr min-content;
 
+  & > .navigation {
+    grid-area: nav;
+    top: 0;
+  }
+
+  & > .navigation,
+  &__tools {
+    position: sticky;
+    z-index: 100;
+    @media screen and (min-width: rem(896)) {
+      position: fixed;
+    }
+  }
+
+  &__tools {
+    grid-area: tool;
+    bottom: 0;
+  }
+
+  & #preview,
+  & .font-list,
+  & .font-details {
+    grid-area: preview;
+  }
+
+  // grid-template-columns: minmax(min-content, rem(360)) minmax(rem(360), 1fr);
   &__label.title {
     margin-bottom: rem(5);
   }
@@ -28,7 +55,6 @@
 
   &__preview {
     width: 100%;
-    padding: rem(40) rem(30);
   }
 
   &__tab {
@@ -48,17 +74,6 @@
   }
 
   &__tool {
-    margin-top: rem(20);
-    padding: 0 rem(10);
-
-    &:not(:first-child) {
-      margin-top: rem(60);
-    }
-
-    &:last-child {
-      margin-bottom: rem(20);
-    }
-
     &--comp {
       height: 100%;
       display: flex;
@@ -66,9 +81,15 @@
     }
 
     &--font-list {
-      text-align: right;
-
+      & > h3 {
+        display: flex;
+        justify-content: space-between;
+        & > span {
+          text-align: right;
+        }
+      }
       & ul > li {
+        text-align: right;
         font-size: map-get($fz, h4);
         display: flex;
         justify-content: flex-end;
@@ -86,6 +107,10 @@
 
   &__elem {
     margin-top: rem(15);
+
+    &-group {
+      margin-top: rem(5);
+    }
   }
 
   &__elem + &__elem {
@@ -110,17 +135,40 @@
     text-align: center;
   }
 
-  &__letters {
-    margin: rem(10) 0;
+  &__font-name-display {
     display: flex;
-    align-items: baseline;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: rem(10);
+
+    & span {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  &__letters {
+    margin: 0 0 rem(10);
+    height: rem(200);
+    position: relative;
+
+    &-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      display: flex;
+      align-items: baseline;
+    }
 
     &-elem {
       transition: 0.2s ease;
       font-size: 10em;
       transform-origin: center center;
       margin: 0 rem(10);
+      mix-blend-mode: multiply;
+      transform: translateX(0);
 
       &:first-child {
         color: map-get($colors-secondary, 700);
@@ -132,7 +180,6 @@
 
       &--overlay {
         margin: 0;
-        mix-blend-mode: multiply;
       }
 
       &--overlay:first-child {

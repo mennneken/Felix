@@ -1,6 +1,6 @@
 <template>
   <section class="tools__tool tools__tool--font-comparator font-comparator">
-    <h3 class="title title--upp p">Comparaison de Fonts</h3>
+    <h3 class="title title--upp p">Comparateur de typographies</h3>
     <div class="tools__elem">
       <input
         class="font-comparator__input"
@@ -9,25 +9,32 @@
         v-model.trim="letter"
         maxlength="1"
       >
+
+      <div class="font-comparator__font-name-display">
+        <span class="title title--upp h5">{{fontTitle.family}}</span>
+        <span class="title title--upp h5">{{fontText.family}}</span>
+      </div>
       <div class="font-comparator__letters">
-        <span
-          class="font-comparator__letters-elem"
-          :class="{ 'font-comparator__letters-elem--overlay': positionOverlay }"
-          :style="{
-            fontFamily: this.fontTitle.family,
-            fontStyle: this.fontTitle.style,
-            fontWeight: this.fontTitle.weight
-          }"
-        >{{ letter || letterBackup }}</span>
-        <span
-          class="font-comparator__letters-elem"
-          :class="{ 'font-comparator__letters-elem--overlay': positionOverlay }"
-          :style="{
-            fontFamily: this.fontText.family,
-            fontStyle: this.fontText.style,
-            fontWeight: this.fontText.weight
-          }"
-        >{{ letter || letterBackup }}</span>
+        <div class="font-comparator__letters-wrapper">
+          <span
+            class="font-comparator__letters-elem"
+            :class="{ 'font-comparator__letters-elem--overlay': positionOverlay }"
+            :style="{
+              fontFamily: this.fontTitle.family,
+              fontStyle: this.fontTitle.style,
+              fontWeight: this.fontTitle.weight
+            }"
+          >{{ letter || letterBackup }}</span>
+          <span
+            class="font-comparator__letters-elem"
+            :class="{ 'font-comparator__letters-elem--overlay': positionOverlay }"
+            :style="{
+              fontFamily: this.fontText.family,
+              fontStyle: this.fontText.style,
+              fontWeight: this.fontText.weight
+            }"
+          >{{ letter || letterBackup }}</span>
+        </div>
       </div>
     </div>
 

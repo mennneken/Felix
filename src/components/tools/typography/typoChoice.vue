@@ -1,9 +1,9 @@
 <template>
-  <section class="tools__tool tools__tool--typo typo-choice">
+  <section class="tool__elem typo-choice">
     <h3 class="title title--upp p">Choix typographique &amp; Style</h3>
-    
+
     <!-- FONT TITLE -->
-    <div class="tools__elem">
+    <div class="tool__field">
       <h4 class="title title--upp title--alt h5 tools__label">Titres</h4>
       <div class="typo-choice__elem" v-if="dataFontTitle">
         <button class="btn btn--card" @click="callFontList('Title')">{{ fontTitle.family }}</button>
@@ -11,7 +11,7 @@
         <select v-model="fontTitle.style">
           <option disabled>{{ fontTitle.style.length > 1 ? 'Styles' : 'Style' }}</option>
           <option
-            v-for="(style, id) in dataFontTitleStyle"
+            v-for="(style, id) in dataFontstyleTitle"
             :key="id"
             :value="style"
             :selected="fontTitle.style === style"
@@ -65,20 +65,23 @@
         </select>
       </div>
     </div>
-    
+
     <!-- FONT TEXT -->
-    <div class="tools__elem">
+    <div class="tool__field">
       <h4 class="title title--upp title--alt h5 tools__label">Textes</h4>
-      
+
       <div class="typo-choice__elem" v-if="dataFontText">
         <button class="btn btn--card" @click="callFontList('Text')">{{ fontText.family }}</button>
         
         <select v-model="fontText.style">
           <option disabled>{{ dataFontTextStyle.length > 1 ? 'Styles' : 'Style' }}</option>
-          <option v-for="(style, id) in dataFontTextStyle" :key="id" :value="style" :selected="fontText.style === style">{{ style }}</option>
+          <option
+            v-for="(style, id) in dataFontTextStyle"
+            :key="id"
+            :value="style"
+            :selected="fontText.style === style"
+          >{{ style }}</option>
         </select>
-
-        
         
         <select v-if="fontText.style === 'normal'" v-model="fontText.weight">
           <option disabled>{{ dataFontTextWeight.normal.length > 1 ? 'Graisses' : 'Graisse' }}</option>
@@ -89,7 +92,6 @@
             :selected="fontText.weight === weight"
           >{{ weight }}</option>
         </select>
-
         
         <select v-if="fontText.style === 'italic'" v-model="fontText.weight">
           <option disabled>{{ dataFontTextWeight.italic.length > 1 ? 'Graisses' : 'Graisse' }}</option>
@@ -145,10 +147,10 @@ export default {
 
   methods: {
     callFontList(target) {
-      this.$store.dispatch('toolsStore/changeFontListTarget', `font${target}`);
-      this.$store.dispatch('toolsStore/callPreviews', {
-        toolsDisplay: 'fontList',
-        previewDisplay: 'fontList'
+      this.$store.dispatch("toolsStore/changeFontListTarget", `font${target}`);
+      this.$store.dispatch("toolsStore/callPreviews", {
+        toolsDisplay: "fontList",
+        previewDisplay: "fontList"
       });
     }
   },
@@ -170,7 +172,7 @@ export default {
       }
     },
 
-    dataFontTitleStyle() {
+    dataFontstyleTitle() {
       const numRegx = new RegExp("(^regular$)|(^\\d{3}$)");
       const italicRegx = new RegExp("(^italic$)|(^\\d{3}(italic)$)");
       const variants = this.dataFontTitle.variants;
@@ -277,7 +279,7 @@ export default {
       fontTitle: state =>
         state.prototypesStore.prototype.typography.fontChoices.fontTitle,
       fontText: state =>
-        state.prototypesStore.prototype.typography.fontChoices.fontText,
+        state.prototypesStore.prototype.typography.fontChoices.fontText
     })
   }
 };

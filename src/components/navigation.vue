@@ -45,12 +45,12 @@
       <router-link to="/dashboard" tag="a" class="logo logo--brand">
         <svg-icon :name="'brand'"></svg-icon>
       </router-link>
-      <h1>{{ prototypeName }}</h1>
-      <nav class="navigation__nav">
+      <h1>{{ prototypeName || 'Sans Titre' }}</h1>
+      <!-- <nav class="navigation__nav">
         <ul>
           <li></li>
         </ul>
-      </nav>
+      </nav>-->
     </div>
   </header>
 
@@ -112,7 +112,7 @@ export default {
       isConnected: "userConnexion/isConnected"
     }),
     ...mapState({
-      prototypeName: state => state.prototypesStore.prototype.name,
+      prototypeName: state => state.prototypesStore.prototype.meta.name,
       isAnonymous: state => state.userConnexion.currentUser.isAnonymous
     })
   }

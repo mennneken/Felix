@@ -3,7 +3,7 @@ const toolsStore = {
   state() {
     return {
       fontList: {
-        target: "titleFont" // titleFont or textFont
+        target: "titleFont", // titleFont or textFont
       },
       fontInDetails: "",
       previewDisplayed: "preview",
@@ -11,29 +11,29 @@ const toolsStore = {
       colorHarmonies: [
         {
           name: "Monochrome",
-          value: "monochromatic"
+          value: "monochromatic",
         },
         {
           name: "Analogue",
-          value: "analogous"
+          value: "analogous",
         },
         {
           name: "Complémentaire",
-          value: "complementary"
+          value: "complementary",
         },
         {
           name: "Complémentaires adjacentes",
-          value: "split-complementary"
+          value: "split-complementary",
         },
         {
           name: "Triadiques",
-          value: "triadic"
+          value: "triadic",
         },
         {
           name: "Tétradiques",
-          value: "tetradic"
-        }
-      ]
+          value: "tetradic",
+        },
+      ],
     };
   },
 
@@ -44,7 +44,7 @@ const toolsStore = {
     callPreviews({ dispatch }, { toolsDisplay, previewDisplay }) {
       dispatch("toolsStore/changeToolsDisplay", toolsDisplay, { root: true });
       dispatch("toolsStore/changePreviewDisplay", previewDisplay, {
-        root: true
+        root: true,
       });
     },
 
@@ -70,12 +70,7 @@ const toolsStore = {
 
     // Check and commit change to toolsDiplay
     changeToolsDisplay({ commit }, target) {
-      const valideTargets = ["typo", "comp", "format", "color", "fontList"];
-      if (valideTargets.find(valideTarget => valideTarget === target)) {
-        commit("setToolsDisplay", target);
-      } else {
-        console.error(`${target} isn't a valide target.`);
-      }
+      commit("setToolsDisplay", target);
     },
 
     // Check and commi change to previewDispay
@@ -91,7 +86,7 @@ const toolsStore = {
     // Check and commi change to previewDispay
     changefontInDetails({ commit }, font) {
       commit("setfontInDetails", font);
-    }
+    },
   },
 
   mutations: {
@@ -118,8 +113,8 @@ const toolsStore = {
     // set the value of the preview to display.
     setfontInDetails(state, font) {
       state.fontInDetails = font;
-    }
-  }
+    },
+  },
 };
 
 export default toolsStore;

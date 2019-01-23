@@ -7,6 +7,16 @@ import "./registerServiceWorker";
 const fb = require("./firebaseConfig.js");
 import "./assets/scss/main.scss";
 
+import VueMq from "vue-mq";
+
+Vue.use(VueMq, {
+  breakpoints: {
+    mobile: 896,
+    desktop: Infinity,
+  },
+  defaultBreakpoint: "mobile",
+});
+
 // Vue.config.productionTip = true;
 
 Vue.directive("click-outside", {
@@ -22,7 +32,7 @@ Vue.directive("click-outside", {
   },
   unbind: function(el) {
     document.body.removeEventListener("click", el.clickOutsideEvent);
-  }
+  },
 });
 
 const unsync = sync(store, router);
@@ -34,7 +44,7 @@ fb.auth.onAuthStateChanged(user => {
       el: "#app",
       router,
       store,
-      render: h => h(App)
+      render: h => h(App),
     });
   }
 });

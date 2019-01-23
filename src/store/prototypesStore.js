@@ -2,6 +2,8 @@ const fb = require("@/firebaseConfig.js");
 
 import { db } from "@/firebaseConfig";
 
+import chroma from "chroma-js";
+
 import router from "@/router.js";
 
 const prototypesStore = {
@@ -9,66 +11,70 @@ const prototypesStore = {
   state: {
     prototypesList: [],
     prototype: {
+      meta: {
+        name: "Prototype",
+        id: "",
+      },
       typography: {
         fontChoices: {
           fontTitle: {
             family: "Sans-serif",
             style: "normal",
-            weight: "600"
+            weight: "600",
           },
           fontText: {
             family: "Serif",
             style: "normal",
-            weight: "400"
-          }
+            weight: "400",
+          },
         },
         format: {
           size: {
             base: {
               value: 16,
-              unit: "px"
+              unit: "px",
             },
-            ratio: 1.25
+            ratio: 1.25,
           },
           titles: {
             line: {
               height: 1.2,
               length: {
                 value: 65,
-                unit: "ch"
-              }
+                unit: "ch",
+              },
             },
             spaces: {
               before: {
                 value: 1,
-                unit: "em"
+                unit: "em",
               },
               after: {
                 value: 1,
-                unit: "em"
-              }
-            }
+                unit: "em",
+              },
+            },
           },
           texts: {
             line: {
               height: 1.2,
               length: {
                 value: 65,
-                unit: "ch"
-              }
+                unit: "ch",
+              },
             },
             spaces: {
               before: {
                 value: 1,
-                unit: "em"
+                unit: "em",
               },
               after: {
                 value: 1,
-                unit: "em"
-              }
-            }
-          }
-        }
+                unit: "em",
+              },
+            },
+          },
+        },
       },
       color: {
         harmony: "monochromatic",
@@ -77,10 +83,83 @@ const prototypesStore = {
           lightAccent: { h: 0, s: 0, l: 75, a: 1 },
           main: { h: 0, s: 0, l: 50, a: 1 },
           darkAccent: { h: 0, s: 0, l: 25, a: 1 },
-          darkShade: { h: 0, s: 0, l: 12.5, a: 1 }
-        }
-      }
-    }
+          darkShade: { h: 0, s: 0, l: 12.5, a: 1 },
+        },
+      },
+    },
+    basePrototype: {
+      typography: {
+        fontChoices: {
+          fontTitle: {
+            family: "Sans-serif",
+            style: "normal",
+            weight: "600",
+          },
+          fontText: {
+            family: "Serif",
+            style: "normal",
+            weight: "400",
+          },
+        },
+        format: {
+          size: {
+            base: {
+              value: 16,
+              unit: "px",
+            },
+            ratio: 1.25,
+          },
+          titles: {
+            line: {
+              height: 1.2,
+              length: {
+                value: 65,
+                unit: "ch",
+              },
+            },
+            spaces: {
+              before: {
+                value: 1,
+                unit: "em",
+              },
+              after: {
+                value: 1,
+                unit: "em",
+              },
+            },
+          },
+          texts: {
+            line: {
+              height: 1.2,
+              length: {
+                value: 65,
+                unit: "ch",
+              },
+            },
+            spaces: {
+              before: {
+                value: 1,
+                unit: "em",
+              },
+              after: {
+                value: 1,
+                unit: "em",
+              },
+            },
+          },
+        },
+      },
+      color: {
+        harmony: "monochromatic",
+        colors: {
+          lightShade: { h: 0, s: 0, l: 87.5, a: 1 },
+          lightAccent: { h: 0, s: 0, l: 75, a: 1 },
+          main: { h: 0, s: 0, l: 50, a: 1 },
+          darkAccent: { h: 0, s: 0, l: 25, a: 1 },
+          darkShade: { h: 0, s: 0, l: 12.5, a: 1 },
+        },
+      },
+    },
   },
 
   getters: {
@@ -110,9 +189,9 @@ const prototypesStore = {
         darkShade: `hsla(${dS.h}, ${dS.s}%, ${dS.l}%, ${dS.a})`,
         lightAccent: `hsla(${lA.h}, ${lA.s}%, ${lA.l}%, ${lA.a})`,
         lightShade: `hsla(${lS.h}, ${lS.s}%, ${lS.l}%, ${lS.a})`,
-        main: `hsla(${main.h}, ${main.s}%, ${main.l}%, ${main.a})`
+        main: `hsla(${main.h}, ${main.s}%, ${main.l}%, ${main.a})`,
       };
-    }
+    },
   },
 
   actions: {
@@ -124,24 +203,31 @@ const prototypesStore = {
         .add({
           name: name,
           lastModification: new Date(),
-          parameters: state.prototype
+          parameters: state.basePrototype,
+        })
+        .then(docRef => {
+          commit("resetPrototype");
+          commit("setPrototypeMeta", { name: name, id: docRef.id });
+          return docRef;
         })
         .then(docRef => {
           router.push({ name: "Tool", params: { uid: docRef.id } });
         })
         .catch(error => {
-          console.error("Error writing prototype: ", error);
+          console.error(error);
         });
     },
 
-    continutePrototype: ({ commit, getters }, { prototypeId }) => {
-      commit("setActualPrototype", getters.findAPrototype(prototypeId));
+    continutePrototype: ({ commit }, prototype) => {
+      commit("resetPrototype");
+      commit("setPrototype", prototype.prototype);
+      commit("setPrototypeMeta", { name: prototype.name, id: prototype.id });
     },
 
     // Rename a prototype
-    renamePrototype: ({}, { uid, id, newName }) => {
+    renamePrototype: ({ rootState }, { id, newName }) => {
       let docPrototype = fb.usersCollection
-        .doc(uid)
+        .doc(rootState.userConnexion.currentUser.uid)
         .collection("prototypes")
         .doc(id);
 
@@ -153,13 +239,27 @@ const prototypesStore = {
             }
             transaction.update(docPrototype, {
               name: newName,
-              lastModification: new Date()
+              lastModification: new Date(),
             });
           });
         })
         .catch(error => {
           console.error("Transaction failed: ", error);
         });
+    },
+
+    // UPDATE TO THE DATABASE
+    updatePrototype: ({ state, rootState }) => {
+      let docPrototype = fb.usersCollection
+        .doc(rootState.userConnexion.currentUser.uid)
+        .collection("prototypes")
+        .doc(state.prototype.meta.id);
+
+      docPrototype.update({
+        lastModification: new Date(),
+        "parameters.color": state.prototype.color,
+        "parameters.typography": state.prototype.typography,
+      });
     },
 
     // Duplicate a Prototype
@@ -179,7 +279,7 @@ const prototypesStore = {
           if (doc.exists) {
             collectionPrototype.add({
               name: doc.data().name + " copie",
-              lastModification: new Date()
+              lastModification: new Date(),
             });
           } else {
             console.error(`No document with the id "${id}" exists ;/`);
@@ -226,7 +326,7 @@ const prototypesStore = {
               id: doc.id,
               name: doc.data().name,
               lastModification: doc.data().lastModification,
-              prototype: doc.data().parameters
+              prototype: doc.data().parameters,
             });
           });
         });
@@ -237,12 +337,12 @@ const prototypesStore = {
       let fontToload = `${font.family}:${font.variants.join(",")}:latin`;
 
       dispatch("googleFontStore/loadSpecificFonts", fontToload, {
-        root: true
+        root: true,
       });
 
       commit("setFontFamily", {
         target: rootState.toolsStore.fontList.target,
-        fontFamily: font.family
+        fontFamily: font.family,
       });
 
       let normalRegex = new RegExp("(^\\d{3}$)|((^regular$))");
@@ -288,7 +388,7 @@ const prototypesStore = {
         font.variants.forEach(variant => {
           if (!reguOrItalRegex.test(variant)) {
             weightArr = [
-              ...new Set([...weightArr, ...[Number.parseInt(variant)]])
+              ...new Set([...weightArr, ...[Number.parseInt(variant)]]),
             ];
           }
         });
@@ -298,12 +398,21 @@ const prototypesStore = {
 
       commit("setFontStyle", {
         target: rootState.toolsStore.fontList.target,
-        style
+        style,
       });
 
       commit("setFontWeight", {
         target: rootState.toolsStore.fontList.target,
-        weight
+        weight,
+      });
+    },
+
+    // reset the font
+    resetFont({ commit, state, rootState }) {
+      let target = rootState.toolsStore.fontList.target;
+      commit("setFont", {
+        target,
+        font: state.basePrototype.typography.fontChoices[target],
       });
     },
 
@@ -318,14 +427,12 @@ const prototypesStore = {
       let lightness = getRandomNumber(l[0], l[1]);
       let alpha = getRandomNumber(a[0] * 100, a[1] * 100) / 100;
 
-      // console.log(colorName, "h:", hue, "s:", saturation, "l:", lightness);
-
       commit("setColor", {
         colorName,
         h: hue,
         s: saturation,
         l: lightness,
-        a: alpha
+        a: alpha,
       });
     },
 
@@ -340,12 +447,10 @@ const prototypesStore = {
           h: [0, 360],
           s: [20, 80],
           l: [35, 65],
-          a: [1, 1]
+          a: [1, 1],
         },
         { root: true }
       );
-
-      // console.clear();
 
       if (harmony === "monochromatic") {
         dispatch("generateSchemeColorMonochromatic");
@@ -369,50 +474,50 @@ const prototypesStore = {
       let lightShade = {
         h: [color.h - 5, color.h + 5],
         s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
-        l: [78, 95]
+        l: [78, 95],
       };
       let lightAccent = {
         h: [color.h - 5, color.h + 5],
         s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
-        l: [68, 75]
+        l: [68, 75],
       };
       let darkAccent = {
         h: [color.h - 5, color.h + 5],
         s: [color.s + (color.s / 100) * -30, color.s + (color.s / 100) * 30],
-        l: [22, 32]
+        l: [22, 32],
       };
       let darkShade = {
         h: [color.h - 5, color.h + 5],
         s: [color.s + (color.s / 100) * -30, color.s + (color.s / 100) * 30],
-        l: [10, 20]
+        l: [10, 20],
       };
 
       dispatch("randomColor", {
         colorName: "lightShade",
         h: lightShade.h,
         s: lightShade.s,
-        l: lightShade.l
+        l: lightShade.l,
       });
 
       dispatch("randomColor", {
         colorName: "lightAccent",
         h: lightAccent.h,
         s: lightAccent.s,
-        l: lightAccent.l
+        l: lightAccent.l,
       });
 
       dispatch("randomColor", {
         colorName: "darkAccent",
         h: darkAccent.h,
         s: darkAccent.s,
-        l: darkAccent.l
+        l: darkAccent.l,
       });
 
       dispatch("randomColor", {
         colorName: "darkShade",
         h: darkShade.h,
         s: darkShade.s,
-        l: darkShade.l
+        l: darkShade.l,
       });
     },
 
@@ -423,22 +528,22 @@ const prototypesStore = {
       let lightShade = {
         h: [color.h - 30, color.h - 30],
         s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
-        l: [78, 95]
+        l: [78, 95],
       };
       let lightAccent = {
         h: [color.h + 30, color.h + 30],
         s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
-        l: [68, 75]
+        l: [68, 75],
       };
       let darkAccent = {
         h: [color.h + 30, color.h + 30],
         s: [color.s + (color.s / 100) * -30, color.s + (color.s / 100) * 30],
-        l: [22, 32]
+        l: [22, 32],
       };
       let darkShade = {
         h: [color.h - 30, color.h - 30],
         s: [color.s + (color.s / 100) * -30, color.s + (color.s / 100) * 30],
-        l: [10, 20]
+        l: [10, 20],
       };
 
       dispatch(
@@ -447,7 +552,7 @@ const prototypesStore = {
           colorName: "lightShade",
           h: lightShade.h,
           s: lightShade.s,
-          l: lightShade.l
+          l: lightShade.l,
         },
         { root: true }
       );
@@ -458,7 +563,7 @@ const prototypesStore = {
           colorName: "lightAccent",
           h: lightAccent.h,
           s: lightAccent.s,
-          l: lightAccent.l
+          l: lightAccent.l,
         },
         { root: true }
       );
@@ -469,7 +574,7 @@ const prototypesStore = {
           colorName: "darkAccent",
           h: darkAccent.h,
           s: darkAccent.s,
-          l: darkAccent.l
+          l: darkAccent.l,
         },
         { root: true }
       );
@@ -480,7 +585,7 @@ const prototypesStore = {
           colorName: "darkShade",
           h: darkShade.h,
           s: darkShade.s,
-          l: darkShade.l
+          l: darkShade.l,
         },
         { root: true }
       );
@@ -493,25 +598,23 @@ const prototypesStore = {
       let lightShade = {
         h: [color.h, color.h],
         s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
-        l: [78, 95]
+        l: [78, 95],
       };
       let lightAccent = {
         h: [color.h - 180, color.h - 180],
         s: [color.s + (color.s / 100) * -30, color.s + (color.s / 100) * -30],
-        l: [68, 75]
+        l: [68, 75],
       };
       let darkAccent = {
         h: [color.h - 180, color.h - 180],
         s: [color.s + (color.s / 100) * -30, color.s + (color.s / 100) * 30],
-        l: [22, 32]
+        l: [22, 32],
       };
       let darkShade = {
         h: [color.h, color.h],
         s: [color.s - (color.s / 100) * 75, color.s - (color.s / 100) * 25],
-        l: [10, 20]
+        l: [10, 20],
       };
-
-      console.log("colormain", "h:", color.h, "s:", color.s, "l:", color.l);
 
       dispatch(
         "prototypesStore/randomColor",
@@ -519,7 +622,7 @@ const prototypesStore = {
           colorName: "lightShade",
           h: lightShade.h,
           s: lightShade.s,
-          l: lightShade.l
+          l: lightShade.l,
         },
         { root: true }
       );
@@ -530,7 +633,7 @@ const prototypesStore = {
           colorName: "lightAccent",
           h: lightAccent.h,
           s: lightAccent.s,
-          l: lightAccent.l
+          l: lightAccent.l,
         },
         { root: true }
       );
@@ -541,7 +644,7 @@ const prototypesStore = {
           colorName: "darkAccent",
           h: darkAccent.h,
           s: darkAccent.s,
-          l: darkAccent.l
+          l: darkAccent.l,
         },
         { root: true }
       );
@@ -552,7 +655,7 @@ const prototypesStore = {
           colorName: "darkShade",
           h: darkShade.h,
           s: darkShade.s,
-          l: darkShade.l
+          l: darkShade.l,
         },
         { root: true }
       );
@@ -565,22 +668,22 @@ const prototypesStore = {
       let lightShade = {
         h: [color.h + 30, color.h + 150],
         s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
-        l: [78, 95]
+        l: [78, 95],
       };
       let lightAccent = {
         h: [color.h - 150, color.h - 150],
         s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
-        l: [68, 75]
+        l: [68, 75],
       };
       let darkAccent = {
         h: [color.h - 150, color.h - 150],
         s: [color.s - (color.s / 100) * 50, color.s - (color.s / 100) * 30],
-        l: [22, 32]
+        l: [22, 32],
       };
       let darkShade = {
         h: [color.h + 150, color.h + 150],
         s: [color.s - (color.s / 100) * 75, color.s - (color.s / 100) * 50],
-        l: [10, 20]
+        l: [10, 20],
       };
 
       dispatch(
@@ -589,7 +692,7 @@ const prototypesStore = {
           colorName: "lightShade",
           h: lightShade.h,
           s: lightShade.s,
-          l: lightShade.l
+          l: lightShade.l,
         },
         { root: true }
       );
@@ -600,7 +703,7 @@ const prototypesStore = {
           colorName: "lightAccent",
           h: lightAccent.h,
           s: lightAccent.s,
-          l: lightAccent.l
+          l: lightAccent.l,
         },
         { root: true }
       );
@@ -611,7 +714,7 @@ const prototypesStore = {
           colorName: "darkAccent",
           h: darkAccent.h,
           s: darkAccent.s,
-          l: darkAccent.l
+          l: darkAccent.l,
         },
         { root: true }
       );
@@ -622,7 +725,7 @@ const prototypesStore = {
           colorName: "darkShade",
           h: darkShade.h,
           s: darkShade.s,
-          l: darkShade.l
+          l: darkShade.l,
         },
         { root: true }
       );
@@ -635,22 +738,22 @@ const prototypesStore = {
       let lightShade = {
         h: [color.h + 120, color.h + 120],
         s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
-        l: [78, 95]
+        l: [78, 95],
       };
       let lightAccent = {
         h: [color.h - 120, color.h - 120],
         s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
-        l: [68, 75]
+        l: [68, 75],
       };
       let darkAccent = {
         h: [color.h - 120, color.h - 120],
         s: [color.s - (color.s / 100) * 50, color.s - (color.s / 100) * 30],
-        l: [22, 32]
+        l: [22, 32],
       };
       let darkShade = {
         h: [color.h + 120, color.h + 120],
         s: [color.s - (color.s / 100) * 75, color.s - (color.s / 100) * 50],
-        l: [10, 20]
+        l: [10, 20],
       };
 
       dispatch(
@@ -659,7 +762,7 @@ const prototypesStore = {
           colorName: "lightShade",
           h: lightShade.h,
           s: lightShade.s,
-          l: lightShade.l
+          l: lightShade.l,
         },
         { root: true }
       );
@@ -670,7 +773,7 @@ const prototypesStore = {
           colorName: "lightAccent",
           h: lightAccent.h,
           s: lightAccent.s,
-          l: lightAccent.l
+          l: lightAccent.l,
         },
         { root: true }
       );
@@ -681,7 +784,7 @@ const prototypesStore = {
           colorName: "darkAccent",
           h: darkAccent.h,
           s: darkAccent.s,
-          l: darkAccent.l
+          l: darkAccent.l,
         },
         { root: true }
       );
@@ -692,7 +795,7 @@ const prototypesStore = {
           colorName: "darkShade",
           h: darkShade.h,
           s: darkShade.s,
-          l: darkShade.l
+          l: darkShade.l,
         },
         { root: true }
       );
@@ -705,22 +808,22 @@ const prototypesStore = {
       let lightShade = {
         h: [color.h + 60, color.h + 60],
         s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
-        l: [78, 95]
+        l: [78, 95],
       };
       let lightAccent = {
         h: [color.h, color.h],
         s: [color.s + (color.s / 100) * -15, color.s + (color.s / 100) * 15],
-        l: [68, 75]
+        l: [68, 75],
       };
       let darkAccent = {
         h: [color.h - 120, color.h - 120],
         s: [color.s - (color.s / 100) * 50, color.s - (color.s / 100) * 30],
-        l: [22, 32]
+        l: [22, 32],
       };
       let darkShade = {
         h: [color.h - 180, color.h - 180],
         s: [color.s - (color.s / 100) * 75, color.s - (color.s / 100) * 50],
-        l: [10, 20]
+        l: [10, 20],
       };
 
       dispatch(
@@ -729,7 +832,7 @@ const prototypesStore = {
           colorName: "lightShade",
           h: lightShade.h,
           s: lightShade.s,
-          l: lightShade.l
+          l: lightShade.l,
         },
         { root: true }
       );
@@ -740,7 +843,7 @@ const prototypesStore = {
           colorName: "lightAccent",
           h: lightAccent.h,
           s: lightAccent.s,
-          l: lightAccent.l
+          l: lightAccent.l,
         },
         { root: true }
       );
@@ -751,7 +854,7 @@ const prototypesStore = {
           colorName: "darkAccent",
           h: darkAccent.h,
           s: darkAccent.s,
-          l: darkAccent.l
+          l: darkAccent.l,
         },
         { root: true }
       );
@@ -762,17 +865,37 @@ const prototypesStore = {
           colorName: "darkShade",
           h: darkShade.h,
           s: darkShade.s,
-          l: darkShade.l
+          l: darkShade.l,
         },
         { root: true }
       );
-    }
+    },
   },
 
   mutations: {
     // Clear all Prototype
     clearPrototypeList(state) {
       state.prototypesList = [];
+    },
+
+    // Set (current)prototype to is default.
+    resetPrototype(state) {
+      state.prototype.meta = {
+        name: "Prototype",
+        id: "",
+      };
+      state.prototype.typography = state.basePrototype.typography;
+      state.prototype.color = state.basePrototype.color;
+    },
+
+    // Set (current)prototype to a personalyse prototype.
+    setPrototype(state, prototype) {
+      state.prototype = prototype;
+    },
+
+    // Set (current)prototype to a personalyse prototype.
+    setPrototypeMeta(state, meta) {
+      state.prototype.meta = meta;
     },
 
     // Add a prototype to the list of prototypes
@@ -783,6 +906,10 @@ const prototypesStore = {
     // Set all the user prototypes
     setAllPrototypes(state, data) {
       state.prototypesList = data;
+    },
+
+    setFont(state, { target, font }) {
+      state.prototype.typography.fontChoices[target] = font;
     },
 
     setFontFamily(state, { target, fontFamily }) {
@@ -797,12 +924,16 @@ const prototypesStore = {
       state.prototype.typography.fontChoices[target].weight = weight;
     },
 
+    setColors(state, colors) {
+      state.prototype.color.colors = colors;
+    },
+
     setColor(state, { colorName, h, s, l, a }) {
       state.prototype.color.colors[colorName] = {
         h: h,
         s: s,
         l: l,
-        a: a
+        a: a,
       };
     },
 
@@ -824,8 +955,8 @@ const prototypesStore = {
 
     updateColorHarmony(state, harmony) {
       state.prototype.color.harmony = harmony;
-    }
-  }
+    },
+  },
 };
 
 export default prototypesStore;

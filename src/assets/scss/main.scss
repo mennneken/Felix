@@ -22,6 +22,7 @@ body {
 }
 
 body,
+.text,
 input[type="text"],
 input[type="password"] {
   font-family: $ff-t;
@@ -84,16 +85,6 @@ h6,
 }
 
 .title {
-  // &.h1, &.h2, &.h3, &.h4 {
-  //   margin-top: 0;
-  //   margin-bottom: rem(20);
-  // }
-
-  // &.p, &.h5, &.h6 {
-  //   margin-top: 0;
-  //   margin-bottom: rem(10);
-  // }
-
   &.h1,
   &.h2,
   &.h3,
@@ -113,6 +104,12 @@ h6,
     &::selection {
       color: map-get($colors-secondary, 500);
     }
+  }
+}
+
+.text {
+  &--shade {
+    color: map-get($colors-neutral, 700);
   }
 }
 
@@ -211,6 +208,17 @@ ul.not-a-list {
   list-style: none;
 }
 
-@import "_header", "_navigation", "_user", "_dashboard", "_credits", "_button",
-  "_svg", "_input", "_tools", "_dropdown", "_login", "_form", "_card", "_dialog",
-  "_about", "_font-list", "_font-details";
+@import "_header", "_navigation", "_user", "_dialog", "_login";
+
+@import "_button", "_svg", "_input", "_dropdown", "_card";
+
+@import "_dashboard";
+
+@import "_about";
+
+@import "_credits";
+
+@import "_tools", "_tool", "_font-list", "_font-details", "_preview";
+
+@import "tool/_typo-choice", "tool/_typo-size", "tool/_typo-format",
+  "tool/_typo-spaces", "tool/_color-palette", "tool/_color-adjust";

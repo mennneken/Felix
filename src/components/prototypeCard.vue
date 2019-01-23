@@ -7,7 +7,7 @@
 
       <ul class="not-a-list">
         <li>
-          <button class="btn btn--icon"  @click.stop="dropdownActive = !dropdownActive">
+          <button class="btn btn--icon" @click.stop="dropdownActive = !dropdownActive">
             <svg-icon :name="'more'"></svg-icon>
           </button>
           <ul
@@ -78,10 +78,15 @@ export default {
 
     // Open a prototype
     callPrototyping() {
-      this.$store.dispatch("prototypesStore/continutePrototype", {
-        prototypeId: this.prototype.id
+      this.$store.dispatch(
+        "prototypesStore/continutePrototype",
+        this.prototype
+      );
+
+      this.$router.push({
+        name: "Tool",
+        params: { uid: this.prototype.id }
       });
-      this.$router.push({ name: "Tool", params: { uid: this.prototype.id } });
     },
 
     // Open the corresponding dialog

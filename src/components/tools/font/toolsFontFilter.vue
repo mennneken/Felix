@@ -1,15 +1,15 @@
 <template>
   <section class="tools__tool tools__tool--font-list">
-    <h3 class="title title--upp p">{{ fontListFilteredLength }} sur {{ fontListLength }} typographie</h3>
+    <h3 class="title title--upp p">
+      Filtre Typographies
+      <span>{{ fontListFilteredLength }} sur {{ fontListLength }}</span>
+    </h3>
+    <h3 class="title title--upp p"></h3>
     <div class="tools__elem">
       <ul class="not-a-list">
         <li v-for="filter in familiesFilters" :key="filter.id">
           <label :for="filter.name">{{ filter.name }}</label>
           <input type="checkbox" :name="filter.name" :id="filter.name" v-model="filter.active">
-          <!-- <button class="font-list__action btn btn--icon" @click="!filter.active">
-            <svg-icon v-show="filter.active" class="font-list__action" :name="'checkbox-check'"></svg-icon>
-            <svg-icon v-show="!filter.active" class="font-list__action" :name="'checkbox-uncheck'"></svg-icon>
-          </button>-->
         </li>
       </ul>
     </div>
@@ -22,6 +22,7 @@ import { mapState, mapGetters } from "vuex";
 
 // COMPONENTS
 import svgIcon from "@/components/svgIcon";
+import TypoComp from "../typography/typoComparison.vue";
 
 export default {
   components: {

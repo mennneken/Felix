@@ -1,11 +1,9 @@
 <template>
   <div id="tools" class="tools">
-    <div class="tools__side-bar">
-      <f-nav></f-nav>
-      <f-tools></f-tools>
-    </div>
-    <f-preview v-show="previewToDisplay === 'preview'"></f-preview>
-    <font-list v-show="previewToDisplay === 'fontList'"></font-list>
+    <f-nav></f-nav>
+    <f-tools></f-tools>
+    <f-preview v-if="previewToDisplay === 'preview'"></f-preview>
+    <font-list v-if="previewToDisplay === 'fontList'"></font-list>
     <font-details v-if="previewToDisplay === 'fontDetails'"></font-details>
   </div>
 </template>
@@ -20,6 +18,9 @@ import fNav from "@/components/navigation";
 
 //VUEX
 import { mapState } from "vuex";
+
+// FIREBASE
+const fb = require("../firebaseConfig.js");
 
 export default {
   components: {
@@ -42,8 +43,14 @@ export default {
   },
 
   created() {
+    // if (this.$store.prototype.)
+    // this.$store.commit();
     this.$store.commit("toolsStore/setPreviewDisplay", "preview");
     this.$store.commit("toolsStore/setToolsDisplay", "typo");
+  },
+
+  destroyed() {
+    this.$store.dispatch("prototypesStore/updatePrototype");
   }
 };
 </script>

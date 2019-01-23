@@ -14,8 +14,20 @@ nav > ul {
     }
 
     &--secondary {
-      margin: rem(10) 0;
+      height: rem(50);
       justify-content: space-around;
+
+      @media screen and (min-width: 544) {
+      }
+      @media screen and (min-width: 896) {
+        margin: rem(10) 0;
+      }
+      @media screen and (min-width: 1232) {
+      }
+
+      &-alone {
+        justify-content: flex-start;
+      }
     }
 
     &--horizontal {

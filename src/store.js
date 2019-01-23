@@ -31,8 +31,8 @@ const vuexLocalStorage = new VuexPersist({
   reducer: state => ({
     prototypesStore: state.prototypesStore,
     toolsStore: state.toolsStore,
-    googleFontStore: state.googleFontStore
-  })
+    googleFontStore: state.googleFontStore,
+  }),
 });
 
 export const store = new Vuex.Store({
@@ -41,7 +41,7 @@ export const store = new Vuex.Store({
     prototypesStore,
     dialogStore,
     toolsStore,
-    googleFontStore
+    googleFontStore,
   },
-  plugins: [vuexLocalStorage.plugin]
+  plugins: [vuexLocalStorage.plugin],
 });

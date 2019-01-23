@@ -1,8 +1,5 @@
 <template>
   <div class="tools__font-details font-details">
-    <a @click.prevent="backToFontList()">
-      <svg-icon class="font-list__action" :name="'arrow-left'"></svg-icon>Retour
-    </a>
     <header>
       <h1 class="title title--alt">{{ font.family }}</h1>
       <span class="title h3">{{ numberOfStyle }}</span>
@@ -136,6 +133,7 @@ export default {
 
       return obj;
     },
+
     // add font to the state
     addFont(fontWeight, fontStyle) {
       // set new font
@@ -153,10 +151,6 @@ export default {
       });
       this.$store.commit("toolsStore/setToolsDisplay", "typo");
       this.$store.commit("toolsStore/setPreviewDisplay", "preview");
-    },
-
-    backToFontList() {
-      this.$store.commit("toolsStore/setPreviewDisplay", "fontList");
     }
   },
 
@@ -186,7 +180,6 @@ export default {
       "googleFontStore/loadSpecificFonts",
       `${this.font.family}:${this.font.variants.join(",")}:latin`
     );
-    console.log(`WebFontLoader load: ${this.font.family}`);
   }
 };
 </script>

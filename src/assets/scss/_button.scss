@@ -9,6 +9,8 @@ button.btn,
   font-size: 1em;
   box-sizing: border-box;
 
+  cursor: pointer;
+
   text-align: center;
   vertical-align: middle;
 
@@ -213,6 +215,17 @@ button.btn,
     }
   }
 
+  &--icon-left {
+    background-color: transparent;
+
+    & svg {
+      margin-right: 0.25em;
+      height: 1em;
+      width: 1em;
+      box-sizing: border-box;
+    }
+  }
+
   &--icon-right {
     display: flex;
     align-items: center;
@@ -241,7 +254,7 @@ button.btn,
     }
 
     & svg {
-      margin: 0 0 0 0.5em;
+      margin-right: 0.5em;
       width: 1em;
       height: 1em;
     }

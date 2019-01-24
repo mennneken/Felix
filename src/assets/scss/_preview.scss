@@ -20,9 +20,26 @@
   &__container {
     grid-column: 1/-1;
 
-    // @media screen and (min-width: rem(896)) {
-    //   grid-column: 2/-2;
-    // }
+    @media screen and (min-width: rem(1232)) {
+      grid-column: 2/-2;
+    }
+  }
+
+  .intro {
+    height: 40vh;
+    width: 100%;
+    background-image: url("/assets/images/looking-fox@1x.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-blend-mode: screen;
+
+    @media only screen and (-webkit-min-device-pixel-ratio: 2),
+      only screen and (min--moz-device-pixel-ratio: 2),
+      only screen and (-o-min-device-pixel-ratio: 2/1) {
+      background-image: url("/assets/images/looking-fox@2x.jpg");
+    }
   }
 
   & h1,
@@ -174,36 +191,31 @@
     margin: 0;
     padding: rem(30) 0;
 
-    @media screen and (min-width: rem(1232)) {
-    }
-
     @media screen and (min-width: rem(1440)) {
       max-width: initial;
     }
 
     &-container {
+      display: grid;
       grid-auto-rows: min-content;
+      // grid-template-columns: 1fr;
       grid-gap: rem(60) rem(30);
 
       @media screen and (min-width: rem(896)) {
         grid-gap: rem(30);
         grid-template-columns: repeat(5, 1fr);
-        grid-auto-rows: 1fr;
         grid-template-areas:
           "soc soc shop shop shop"
           "alm alm shop shop shop"
-          ". alt alt alt .";
-        align-items: start;
+          ". alt alt . .";
       }
     }
 
     &-elem {
       border-radius: rem(10);
       padding: rem(20);
-      // display: grid;
-      grid-row-gap: rem(20);
-      grid-auto-rows: min-content;
-      height: min-content;
+
+      grid-column: 2 / -2;
 
       box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 
@@ -212,7 +224,10 @@
       }
 
       &--social {
-        grid-area: soc;
+        @media screen and (min-width: rem(896)) {
+          grid-area: soc;
+        }
+
         ul {
           display: flex;
           align-items: center;
@@ -225,14 +240,16 @@
       }
 
       &--shoping {
-        grid-area: shop;
-        grid-template-rows: auto min-content;
+        @media screen and (min-width: rem(896)) {
+          grid-area: shop;
+        }
         padding: 0;
         overflow: hidden;
 
-        // height: 100%;
+        height: 100%;
 
         display: grid;
+        grid-template-rows: minmax(rem(200), 1fr) min-content;
 
         grid-row-gap: 0;
 
@@ -240,30 +257,48 @@
           padding: rem(20);
         }
 
-        picture {
-          width: 100%;
-          height: rem(365);
-          overflow: hidden;
+        & .preview__card-img {
+          background-size: cover;
+          background-position: center;
+          background-blend-mode: luminosity;
 
-          img {
-            object-fit: cover;
-            object-position: center;
-            width: 100%;
-            height: 100%;
+          &--petit-prince {
+            background-image: url("/assets/images/petit-prince@1x.jpg");
+
+            @media only screen and (-webkit-min-device-pixel-ratio: 2),
+              only screen and (min--moz-device-pixel-ratio: 2),
+              only screen and (-o-min-device-pixel-ratio: 2/1) {
+              background-image: url("/assets/images/petit-prince@2x.jpg");
+            }
+            @media only screen and (-webkit-min-device-pixel-ratio: 3),
+              only screen and (min--moz-device-pixel-ratio: 3),
+              only screen and (-o-min-device-pixel-ratio: 3/1) {
+              background-image: url("/assets/images/petit-prince@3x.jpg");
+            }
+          }
+          &--mr-fox {
+            background-image: url("/assets/images/mr-fox@1x.jpg");
+
+            @media only screen and (-webkit-min-device-pixel-ratio: 2),
+              only screen and (min--moz-device-pixel-ratio: 2),
+              only screen and (-o-min-device-pixel-ratio: 2/1) {
+              background-image: url("/assets/images/mr-fox@2x.jpg");
+            }
+            @media only screen and (-webkit-min-device-pixel-ratio: 3),
+              only screen and (min--moz-device-pixel-ratio: 3),
+              only screen and (-o-min-device-pixel-ratio: 3/1) {
+              background-image: url("/assets/images/mr-fox@3x.jpg");
+            }
           }
         }
       }
 
       &--alert {
-        grid-area: alm;
-        border: 2px solid;
-        grid-template-columns: 1fr 1fr;
-        grid-column-gap: 20px;
-
-        & h3,
-        & p {
-          grid-column: span 2;
+        @media screen and (min-width: rem(896)) {
+          grid-area: alm;
         }
+
+        border: 2px solid;
 
         button {
           padding: rem(7) rem(10) rem(3);
@@ -273,22 +308,44 @@
           background-color: none;
           border: 2px solid;
           border-radius: 5px;
+          transition: filter 300ms map-get($transition, easeInOutCubic);
+
+          &:hover {
+            filter: brightness(1.1);
+          }
+          &:active {
+            filter: brightness(0.9);
+          }
         }
       }
 
       &--alt {
-        grid-area: alt;
-      }
+        @media screen and (min-width: rem(896)) {
+          grid-area: alt;
+        }
+        p a {
+          text-decoration: underline;
+          transition: filter 300ms map-get($transition, easeInOutCubic);
+          filter: contrast(110%);
 
-      &--quote {
-        margin: rem(80) 0;
+          &:hover {
+            filter: brightness(1.1);
+          }
+          &:active {
+            filter: brightness(0.9);
+          }
+        }
       }
+    }
+
+    &--quote {
+      margin: rem(80) 0;
     }
 
     &-actions {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: space-around;
     }
   }
 

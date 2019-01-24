@@ -121,6 +121,13 @@ a {
   color: #000;
   text-decoration: none;
   &.link {
+    &:hover {
+      color: map-get($colors-secondary, 400);
+    }
+    &:active,
+    &:focus {
+      color: map-get($colors-main, 700);
+    }
     &:visited {
       color: map-get($colors-secondary, 900);
       border-color: map-get($colors-secondary, 900);

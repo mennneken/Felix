@@ -2,17 +2,16 @@
   width: 100%;
   background-color: map-get($colors-neutral, 0);
 
-  transform: translateY(0);
-
-  transition: transform 0.3s map-get($transition, easeOutCubic);
-
   display: grid;
   grid-template-rows: 1fr min-content;
   grid-template-areas:
     "tool"
     "nav";
 
+  transition: 0.3s map-get($transition, easeOutCubic);
+  box-shadow: 0 1px 0 0 map-get($colors-neutral, 200);
   @media screen and (min-width: rem(896)) {
+    box-shadow: -1px 0 0 0 map-get($colors-neutral, 200);
     height: auto;
     width: rem(360);
 
@@ -35,6 +34,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
   }
 
   & .tool__elem > .title {
@@ -42,9 +42,10 @@
   }
 
   &--fold {
-    transform: translateY(rem(210));
+    height: rem(40);
+
     & .tool__elem > .title {
-      margin: rem(5);
+      margin: rem(5) 0;
     }
 
     & .btn.btn--icon.tool__fold-action {

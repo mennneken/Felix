@@ -11,7 +11,7 @@
       <form @submit.prevent>
         <fieldset>
           <label for="name">Nom</label>
-          <input v-model.trim="signupForm.lastname" type="text" placeholder="Ginette" id="name">
+          <input v-model.trim="signupForm.lastname" type="text" placeholder="Dupont" id="name">
         </fieldset>
 
         <fieldset>
@@ -19,7 +19,7 @@
           <input
             v-model.trim="signupForm.firstname"
             type="text"
-            placeholder="Besson"
+            placeholder="Ginette"
             id="firstname"
           >
         </fieldset>
@@ -29,7 +29,7 @@
           <input
             v-model.trim="signupForm.email"
             type="email"
-            placeholder="gigibesson@mail.com"
+            placeholder="gigidupont@mail.com"
             id="email"
           >
         </fieldset>

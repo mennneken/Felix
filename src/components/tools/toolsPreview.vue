@@ -96,6 +96,8 @@
       </div>
     </section>
 
+    <div class="intro" :style="{backgroundColor: colorHSLA.darkShade}"></div>
+
     <section class="preview__long-text">
       <div class="preview__container">
         <h1 :style="[styleTitle, marginTitleBottom, { fontSize: fontSizeLevel(4) }]">Vulpes Vulpes</h1>
@@ -171,12 +173,10 @@
           class="preview__card-elem preview__card-elem--shoping"
           :style="{backgroundColor: colorHSLA.lightShade}"
         >
-          <picture>
-            <source
-              srcset="/assets/images/mr-fox@1x.jpg 300w, /assets/images/mr-fox@2x.jpg 600w, /assets/images/mr-fox@3x.jpg 800w"
-            >
-            <img src="/assets/images/mr-fox@2x.jpg" alt="Un enfant avec une vest renard.">
-          </picture>
+          <div
+            class="preview__card-img preview__card-img--mr-fox"
+            :style="{backgroundColor: colorHSLA.main}"
+          ></div>
           <div class="preview__card-content">
             <span
               :style="[styleTitle, { fontSize: fontSizeLevel(-1), color: colorHSLA.main}]"
@@ -246,12 +246,10 @@
           class="preview__card-elem preview__card-elem--shoping"
           :style="{backgroundColor: colorHSLA.lightShade}"
         >
-          <picture>
-            <source
-              srcset="/assets/images/mr-fox@1x.jpg 300w, /assets/images/mr-fox@2x.jpg 600w, /assets/images/mr-fox@3x.jpg 800w"
-            >
-            <img src="/assets/images/mr-fox@2x.jpg" alt="Un enfant avec une vest renard.">
-          </picture>
+          <div
+            class="preview__card-img preview__card-img--petit-prince"
+            :style="{backgroundColor: colorHSLA.main}"
+          ></div>
           <div class="preview__card-content">
             <span
               :style="[styleTitle, {fontSize: fontSizeLevel(-1), color: colorHSLA.main}]"
@@ -281,7 +279,7 @@
               :style="[styleTitle, { color:colorHSLA.darkAccent, fontSize: fontSizeLevel(0), color: colorHSLA.darkAccent, borderColor: colorHSLA.darkAccent, backgroundColor: 'transparent'}]"
             >À la chasse !</button>
             <button
-              :style="[styleTitle, { color:colorHSLA.lightShade, fontSize: fontSizeLevel(0), borderColor: colorHSLA.darkAccent, backgroundColor: colorHSLA.darkAccent}]"
+              :style="[styleTitle, { color:colorHSLA.lightAccent, fontSize: fontSizeLevel(0), borderColor: colorHSLA.darkAccent, backgroundColor: colorHSLA.darkAccent}]"
             >Jamais !</button>
           </div>
         </div>
@@ -293,6 +291,7 @@
           <p :style="[styleText, marginTextTop]">
             Le renard était appelé au Moyen-Âge goupil, mot provenant du terme latin Vulpes. Il doit son nom commun actuel au
             <a
+              :style="{color: colorHSLA.darkAccent}"
               href="#"
             >Roman de Renart</a>, œuvre littéraire très connue du Moyen-Âge dont les héros sont des animaux portant chacun un nom. Ainsi le goupil du livre s'appelle Renart, nom propre qui comme Renaud et Reginald vient de l'allemand “ragin” et hart et signifie « de bon conseil ».
           </p>

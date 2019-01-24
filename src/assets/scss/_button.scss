@@ -9,6 +9,26 @@ button.btn,
   font-size: 1em;
   box-sizing: border-box;
 
+  &:disabled {
+    filter: grayscale(1);
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: map-get($colors-main, 400);
+      cursor: not-allowed;
+    }
+  }
+
+  &--loading {
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: map-get($colors-main, 400);
+      cursor: loading;
+    }
+  }
+
   cursor: pointer;
 
   text-align: center;
@@ -177,6 +197,7 @@ button.btn,
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) scale(0.5);
+      background-color: transparent;
       transform-origin: center;
       z-index: -1;
       transition: 0.3s map-get($transition, easeInOutQuart);
@@ -184,28 +205,29 @@ button.btn,
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      background-color: transparent;
     }
 
-    &:hover,
-    &:active,
-    &:focus {
+    &:hover {
       &::before {
         transform: translate(-50%, -50%) scale(1);
         background-color: map-get($colors-neutral, 100);
       }
     }
 
-    &:active,
-    &:focus {
+    &:active {
       &::before {
         transition-duration: 0.1s;
         background-color: map-get($colors-main, 100);
+        // animation: fadeActive 300ms map-get($transition, easeInOutQuart);
       }
     }
 
     &:focus {
       outline: none;
+      &::before {
+        transform: translate(-50%, -50%) scale(1);
+        background-color: map-get($colors-neutral, 100);
+      }
     }
 
     & svg {
@@ -387,5 +409,14 @@ button.btn,
         outline: none;
       }
     }
+  }
+}
+
+@keyframes fadeActive {
+  from {
+    background-color: map-get($colors-main, 100);
+  }
+  to {
+    background-color: transparent;
   }
 }

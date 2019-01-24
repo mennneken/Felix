@@ -11,6 +11,11 @@
     <f-nav></f-nav>
     <main>
       <section class="about__feature about__feature--typo">
+        <picture>
+          <source srcset="/assets/images/illu_1.png 1x, /assets/images/illu_1@2x.png 2x">
+          <source src="illu_1.svg">
+          <img src="/assets/images/illu_1.svg" alt="Félix un outils de typographie">
+        </picture>
         <div class="about__feature-content">
           <h2>Un outil typographique</h2>
           <p>Utilisez les typographies disponibles sur Google Fonts.</p>
@@ -22,6 +27,11 @@
         <div></div>
       </section>
       <section class="about__feature about__feature--color">
+        <picture>
+          <source srcset="/assets/images/illu_2.png 1x, /assets/images/illu_2@2x.png 2x">
+          <source src="illu_2.svg">
+          <img src="/assets/images/illu_2.svg" alt="Félix un outils de typographie">
+        </picture>
         <div class="about__feature-content">
           <h2>Un outil de couleurs</h2>
           <p>Créer une palette de couleur facilement pour votre prototype et modifier là selon vos envies.</p>
@@ -29,6 +39,11 @@
         </div>
       </section>
       <section class="about__feature about__feature--other">
+        <picture>
+          <source srcset="/assets/images/illu_3.png 1x, /assets/images/illu_3@2x.png 2x">
+          <source src="illu_3.svg">
+          <img src="/assets/images/illu_3.svg" alt="Félix un outils de typographie">
+        </picture>
         <div class="about__feature-content">
           <h2>Un outil qui fait le café… Ou presque.</h2>
           <p>Prévisualiser le résultat en direct.</p>
@@ -57,10 +72,10 @@
       <nav>
         <ul class="navigation navigation--horizontal">
           <li>
-            <a href="#hero">À Propos</a>
+            <a class="link" href="#hero">À Propos</a>
           </li>
           <li>
-            <router-link tag="a" :to="'credits'">Crédits</router-link>
+            <router-link class="link" tag="a" :to="'credits'">Crédits</router-link>
           </li>
         </ul>
       </nav>

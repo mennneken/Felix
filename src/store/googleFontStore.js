@@ -118,13 +118,15 @@ const googleFontStore = {
 
   actions: {
     // fetch commit the list and take action to load the font
+    // API key=AIzaSyBebdp-th9ZhbrYf0VPiFHZFl1Ja4u750Y
     fetchGoogleFontList({ commit, state, dispatch }) {
       fetch(
-        "https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBebdp-th9ZhbrYf0VPiFHZFl1Ja4u750Y"
+        "https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBebdp-th9ZhbrYf0VPiFHZFl1Ja4u750Y&sort=popularity"
       )
         .then(response => response.json())
         .then(response => {
-          commit("setGoogleFontList", response.items);
+          let gfonts = response.items.slice(0, 150);
+          commit("setGoogleFontList", gfonts);
         })
         .then(() => {
           let families = [];

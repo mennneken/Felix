@@ -14,7 +14,7 @@
             max="360"
             step="1"
             name="hueRange"
-            @change="updateColorsHue"
+            @input="updateColorsHue"
           >
           <input
             type="number"
@@ -23,7 +23,7 @@
             max="360"
             step="1"
             name="hueRange"
-            @change="updateColorsHue"
+            @input="updateColorsHue"
           >
           <span class="title">deg</span>
         </div>
@@ -40,7 +40,7 @@
             max="100"
             step="1"
             name="saturationRange"
-            @change="updateColorsSaturation"
+            @input="updateColorsSaturation"
           >
           <input
             type="number"
@@ -49,7 +49,7 @@
             max="100"
             step="1"
             name="saturationRange"
-            @change="updateColorsSaturation"
+            @input="updateColorsSaturation"
           >
           <span>%</span>
         </div>
@@ -66,7 +66,7 @@
             max="100"
             step="1"
             name="lightnessRange"
-            @change="updateColorsLightness"
+            @input="updateColorsLightness"
           >
           <input
             type="number"
@@ -75,7 +75,7 @@
             max="100"
             step="1"
             name="lightnessRange"
-            @change="updateColorsLightness"
+            @input="updateColorsLightness"
           >
           <span>%</span>
         </div>

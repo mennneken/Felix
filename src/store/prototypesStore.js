@@ -197,13 +197,86 @@ const prototypesStore = {
   actions: {
     // Add a new prototype to the db
     createNewPrototype: ({ commit, state }, { uid, name }) => {
+      let basePrototype = {
+        typography: {
+          fontChoices: {
+            fontTitle: {
+              family: "Sans-serif",
+              style: "normal",
+              weight: "600",
+            },
+            fontText: {
+              family: "Serif",
+              style: "normal",
+              weight: "400",
+            },
+          },
+          format: {
+            size: {
+              base: {
+                value: 16,
+                unit: "px",
+              },
+              ratio: 1.25,
+            },
+            titles: {
+              line: {
+                height: 1.2,
+                length: {
+                  value: 65,
+                  unit: "ch",
+                },
+              },
+              spaces: {
+                before: {
+                  value: 1,
+                  unit: "em",
+                },
+                after: {
+                  value: 1,
+                  unit: "em",
+                },
+              },
+            },
+            texts: {
+              line: {
+                height: 1.2,
+                length: {
+                  value: 65,
+                  unit: "ch",
+                },
+              },
+              spaces: {
+                before: {
+                  value: 1,
+                  unit: "em",
+                },
+                after: {
+                  value: 1,
+                  unit: "em",
+                },
+              },
+            },
+          },
+        },
+        color: {
+          harmony: "monochromatic",
+          colors: {
+            lightShade: { h: 0, s: 0, l: 87.5, a: 1 },
+            lightAccent: { h: 0, s: 0, l: 75, a: 1 },
+            main: { h: 0, s: 0, l: 50, a: 1 },
+            darkAccent: { h: 0, s: 0, l: 25, a: 1 },
+            darkShade: { h: 0, s: 0, l: 12.5, a: 1 },
+          },
+        },
+      };
       fb.usersCollection
         .doc(uid)
         .collection("prototypes")
         .add({
           name: name,
           lastModification: new Date(),
-          parameters: state.basePrototype,
+          parameters: basePrototype,
         })
         .then(docRef => {
           commit("resetPrototype");
@@ -410,9 +483,21 @@ const prototypesStore = {
     // reset the font
     resetFont({ commit, state, rootState }) {
       let target = rootState.toolsStore.fontList.target;
+      let fontChoices = {
+        fontTitle: {
+          family: "Sans-serif",
+          style: "normal",
+          weight: "600",
+        },
+        fontText: {
+          family: "Serif",
+          style: "normal",
+          weight: "400",
+        },
+      };
       commit("setFont", {
         target,
-        font: state.basePrototype.typography.fontChoices[target],
+        font: fontChoices[target],
       });
     },
 
@@ -880,12 +965,85 @@ const prototypesStore = {
 
     // Set (current)prototype to is default.
     resetPrototype(state) {
+      let basePrototype = {
+        typography: {
+          fontChoices: {
+            fontTitle: {
+              family: "Sans-serif",
+              style: "normal",
+              weight: "600",
+            },
+            fontText: {
+              family: "Serif",
+              style: "normal",
+              weight: "400",
+            },
+          },
+          format: {
+            size: {
+              base: {
+                value: 16,
+                unit: "px",
+              },
+              ratio: 1.25,
+            },
+            titles: {
+              line: {
+                height: 1.2,
+                length: {
+                  value: 65,
+                  unit: "ch",
+                },
+              },
+              spaces: {
+                before: {
+                  value: 1,
+                  unit: "em",
+                },
+                after: {
+                  value: 1,
+                  unit: "em",
+                },
+              },
+            },
+            texts: {
+              line: {
+                height: 1.2,
+                length: {
+                  value: 65,
+                  unit: "ch",
+                },
+              },
+              spaces: {
+                before: {
+                  value: 1,
+                  unit: "em",
+                },
+                after: {
+                  value: 1,
+                  unit: "em",
+                },
+              },
+            },
+          },
+        },
+        color: {
+          harmony: "monochromatic",
+          colors: {
+            lightShade: { h: 0, s: 0, l: 87.5, a: 1 },
+            lightAccent: { h: 0, s: 0, l: 75, a: 1 },
+            main: { h: 0, s: 0, l: 50, a: 1 },
+            darkAccent: { h: 0, s: 0, l: 25, a: 1 },
+            darkShade: { h: 0, s: 0, l: 12.5, a: 1 },
+          },
+        },
+      };
       state.prototype.meta = {
         name: "Prototype",
         id: "",
       };
-      state.prototype.typography = state.basePrototype.typography;
-      state.prototype.color = state.basePrototype.color;
+      state.prototype.typography = basePrototype.typography;
+      state.prototype.color = basePrototype.color;
     },
 
     // Set (current)prototype to a personalyse prototype.

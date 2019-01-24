@@ -8,10 +8,14 @@
         >{{ `${font.variants.length} variante${font.variants.length > 1 ? 's' : ''}` || 'Nombre de Style' }}</p>
       </div>
 
-      <button v-if="!isSelected" class="font-list__action btn btn--icon" @click.stop="addFont()">
+      <button v-show="!isSelected" class="font-list__action btn btn--icon" @click.stop="addFont()">
         <svg-icon class="font-list__action" :name="'add'"></svg-icon>
       </button>
-      <button v-else class="font-list__action btn btn--icon" @click.stop="removeFont()">
+      <button
+        v-show="isSelected"
+        class="font-list__action btn btn--icon"
+        @click.stop="removeFont()"
+      >
         <svg-icon class="font-list__action" :name="'remove'"></svg-icon>
       </button>
     </header>
@@ -36,6 +40,12 @@ export default {
     svgIcon
   },
 
+  data() {
+    return {
+      selected: false
+    };
+  },
+
   props: {
     font: {
       type: Object
@@ -51,9 +61,11 @@ export default {
     //   return this.fonts[this.fontTaregt]
     // },
     isSelected() {
-      return this.font.family === this.fontChoices[this.fontTarget].family
-        ? true
-        : false;
+      if (this.font.family === this.fontChoices[this.fontTarget].family) {
+        return true;
+      } else {
+        return false;
+      }
     },
 
     ...mapState({
@@ -74,17 +86,13 @@ export default {
 
     // add font to the state
     addFont() {
-      // set new font
+      this.selected = true;
       this.$store.dispatch("prototypesStore/setFont", this.font);
-      // this.$store.commit("toolsStore/setToolsDisplay", "typo");
-      // this.$store.commit("toolsStore/setPreviewDisplay", "preview");
     },
     // add font to the state
     removeFont() {
-      // set new font
-      this.$store.dispatch("prototypesStore/resetFont", this.font);
-      // this.$store.commit("toolsStore/setToolsDisplay", "typo");
-      // this.$store.commit("toolsStore/setPreviewDisplay", "preview");
+      this.selected = false;
+      this.$store.dispatch("prototypesStore/resetFont");
     }
   }
 };

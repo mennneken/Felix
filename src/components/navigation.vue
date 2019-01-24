@@ -43,7 +43,7 @@
   <header class="navigation navigation--main" v-else-if="$route.name === 'Tool'">
     <div class="container navigation__container">
       <router-link to="/dashboard" tag="a" class="logo logo--brand">
-        <svg-icon :name="'brand'"></svg-icon>
+        <svg-icon :name="'arrow-left'"></svg-icon>
       </router-link>
       <h1>{{ prototypeName || 'Sans Titre' }}</h1>
       <!-- <nav class="navigation__nav">

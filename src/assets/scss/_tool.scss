@@ -10,6 +10,7 @@
 
   transition: 0.3s map-get($transition, easeOutCubic);
   box-shadow: 0 1px 0 0 map-get($colors-neutral, 200);
+
   @media screen and (min-width: rem(896)) {
     box-shadow: -1px 0 0 0 map-get($colors-neutral, 200);
     height: auto;

@@ -206,6 +206,38 @@ a {
       }
     }
   }
+
+  &[download] {
+    padding: rem(10) rem(20);
+    border-radius: $br;
+    font-size: 1em;
+    background-color: map-get($colors-main, 400);
+    border-radius: $br;
+
+    color: #fff;
+
+    &:hover,
+    &:focus {
+      background-color: map-get($colors-main, 700);
+    }
+
+    &:active {
+      background-color: map-get($colors-main, 900);
+      outline: none;
+    }
+
+    &::after {
+      content: "";
+      margin: 0 0.2em;
+      width: 1.25em;
+      height: 1.25em;
+      vertical-align: middle;
+      display: inline-block;
+      background-image: url("/assets/icons/export-white.svg");
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+  }
 }
 
 .container {

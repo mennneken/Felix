@@ -30,8 +30,8 @@
     width: 100%;
     background-image: url("/assets/images/looking-fox@1x.jpg");
     background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
+    background-position: right center;
+    background-size: calc(100vw - 350px);
     background-repeat: no-repeat;
     background-blend-mode: screen;
 

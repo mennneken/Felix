@@ -1,8 +1,8 @@
 <template>
-  <section class="tools__tools tool">
+  <section class="tools__tools tool" :class="{ 'tool--fold': toolFold }">
     <navigation-tool></navigation-tool>
 
-    <button v-if="$mq === 'mobile'" class="tool__fold-action btn btn--icon">
+    <button class="tool__fold-action btn btn--icon" @click="foldTool()" v-if="$mq === 'mobile'">
       <svg-icon :name="'arrow-down'"></svg-icon>
     </button>
 
@@ -13,8 +13,8 @@
       <typo-spaces v-if="toolsDisplayed === 'space'"></typo-spaces>
       <color-palette v-if="toolsDisplayed === 'color'"></color-palette>
       <colot-adjust v-if="toolsDisplayed === 'adjust'"></colot-adjust>
-      <!-- <tools-font-filter v-if="toolsDisplayed === 'fontList'"></tools-font-filter>
-      <typo-comp v-if="toolsDisplayed === 'fontList'"></typo-comp>-->
+      <tools-font-filter v-if="toolsDisplayed === 'fontList'"></tools-font-filter>
+      <!-- <typo-comp v-if="toolsDisplayed === 'fontList'"></typo-comp> -->
     </div>
 
     <div class="tool__content" v-else>
@@ -63,7 +63,15 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      toolFold: false
+    };
+  },
+
+  methods: {
+    foldTool() {
+      this.toolFold = !this.toolFold;
+    }
   },
 
   computed: {

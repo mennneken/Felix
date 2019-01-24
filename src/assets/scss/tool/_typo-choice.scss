@@ -7,8 +7,23 @@
     "title title"
     "font1 font2";
 
+  @media screen and (min-width: rem(896)) {
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content 1fr 1fr;
+    grid-template-areas:
+      "title"
+      "font1"
+      "font2";
+  }
+
   & .title {
     grid-area: title;
+  }
+
+  & .tool__field:last-child {
+    @media screen and (min-width: rem(896)) {
+      margin-top: rem(10);
+    }
   }
 
   &__elem {
@@ -18,6 +33,7 @@
     &:last-child {
       grid-area: font2;
     }
+
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: rem(10);

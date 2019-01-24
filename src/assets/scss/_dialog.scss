@@ -4,7 +4,8 @@
   left: 50%;
   z-index: 1;
 
-  width: 50%;
+  width: calc(100vw - 20px);
+  max-width: rem(660);
 
   z-index: 1000;
 
@@ -16,7 +17,6 @@
   box-shadow: map-get($shadow-soft, center);
 
   &--alert {
-
     .title {
       color: map-get($colors-alert, 900);
     }
@@ -41,19 +41,18 @@
     flex-direction: row-reverse;
     justify-content: space-between;
     align-items: center;
-    
+
     &-elem {
       &--primary,
       &--secondary {
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        
+
         .btn:not(:first-child) {
           margin-left: rem(20);
         }
       }
     }
   }
-
 }

@@ -29,7 +29,7 @@ const vuexLocalStorage = new VuexPersist({
   key: "vuex",
   storage: window.localStorage,
   reducer: state => ({
-    prototypesStore: state.prototypesStore,
+    prototype: state.prototypesStore.prototype,
     toolsStore: state.toolsStore,
     googleFontStore: state.googleFontStore,
   }),

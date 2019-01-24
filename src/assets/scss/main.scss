@@ -105,6 +105,10 @@ h6,
       color: map-get($colors-secondary, 500);
     }
   }
+
+  &--shade {
+    color: map-get($colors-neutral, 700);
+  }
 }
 
 .text {
@@ -199,6 +203,8 @@ a {
 
 .container {
   padding: 0 rem(10);
+  max-width: rem(1440);
+  margin: 0 auto;
 }
 
 ul.not-a-list {
@@ -221,4 +227,5 @@ ul.not-a-list {
 @import "_tools", "_tool", "_font-list", "_font-details", "_preview";
 
 @import "tool/_typo-choice", "tool/_typo-size", "tool/_typo-format",
-  "tool/_typo-spaces", "tool/_color-palette", "tool/_color-adjust";
+  "tool/_typo-spaces", "tool/_color-palette", "tool/_color-adjust",
+  "tool/_font-filter", "tool/_font-comp";

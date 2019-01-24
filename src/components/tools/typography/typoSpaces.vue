@@ -36,7 +36,8 @@
             :step="rangeStep(titleSpace.before.unit)"
             v-model="titleSpace.before.value"
           >
-          <select v-model="titleSpace.before.unit">
+          <span class="title">Em</span>
+          <!-- <select v-model="titleSpace.before.unit" @change="changeTitleValue()">
             <optgroup label="Relative">
               <option value="em" selected>Em</option>
               <option value="rem">Rem</option>
@@ -44,7 +45,7 @@
             <optgroup label="Fixe">
               <option value="px">{{ titleSpace.before.value > 1 ? 'Pixels' : 'Pixel'}}</option>
             </optgroup>
-          </select>
+          </select>-->
         </div>
       </div>
 
@@ -66,7 +67,8 @@
             :step="rangeStep(titleSpace.after.unit)"
             v-model="titleSpace.after.value"
           >
-          <select v-model="titleSpace.after.unit">
+          <span class="title">Em</span>
+          <!-- <select v-model="titleSpace.after.unit" @change="changeTitleValue()">
             <optgroup label="Relative">
               <option value="em" selected>Em</option>
               <option value="rem">Rem</option>
@@ -74,7 +76,7 @@
             <optgroup label="Fixe">
               <option value="px">{{ titleSpace.after.value > 1 ? 'Pixels' : 'Pixel'}}</option>
             </optgroup>
-          </select>
+          </select>-->
         </div>
       </div>
     </div>
@@ -99,7 +101,8 @@
             :step="rangeStep(textSpace.before.unit)"
             v-model="textSpace.before.value"
           >
-          <select v-model="textSpace.before.unit">
+          <span class="title">Em</span>
+          <!-- <select v-model="textSpace.before.unit" @change="changeTextalue()">
             <optgroup label="Relative">
               <option value="em" selected>Em</option>
               <option value="rem">Rem</option>
@@ -107,7 +110,7 @@
             <optgroup label="Fixe">
               <option value="px">{{ textSpace.before.value > 1 ? 'Pixels' : 'Pixel'}}</option>
             </optgroup>
-          </select>
+          </select>-->
         </div>
       </div>
 
@@ -129,7 +132,8 @@
             :step="rangeStep(textSpace.after.unit)"
             v-model="textSpace.after.value"
           >
-          <select v-model="textSpace.after.unit">
+          <span class="title">Em</span>
+          <!-- <select v-model="textSpace.after.unit" @change="changeTextValue()">
             <optgroup label="Relative">
               <option value="em" selected>Em</option>
               <option value="rem">Rem</option>
@@ -137,7 +141,7 @@
             <optgroup label="Fixe">
               <option value="px">{{ textSpace.after.value > 1 ? 'Pixels' : 'Pixel'}}</option>
             </optgroup>
-          </select>
+          </select>-->
         </div>
       </div>
     </div>

@@ -249,11 +249,11 @@ const prototypesStore = {
     },
 
     // UPDATE TO THE DATABASE
-    updatePrototype: ({ state, rootState }) => {
+    updatePrototype: ({ state, rootState }, id = state.prototype.meta.id) => {
       let docPrototype = fb.usersCollection
         .doc(rootState.userConnexion.currentUser.uid)
         .collection("prototypes")
-        .doc(state.prototype.meta.id);
+        .doc(id);
 
       docPrototype.update({
         lastModification: new Date(),

@@ -59,62 +59,35 @@ const googleFontStore = {
       "Elle regarda les étoiles à travers la fenêtre.",
       "Le ciel était sans nuages et d'un bleu profond.",
       "Le spectacle devant nous était vraiment sublime.",
-      "Puis vint la nuit de la première étoile filante."
+      "Puis vint la nuit de la première étoile filante.",
     ],
-    // familiesFilters: {
-    //   sansSerif: {
-    //     name: "Sans-serif",
-    //     active: true,
-    //     value: "sans-serif"
-    //   },
-    //   serif: {
-    //     name: "Serif",
-    //     active: true,
-    //     value: "serif"
-    //   },
-    //   display: {
-    //     name: "Display",
-    //     active: true,
-    //     value: "display"
-    //   },
-    //   monospace: {
-    //     name: "Monospace",
-    //     active: true,
-    //     value: "monospace"
-    //   },
-    //   handwriting: {
-    //     name: "Manuscrit",
-    //     active: true,
-    //     value: "handwriting"
-    //   }
-    // },
     familiesFilters: [
       {
         name: "Sans-serif",
         active: true,
-        value: "sans-serif"
+        value: "sans-serif",
       },
       {
         name: "Serif",
         active: true,
-        value: "serif"
+        value: "serif",
       },
       {
         name: "Display",
         active: true,
-        value: "display"
+        value: "display",
       },
       {
         name: "Monospace",
         active: true,
-        value: "monospace"
+        value: "monospace",
       },
       {
         name: "Manuscrit",
         active: true,
-        value: "handwriting"
-      }
-    ]
+        value: "handwriting",
+      },
+    ],
   },
 
   getters: {
@@ -140,7 +113,7 @@ const googleFontStore = {
 
     getFontFromList: state => font => {
       return state.googleFontList.find(gFont => gFont.family === font);
-    }
+    },
   },
 
   actions: {
@@ -170,8 +143,8 @@ const googleFontStore = {
       WebFont.load({
         classes: false,
         google: {
-          families: [font]
-        }
+          families: [font],
+        },
       });
     },
 
@@ -180,15 +153,15 @@ const googleFontStore = {
         classes: false,
         google: {
           families,
-          text: state.letters
-        }
+          text: state.letters,
+        },
       });
     },
 
     // Commit filter to update the filter's list.
     changeFontListFilter({ commit }, filters) {
       commit("updateFontListFilters", filters);
-    }
+    },
   },
 
   mutations: {
@@ -200,8 +173,8 @@ const googleFontStore = {
     // Update the fontList.filters to filter the fonts show
     updateFontFamiliesFilters(state, filterName, isActive) {
       state.familiesFilters[filterName].active = isActive;
-    }
-  }
+    },
+  },
 };
 
 export default googleFontStore;

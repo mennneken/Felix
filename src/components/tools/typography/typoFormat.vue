@@ -34,7 +34,8 @@
             :step="rangeStep(title.line.length.unit)"
             v-model.number="title.line.length.value"
           >
-          <select v-model="title.line.length.unit">
+          <span class="title">Characters</span>
+          <!-- <select v-model="title.line.length.unit">
             <optgroup label="Relative">
               <option value="em">Em</option>
               <option value="rem">Rem</option>
@@ -46,7 +47,7 @@
             <optgroup label="Fixe">
               <option value="px">{{ title.line.length.value > 1 ? 'Pixels' : 'Pixel'}}</option>
             </optgroup>
-          </select>
+          </select>-->
         </div>
       </div>
 
@@ -79,8 +80,9 @@
             :step="rangeStep(text.line.length.unit)"
             v-model.number="text.line.length.value"
           >
+          <span class="title">Characters</span>
           <!-- Set the unit for the line width value -->
-          <select v-model="text.line.length.unit">
+          <!-- <select v-model="text.line.length.unit">
             <optgroup label="Relative">
               <option value="em">Em</option>
               <option value="rem">Rem</option>
@@ -92,7 +94,7 @@
             <optgroup label="Fixe">
               <option value="px">{{ text.line.length.value > 1 ? 'Pixels' : 'Pixel'}}</option>
             </optgroup>
-          </select>
+          </select>-->
         </div>
       </div>
 
@@ -111,9 +113,9 @@
 
     <div class="tool__field-groups">
       <!-- Titles -->
-      <h4 class="title title--upp title--alt p">Titres</h4>
+      <h4 class="title title--upp title--shade p">Titres</h4>
       <div class="tool__field">
-        <h4 class="title title--upp title--alt h5">Longueur de ligne</h4>
+        <h5 class="title title--upp title--alt h5">Longueur de ligne</h5>
         <div class="tool__field-action">
           <input
             type="range"
@@ -129,7 +131,8 @@
             :step="rangeStep(title.line.length.unit)"
             v-model.number="title.line.length.value"
           >
-          <select v-model="title.line.length.unit">
+          <span class="title">Characters</span>
+          <!-- <select v-model="title.line.length.unit">
             <optgroup label="Relative">
               <option value="em">Em</option>
               <option value="rem">Rem</option>
@@ -141,12 +144,12 @@
             <optgroup label="Fixe">
               <option value="px">{{ title.line.length.value > 1 ? 'Pixels' : 'Pixel'}}</option>
             </optgroup>
-          </select>
+          </select>-->
         </div>
       </div>
 
       <div class="tool__field">
-        <h4 class="title title--upp title--alt h5">Hauteur de ligne</h4>
+        <h5 class="title title--upp title--alt h5">Hauteur de ligne</h5>
         <div class="tool__field-action">
           <input type="range" min=".9" max="1.45" step="0.01" v-model="title.line.height">
           <input type="number" min=".9" max="1.45" step="0.01" v-model.number="title.line.height">
@@ -155,10 +158,10 @@
     </div>
 
     <div class="tool__field-groups">
-      <h4 class="title title--upp title--alt p">Textes</h4>
+      <h4 class="title title--upp title--shade p">Textes</h4>
       <!-- Texts -->
       <div class="tool__field">
-        <h4 class="title title--upp title--alt h5">Longueur de ligne de Textes</h4>
+        <h5 class="title title--upp title--alt h5">Longueur de ligne de Textes</h5>
         <!-- Set the value  of the line width -->
         <div class="tool__field-action">
           <input
@@ -175,8 +178,9 @@
             :step="rangeStep(text.line.length.unit)"
             v-model.number="text.line.length.value"
           >
+          <span class="title">Characters</span>
           <!-- Set the unit for the line width value -->
-          <select v-model="text.line.length.unit">
+          <!-- <select v-model="text.line.length.unit">
             <optgroup label="Relative">
               <option value="em">Em</option>
               <option value="rem">Rem</option>
@@ -188,12 +192,12 @@
             <optgroup label="Fixe">
               <option value="px">{{ text.line.length.value > 1 ? 'Pixels' : 'Pixel'}}</option>
             </optgroup>
-          </select>
+          </select>-->
         </div>
       </div>
 
       <div class="tool__field">
-        <h4 class="title title--upp title--alt h5">Hauteur de ligne</h4>
+        <h5 class="title title--upp title--alt h5">Hauteur de ligne</h5>
         <div class="tool__field-action">
           <input type="range" min="1.2" max="1.45" step="0.05" v-model="text.line.height">
           <input type="number" min="1.2" max="1.45" step="0.01" v-model.number="text.line.height">

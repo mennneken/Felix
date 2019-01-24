@@ -6,6 +6,11 @@
 
   height: 100%;
 
+  @media screen and (min-width: rem(896)) {
+    grid-template-rows: min-content max(200px) min-content;
+    height: auto;
+  }
+
   grid-template-areas: "title title title" "palette palette palette" "harmony . generate";
 
   & .title {

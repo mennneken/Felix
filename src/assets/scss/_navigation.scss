@@ -17,9 +17,8 @@ nav > ul {
       height: rem(50);
       justify-content: space-around;
 
-      @media screen and (min-width: 544) {
-      }
-      @media screen and (min-width: 896) {
+      @media screen and (min-width: rem(896)) {
+        height: rem(60);
         margin: rem(10) 0;
       }
       @media screen and (min-width: 1232) {

@@ -82,3 +82,13 @@ input[type="range"] {
     }
   }
 }
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+fieldset + fieldset {
+  margin-top: rem(20);
+}

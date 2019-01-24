@@ -4,7 +4,7 @@
 
     <div class="tool__field">
       <h4 class="title title--upp title--alt h5">Taille de Base</h4>
-      <div class="tool__field-actions">
+      <div class="tool__field-action">
         <input
           type="range"
           :min="rangeMin(fontSize.base.unit)"
@@ -19,7 +19,9 @@
           :step="rangeStep(fontSize.base.unit)"
           v-model="fontSize.base.value"
         >
-        <select v-model="fontSize.base.unit">
+        
+        <span class="title">Em</span>
+        <!-- <select v-model="fontSize.base.unit">
           <optgroup label="Relative">
             <option value="em">Em</option>
             <option value="rem">Rem</option>
@@ -27,7 +29,7 @@
           <optgroup label="Fixe">
             <option value="px" selected>{{ fontSize.base.value > 1 ? 'Pixels' : 'Pixel'}}</option>
           </optgroup>
-        </select>
+        </select>-->
       </div>
     </div>
     <div class="tool__field">

@@ -2,84 +2,82 @@
   <section class="tool__elem color-adjust">
     <h3 class="title title--upp p">Ajuster la Palette</h3>
 
-    <div class="tools__elem">
-      <div class="tool__field-groups">
-        <!-- HUE -->
-        <div class="tool__field">
-          <h4 class="title title--upp title--alt h5">Nuance (Hue)</h4>
-          <div class="tool__field-action">
-            <input
-              type="range"
-              :value="main.h"
-              min="0"
-              max="360"
-              step="1"
-              name="hueRange"
-              @change="updateColorsHue"
-            >
-            <input
-              type="number"
-              :value="Math.round(main.h)"
-              min="0"
-              max="360"
-              step="1"
-              name="hueRange"
-              @change="updateColorsHue"
-            >
-            <span>deg</span>
-          </div>
+    <div class="tool__field-groups">
+      <!-- HUE -->
+      <div class="tool__field">
+        <h4 class="title title--upp title--alt h5">Nuance (Hue)</h4>
+        <div class="tool__field-action">
+          <input
+            type="range"
+            :value="main.h"
+            min="0"
+            max="360"
+            step="1"
+            name="hueRange"
+            @change="updateColorsHue"
+          >
+          <input
+            type="number"
+            :value="Math.round(main.h)"
+            min="0"
+            max="360"
+            step="1"
+            name="hueRange"
+            @change="updateColorsHue"
+          >
+          <span class="title">deg</span>
         </div>
+      </div>
 
-        <!-- SATURATION -->
-        <div class="tool__field">
-          <h4 class="title title--upp title--alt h5">Saturation</h4>
-          <div class="tool__field-action">
-            <input
-              type="range"
-              :value="Math.round(main.s)"
-              min="0"
-              max="100"
-              step="1"
-              name="saturationRange"
-              @change="updateColorsSaturation"
-            >
-            <input
-              type="number"
-              :value="Math.round(main.s)"
-              min="0"
-              max="100"
-              step="1"
-              name="saturationRange"
-              @change="updateColorsSaturation"
-            >
-            <span>%</span>
-          </div>
+      <!-- SATURATION -->
+      <div class="tool__field">
+        <h4 class="title title--upp title--alt h5">Saturation</h4>
+        <div class="tool__field-action">
+          <input
+            type="range"
+            :value="Math.round(main.s)"
+            min="0"
+            max="100"
+            step="1"
+            name="saturationRange"
+            @change="updateColorsSaturation"
+          >
+          <input
+            type="number"
+            :value="Math.round(main.s)"
+            min="0"
+            max="100"
+            step="1"
+            name="saturationRange"
+            @change="updateColorsSaturation"
+          >
+          <span>%</span>
         </div>
+      </div>
 
-        <!-- LIGHTNESS -->
-        <div class="tool__field">
-          <h4 class="title title--upp title--alt h5">Luminosité (Lightness)</h4>
-          <div class="tool__field-action">
-            <input
-              type="range"
-              :value="Math.round(main.l)"
-              min="0"
-              max="100"
-              step="1"
-              name="lightnessRange"
-              @change="updateColorsLightness"
-            >
-            <input
-              type="number"
-              :value="Math.round(main.l)"
-              min="0"
-              max="100"
-              step="1"
-              name="lightnessRange"
-              @change="updateColorsLightness"
-            >
-            <span>%</span>
-          </div>
+      <!-- LIGHTNESS -->
+      <div class="tool__field">
+        <h4 class="title title--upp title--alt h5">Luminosité (Lightness)</h4>
+        <div class="tool__field-action">
+          <input
+            type="range"
+            :value="Math.round(main.l)"
+            min="0"
+            max="100"
+            step="1"
+            name="lightnessRange"
+            @change="updateColorsLightness"
+          >
+          <input
+            type="number"
+            :value="Math.round(main.l)"
+            min="0"
+            max="100"
+            step="1"
+            name="lightnessRange"
+            @change="updateColorsLightness"
+          >
+          <span>%</span>
         </div>
       </div>
     </div>

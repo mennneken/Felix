@@ -6,6 +6,16 @@
     "tool";
   // grid-template-columns: 1fr;
   grid-template-rows: min-content 1fr min-content;
+  min-height: 100vh;
+
+  @media screen and (min-width: rem(896)) {
+    grid-template-areas:
+      "nav preview"
+      "tool preview";
+
+    grid-template-columns: rem(360) 1fr;
+    grid-template-rows: min-content 1fr;
+  }
 
   & > .navigation {
     grid-area: nav;
@@ -16,14 +26,21 @@
   &__tools {
     position: sticky;
     z-index: 100;
+
     @media screen and (min-width: rem(896)) {
       position: fixed;
+
+      width: rem(360);
     }
   }
 
   &__tools {
     grid-area: tool;
     bottom: 0;
+
+    @media screen and (min-width: rem(896)) {
+      top: rem(60);
+    }
   }
 
   & #preview,
@@ -100,9 +117,6 @@
         }
       }
     }
-
-    &--typo {
-    }
   }
 
   &__elem {
@@ -169,6 +183,10 @@
       margin: 0 rem(10);
       mix-blend-mode: multiply;
       transform: translateX(0);
+
+      &::selection {
+        background-color: transparent;
+      }
 
       &:first-child {
         color: map-get($colors-secondary, 700);

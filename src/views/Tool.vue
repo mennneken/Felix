@@ -38,19 +38,40 @@ export default {
 
   computed: {
     ...mapState({
-      previewToDisplay: state => state.toolsStore.previewDisplayed
+      previewToDisplay: state => state.toolsStore.previewDisplayed,
+      fontList: state => state.googleFontStore.googleFontList,
+      fontTitle: state =>
+        state.prototypesStore.prototype.typography.fontChoices.fontTitle.family,
+      fontText: state =>
+        state.prototypesStore.prototype.typography.fontChoices.fontText.family
     })
   },
 
   created() {
-    // if (this.$store.prototype.)
-    // this.$store.commit();
+    if (this.fontTitle !== "Sans-serif") {
+      let font = this.fontList.filter(font => font.family === this.fontTitle);
+      this.$store.dispatch(
+        "googleFontStore/loadSpecificFonts",
+        `${font[0].family}:${font[0].variants.join(",")}:latin`
+      );
+    }
+
+    if (this.fontText !== "Serif") {
+      let font = this.fontList.filter(font => font.family === this.fontTitle);
+      this.$store.dispatch(
+        "googleFontStore/loadSpecificFonts",
+        `${font[0].family}:${font[0].variants.join(",")}:latin`
+      );
+    }
+
     this.$store.commit("toolsStore/setPreviewDisplay", "preview");
     this.$store.commit("toolsStore/setToolsDisplay", "typo");
   },
 
-  destroyed() {
-    this.$store.dispatch("prototypesStore/updatePrototype");
+  beforeDestroy() {
+    if (this.$store.state.prototypesStore.prototype.meta.id) {
+      this.$store.dispatch("prototypesStore/updatePrototype");
+    }
   }
 };
 </script>

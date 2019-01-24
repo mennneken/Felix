@@ -1,18 +1,13 @@
 <template>
-  <section class="tools__tool tools__tool--font-list">
-    <h3 class="title title--upp p">
-      Filtre Typographies
-      <span>{{ fontListFilteredLength }} sur {{ fontListLength }}</span>
-    </h3>
-    <h3 class="title title--upp p"></h3>
-    <div class="tools__elem">
-      <ul class="not-a-list">
-        <li v-for="filter in familiesFilters" :key="filter.id">
-          <label :for="filter.name">{{ filter.name }}</label>
-          <input type="checkbox" :name="filter.name" :id="filter.name" v-model="filter.active">
-        </li>
-      </ul>
-    </div>
+  <section class="tool__elem font-filter">
+    <h3 class="title title--upp p">Filtre Typographies</h3>
+    <h4 class="title title--upp title--alt h5">{{ fontListFilteredLength }} sur {{ fontListLength }}</h4>
+    <ul class="not-a-list tool__field-groups">
+      <li class="tool__field" v-for="filter in familiesFilters" :key="filter.id">
+        <label class="h4" :for="filter.name">{{ filter.name }}</label>
+        <input type="checkbox" :name="filter.name" :id="filter.name" v-model="filter.active">
+      </li>
+    </ul>
   </section>
 </template>
 

@@ -9,16 +9,16 @@
   }
 
   &__content {
-    border-top: 1px solid map-get($colors-neutral, 700);
+    // border-top: 1px solid map-get($colors-neutral, 700);
     box-sizing: border-box;
     display: grid;
     grid-template-columns: 1fr rem(35);
-    grid-template-areas: 
+    grid-template-areas:
       "name action"
       "date action";
     grid-row-gap: rem(10);
     padding: rem(10) rem(5) rem(10) rem(10);
-    
+
     & > ul {
       grid-area: action;
       justify-self: center;

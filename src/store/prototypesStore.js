@@ -2,7 +2,7 @@ const fb = require("@/firebaseConfig.js");
 
 import { db } from "@/firebaseConfig";
 
-import chroma from "chroma-js";
+// import chroma from "chroma-js";
 
 import router from "@/router.js";
 
@@ -31,8 +31,8 @@ const prototypesStore = {
         format: {
           size: {
             base: {
-              value: 16,
-              unit: "px",
+              value: 1,
+              unit: "em",
             },
             ratio: 1.25,
           },
@@ -104,8 +104,8 @@ const prototypesStore = {
         format: {
           size: {
             base: {
-              value: 16,
-              unit: "px",
+              value: 1,
+              unit: "em",
             },
             ratio: 1.25,
           },
@@ -214,8 +214,8 @@ const prototypesStore = {
           format: {
             size: {
               base: {
-                value: 16,
-                unit: "px",
+                value: 1,
+                unit: "em",
               },
               ratio: 1.25,
             },
@@ -982,8 +982,8 @@ const prototypesStore = {
           format: {
             size: {
               base: {
-                value: 16,
-                unit: "px",
+                value: 1,
+                unit: "em",
               },
               ratio: 1.25,
             },

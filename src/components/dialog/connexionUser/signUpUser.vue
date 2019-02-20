@@ -46,6 +46,8 @@
       </form>
     </div>
 
+    <p class="alert" v-if="errorMsg">{{ errorMsg }}</p>
+
     <div class="dialog__footer">
       <div class="dialog__action">
         <div class="dialog__action-elem dialog__action-elem--primary">
@@ -88,6 +90,7 @@ export default {
     // Add the user to the database.
     signup() {
       this.performingRequest = true;
+      this.errorMsg = "";
 
       fb.auth
         .createUserWithEmailAndPassword(
@@ -116,7 +119,7 @@ export default {
             });
         })
         .catch(err => {
-          console.log(err);
+          // console.log(err);
           this.performingRequest = false;
           this.errorMsg = err.message;
         });

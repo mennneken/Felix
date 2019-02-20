@@ -239,6 +239,9 @@ a {
     }
   }
 }
+.alert {
+  color: map-get($colors-alert, 900);
+}
 
 .container {
   padding: 0 rem(10);

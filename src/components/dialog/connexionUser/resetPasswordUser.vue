@@ -23,6 +23,9 @@
         </div>
       </form>
     </div>
+
+    <p class="alert" v-show="errorMsg">{{ errorMsg }}</p>
+
     <div class="dialog__footer">
       <div class="dialog__action">
         <div class="dialog__action-elem dialog__action-elem--primary">
@@ -64,6 +67,7 @@ export default {
     // Send the user an email to reset is password.
     resetPassword() {
       this.performingRequest = true;
+      this.errorMsg = "";
 
       fb.auth
         .sendPasswordResetEmail(this.passwordForm.email)
@@ -74,7 +78,6 @@ export default {
           this.closeDialog();
         })
         .catch(err => {
-          console.log(err);
           this.performingRequest = false;
           this.errorMsg = err.message;
         });

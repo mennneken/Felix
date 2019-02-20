@@ -4,10 +4,10 @@ module.exports = {
       .rule("images")
       .use("url-loader")
       .loader("url-loader")
-      .tap(options => Object.assign(options, { limit: 999999999999 }));
+      .tap(options => Object.assign(options, { limit: 99999999 }));
   },
 
-  baseUrl: "/projets/tfe/",
+  publicPath: "/projets/tfe/",
   runtimeCompiler: undefined,
   productionSourceMap: undefined,
   parallel: undefined,

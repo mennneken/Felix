@@ -5,6 +5,8 @@ import router from "./router";
 import { store } from "./store";
 import "./registerServiceWorker";
 const fb = require("./firebaseConfig.js");
+require("firebase/auth");
+require("firebase/firestore");
 import "./assets/scss/main.scss";
 
 import VueMq from "vue-mq";

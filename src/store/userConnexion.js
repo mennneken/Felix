@@ -39,7 +39,9 @@ const userConnexion = {
         });
     },
 
-    signIn({ dispatch, commit }, { email, password }) {
+    signIn({ state, dispatch, commit }, { email, password }) {
+      state.errorMessage = "";
+
       fb.auth
         .signInWithEmailAndPassword(email, password)
         .then(user => {
@@ -47,12 +49,13 @@ const userConnexion = {
           dispatch("fetchUserProfile");
           commit("setWantToLogin", false);
 
+          dispacth("dialogStore/closeDialog", { root: true });
+
           router.push("/dashboard");
         })
         .catch(err => {
-          console.error(err);
-          this.performingRequest = false;
-          this.errorMsg = err.message;
+          state.errorMsg = err.message;
+          state.performingRequest = false;
         });
     },
 

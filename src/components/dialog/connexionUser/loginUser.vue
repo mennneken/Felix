@@ -31,6 +31,8 @@
       </form>
     </div>
 
+    <p class="alert" v-show="errorMsg">{{ errorMsg }}</p>
+
     <div class="dialog__footer">
       <div class="dialog__action">
         <div class="dialog__action-elem dialog__action-elem--primary">
@@ -52,6 +54,9 @@
 // COMPONENTS
 import svgIcon from "@/components/svgIcon.vue";
 
+//VUEX
+import { mapState } from "vuex";
+
 export default {
   name: "loginUser",
   components: {
@@ -63,9 +68,14 @@ export default {
       loginForm: {
         email: "",
         password: ""
-      },
-      errorMsg: ""
+      }
     };
+  },
+
+  computed: {
+    ...mapState({
+      errorMsg: state => state.userConnexion.errorMsg
+    })
   },
 
   methods: {
@@ -76,7 +86,6 @@ export default {
         email: this.loginForm.email,
         password: this.loginForm.password
       });
-
       this.closeDialog;
     },
 

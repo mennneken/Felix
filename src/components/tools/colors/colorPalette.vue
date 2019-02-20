@@ -32,7 +32,7 @@
 import svgIcon from "@/components/svgIcon";
 
 // MODULES
-import chroma from "chroma-js";
+// import chroma from "chroma-js";x
 
 // VUEX
 import { mapState, mapGetters } from "vuex";

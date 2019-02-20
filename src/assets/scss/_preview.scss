@@ -31,9 +31,13 @@
     background-image: url("/assets/images/looking-fox@1x.jpg");
     background-attachment: fixed;
     background-position: right center;
-    background-size: calc(100vw - 350px);
+    background-size: cover;
     background-repeat: no-repeat;
     background-blend-mode: screen;
+
+    @media screen and (min-width: rem(896)) {
+      background-size: calc(100vw - 350px);
+    }
 
     @media only screen and (-webkit-min-device-pixel-ratio: 2),
       only screen and (min--moz-device-pixel-ratio: 2),

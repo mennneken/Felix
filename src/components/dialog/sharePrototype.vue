@@ -76,7 +76,6 @@ export default {
         }, 1000);
 
         setTimeout(() => {}, 10000);
-      } else {
       }
     }
   },

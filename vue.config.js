@@ -7,7 +7,7 @@ module.exports = {
       .tap(options => Object.assign(options, { limit: 99999999 }));
   },
 
-  publicPath: "/projets/tfe/",
+  publicPath: "",
   runtimeCompiler: undefined,
   productionSourceMap: undefined,
   parallel: undefined,

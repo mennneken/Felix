@@ -5,9 +5,9 @@ import firebase from "firebase";
 // import { store } from './store'
 
 // VIEWS
-import Settings from "@/views/Settings";
+import Settings from "@/views/settings";
 import Tool from "@/views/Tool";
-import Dashboard from "@/views/Dashboard";
+import Dashboard from "@/views/dashboard";
 import About from "@/views/About";
 import Credits from "@/views/Credits";
 // import { isEmpty } from '@firebase/util';

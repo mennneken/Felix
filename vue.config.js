@@ -7,7 +7,8 @@ module.exports = {
       .tap(options => Object.assign(options, { limit: 99999999 }));
   },
 
-  publicPath: "/",
+  publicPath: process.env.NODE_ENV === 'production' ? '/Felix/' : '/',
+
   runtimeCompiler: undefined,
   productionSourceMap: undefined,
   parallel: undefined,

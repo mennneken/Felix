@@ -7,7 +7,7 @@ module.exports = {
       .tap(options => Object.assign(options, { limit: 99999999 }));
   },
 
-  publicPath: "/Felix/",
+  publicPath: "/Felix",
   runtimeCompiler: undefined,
   productionSourceMap: undefined,
   parallel: undefined,
@@ -43,6 +43,6 @@ module.exports = {
   },
 
   outputDir: undefined,
-  baseUrl: '/Felix/',
-  assetsDir: undefined
+  baseUrl: '/Felix',
+  assetsDir: '/Felix'
 };

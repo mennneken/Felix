@@ -4,7 +4,7 @@
       <object
         class="logo"
         type="image/svg+xml"
-        data="/assets/images/logos/logo_vertical-fox.svg"
+        data="@/assets/images/logos/logo_vertical-fox.svg"
       >Félix</object>
       <h1>Créer facilement et rapidement des prototypes percutants !</h1>
     </section>
@@ -12,9 +12,9 @@
     <main>
       <section class="about__feature about__feature--typo">
         <picture>
-          <source srcset="/assets/images/illu_1.png 1x, /assets/images/illu_1@2x.png 2x">
+          <source srcset="@/assets/images/illu_1.png 1x, @/assets/images/illu_1@2x.png 2x">
           <source src="illu_1.svg">
-          <img src="/assets/images/illu_1.svg" alt="Félix un outils de typographie">
+          <img src="@/assets/images/illu_1.svg" alt="Félix un outils de typographie">
         </picture>
         <div class="about__feature-content">
           <h2>Un outil typographique</h2>
@@ -28,9 +28,9 @@
       </section>
       <section class="about__feature about__feature--color">
         <picture>
-          <source srcset="/assets/images/illu_2.png 1x, /assets/images/illu_2@2x.png 2x">
+          <source srcset="@/assets/images/illu_2.png 1x, @/assets/images/illu_2@2x.png 2x">
           <source src="illu_2.svg">
-          <img src="/assets/images/illu_2.svg" alt="Félix un outils de typographie">
+          <img src="@/assets/images/illu_2.svg" alt="Félix un outils de typographie">
         </picture>
         <div class="about__feature-content">
           <h2>Un outil de couleurs</h2>
@@ -40,9 +40,9 @@
       </section>
       <section class="about__feature about__feature--other">
         <picture>
-          <source srcset="/assets/images/illu_3.png 1x, /assets/images/illu_3@2x.png 2x">
+          <source srcset="@/assets/images/illu_3.png 1x, @/assets/images/illu_3@2x.png 2x">
           <source src="illu_3.svg">
-          <img src="/assets/images/illu_3.svg" alt="Félix un outils de typographie">
+          <img src="@/assets/images/illu_3.svg" alt="Félix un outils de typographie">
         </picture>
         <div class="about__feature-content">
           <h2>Un outil qui fait le café… Ou presque.</h2>
@@ -66,7 +66,7 @@
         <object
           class="logo"
           type="image/svg+xml"
-          data="/assets/images/logos/logo_horizontal-fox.svg"
+          data="@/assets/images/logos/logo_horizontal-fox.svg"
         >Félix</object>
       </router-link>
       <nav>

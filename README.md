@@ -16,3 +16,8 @@ npm run serve
 ```
 npm run build
 ```
+
+### Push `dist` folder to `gh-pages` branche
+```
+npm run gh-pages
+```

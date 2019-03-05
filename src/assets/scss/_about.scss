@@ -7,7 +7,7 @@
   }
   section.hero {
     min-height: 100vh;
-    background-image: url("/assets/images/header_working-together@1x.jpg");
+    background-image: url(../images/header_working-together@1x.jpg);
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -15,12 +15,12 @@
     @media only screen and (-webkit-min-device-pixel-ratio: 2),
       only screen and (min--moz-device-pixel-ratio: 2),
       only screen and (-o-min-device-pixel-ratio: 2/1) {
-      background-image: url("/assets/images/header_working-together@2x.jpg");
+      background-image: url(../images/header_working-together@2x.jpg);
     }
     @media only screen and (-webkit-min-device-pixel-ratio: 3),
       only screen and (min--moz-device-pixel-ratio: 3),
       only screen and (-o-min-device-pixel-ratio: 3/1) {
-      background-image: url("/assets/images/header_working-together@3x.jpg");
+      background-image: url(../images/header_working-together@3x.jpg);
     }
 
     color: #fff;

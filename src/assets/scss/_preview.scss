@@ -28,7 +28,7 @@
   .intro {
     height: 40vh;
     width: 100%;
-    background-image: url("/assets/images/looking-fox@1x.jpg");
+    background-image: url(../images/looking-fox@1x.jpg);
     background-attachment: fixed;
     background-position: right center;
     background-size: cover;
@@ -42,7 +42,7 @@
     @media only screen and (-webkit-min-device-pixel-ratio: 2),
       only screen and (min--moz-device-pixel-ratio: 2),
       only screen and (-o-min-device-pixel-ratio: 2/1) {
-      background-image: url("/assets/images/looking-fox@2x.jpg");
+      background-image: url(../images/looking-fox@2x.jpg);
     }
   }
 
@@ -267,31 +267,31 @@
           background-blend-mode: luminosity;
 
           &--petit-prince {
-            background-image: url("/assets/images/petit-prince@1x.jpg");
+            background-image: url(../images/petit-prince@1x.jpg);
 
             @media only screen and (-webkit-min-device-pixel-ratio: 2),
               only screen and (min--moz-device-pixel-ratio: 2),
               only screen and (-o-min-device-pixel-ratio: 2/1) {
-              background-image: url("/assets/images/petit-prince@2x.jpg");
+              background-image: url(../images/petit-prince@2x.jpg);
             }
             @media only screen and (-webkit-min-device-pixel-ratio: 3),
               only screen and (min--moz-device-pixel-ratio: 3),
               only screen and (-o-min-device-pixel-ratio: 3/1) {
-              background-image: url("/assets/images/petit-prince@3x.jpg");
+              background-image: url(../images/petit-prince@3x.jpg);
             }
           }
           &--mr-fox {
-            background-image: url("/assets/images/mr-fox@1x.jpg");
+            background-image: url(../images/mr-fox@1x.jpg);
 
             @media only screen and (-webkit-min-device-pixel-ratio: 2),
               only screen and (min--moz-device-pixel-ratio: 2),
               only screen and (-o-min-device-pixel-ratio: 2/1) {
-              background-image: url("/assets/images/mr-fox@2x.jpg");
+              background-image: url(../images/mr-fox@2x.jpg);
             }
             @media only screen and (-webkit-min-device-pixel-ratio: 3),
               only screen and (min--moz-device-pixel-ratio: 3),
               only screen and (-o-min-device-pixel-ratio: 3/1) {
-              background-image: url("/assets/images/mr-fox@3x.jpg");
+              background-image: url(../images/mr-fox@3x.jpg);
             }
           }
         }

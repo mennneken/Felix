@@ -62,7 +62,7 @@
       </p>
 
       <a class="logo logo--heaj" href="https://www.heaj.be/fr/">
-        <object type="image/svg+xml" data="/assets/images/logos/logo_heaj.svg">Félix</object>
+        <object type="image/svg+xml" data="@/assets/images/logos/logo_heaj.svg">Félix</object>
       </a>
     </main>
   </div>

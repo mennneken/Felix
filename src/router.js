@@ -19,13 +19,13 @@ const router = new Router({
   base: "Felix",
   routes: [
     {
-      path: "/",
-      redirect: { name: "About" },
-    },
-    {
       path: "*",
-      redirect: { name: "About" },
+      redirect: "/about",
     },
+    // {
+    //   path: "/",
+    //   redirect: "/about",
+    // },
     {
       path: "/about",
       name: "About",

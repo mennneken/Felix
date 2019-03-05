@@ -4,7 +4,7 @@
       <object
         class="logo"
         type="image/svg+xml"
-        data="@/assets/images/logos/logo_vertical-fox.svg"
+        data="./assets/images/logos/logo_vertical-fox.svg"
       >Félix</object>
       <h1>Créer facilement et rapidement des prototypes percutants !</h1>
     </section>
@@ -66,7 +66,7 @@
         <object
           class="logo"
           type="image/svg+xml"
-          data="@/assets/images/logos/logo_horizontal-fox.svg"
+          data="./assets/images/logos/logo_horizontal-fox.svg"
         >Félix</object>
       </router-link>
       <nav>

@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/Felix/icons/favicon-32x32.png"
   },
   {
-    "revision": "6ddbd3f900d9166163bb",
+    "revision": "e1ab128ac1a83b2cb0d1",
     "url": "/Felix/css/app.css"
   },
   {
@@ -27,12 +27,12 @@ self.__precacheManifest = [
     "url": "/Felix/fonts/barlow.woff2"
   },
   {
-    "revision": "2118c97442792ef598941bac43f0cbd7",
-    "url": "/Felix/fonts/barlow.eot"
-  },
-  {
     "revision": "0c0072fd1b43aa8493db5c0295a25317",
     "url": "/Felix/fonts/barlow.woff"
+  },
+  {
+    "revision": "2118c97442792ef598941bac43f0cbd7",
+    "url": "/Felix/fonts/barlow.eot"
   },
   {
     "revision": "88567505d036580764d763a9ec4ce4d2",
@@ -83,7 +83,7 @@ self.__precacheManifest = [
     "url": "/Felix/icons/msapplication-icon-144x144.png"
   },
   {
-    "revision": "6ddbd3f900d9166163bb",
+    "revision": "e1ab128ac1a83b2cb0d1",
     "url": "/Felix/js/app.js"
   },
   {
@@ -135,12 +135,12 @@ self.__precacheManifest = [
     "url": "/Felix/assets/images/looking-fox@1x.jpg"
   },
   {
-    "revision": "56b9d890267a4fa589d848d7f08120f0",
-    "url": "/Felix/assets/images/mr-fox@3x.jpg"
-  },
-  {
     "revision": "ec399b88a65e8a1e3b6232a782d43bc7",
     "url": "/Felix/assets/images/petit-prince@3x.jpg"
+  },
+  {
+    "revision": "56b9d890267a4fa589d848d7f08120f0",
+    "url": "/Felix/assets/images/mr-fox@3x.jpg"
   },
   {
     "revision": "cabc46ad313ad669aecc001a5e37f66f",
@@ -151,8 +151,8 @@ self.__precacheManifest = [
     "url": "/Felix/assets/images/mr-fox@2x.jpg"
   },
   {
-    "revision": "52f2e6fb26a7a8916ec058c69429b995",
-    "url": "/Felix/assets/images/mr-fox@1x.jpg"
+    "revision": "1b51f007d7d305ed8787f06f4df3d614",
+    "url": "/Felix/assets/images/petit-prince@1x.jpg"
   },
   {
     "revision": "f9ea7c86dcd14d9010618a3a01d0a7d7",
@@ -163,8 +163,8 @@ self.__precacheManifest = [
     "url": "/Felix/assets/images/logos/logo_vertical-fox@3x.png"
   },
   {
-    "revision": "1b51f007d7d305ed8787f06f4df3d614",
-    "url": "/Felix/assets/images/petit-prince@1x.jpg"
+    "revision": "52f2e6fb26a7a8916ec058c69429b995",
+    "url": "/Felix/assets/images/mr-fox@1x.jpg"
   },
   {
     "revision": "54ef663da1d9f88621e0b08eceb9af39",
@@ -215,12 +215,12 @@ self.__precacheManifest = [
     "url": "/Felix/assets/images/illu_1.svg"
   },
   {
-    "revision": "c65b6825d343875e813d92eb202008f1",
-    "url": "/Felix/assets/images/logos/logo_heaj.svg"
-  },
-  {
     "revision": "17f70aa1fb688a56afcc646bb34f9a8e",
     "url": "/Felix/assets/images/illu_2@3x.png"
+  },
+  {
+    "revision": "c65b6825d343875e813d92eb202008f1",
+    "url": "/Felix/assets/images/logos/logo_heaj.svg"
   },
   {
     "revision": "248989e21f1d6de27bcd42d891097702",
